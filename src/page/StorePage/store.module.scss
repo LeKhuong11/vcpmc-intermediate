@@ -1,0 +1,37 @@
+.store {
+
+    .options {
+        display: flex;
+        
+        &>div {
+            display: flex;
+            margin: 10px 15px;
+
+            p {
+                line-height: 32px;
+            }
+        }
+    }
+    .note {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 16px;
+        gap: 10px;
+        
+        width: 100px;
+        height: 110px;
+        border-radius: 16px 0px 0px 16px;
+        background: #2F2F41;
+        position: fixed;
+        right: 0;
+        top: 70px;
+        cursor: pointer;
+
+        p {
+            font-size: 12px;
+            text-align: center;
+        }
+    }
+}

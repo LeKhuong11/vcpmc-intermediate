@@ -5,7 +5,7 @@
 :root {
     --violet: #1E1E2E;
     --violetDark: #020220;
-    --violetLight: #2B2B3F;
+    --violetLight: rgb(47,47,65, 0.7);
     --orange: #FF7506;
     --orangeLight: #FFAC69;
     --white: #C8C8DB;
@@ -47,6 +47,6 @@ p {
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-    color: #FFFFFF;
+    color: #d1d1d1;
 
 }

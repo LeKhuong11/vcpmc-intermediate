@@ -4,15 +4,4 @@
     background-color: var(--violet);
     color: #fff;
 }
-.app-content-main {
-    padding: 0 3%;
-    width: 100%;
-}
-.app-header {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px 0;
-    color: #fff;
-}
 

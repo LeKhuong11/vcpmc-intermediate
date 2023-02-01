@@ -19,7 +19,7 @@ function Sidebar() {
         
         <ul>
           <li>
-            <NavLink to='store'><FaWindowRestore /><p>Kho bản ghi</p></NavLink>
+            <NavLink to="store"><FaWindowRestore /><p>Kho bản ghi</p></NavLink>
           </li>
           <li>
             <NavLink to='play-list'><MdPlaylistPlay /><p>Playlist</p></NavLink>
