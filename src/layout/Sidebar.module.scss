@@ -1,0 +1,91 @@
+.sidebar {
+    width: 170px;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: var(--violetDark);
+    border-radius: 0px 20px 20px 0px;
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0 40px;
+        svg {
+            width: 65px;
+            height: 65px;
+        }
+    }
+    .menu {
+        text-align: center;
+        color: var(--white);
+        line-height: 100%;
+        
+        li {
+            margin: 17px 0;
+            position: relative;
+            cursor: pointer;
+            &:hover {
+                color: orange;
+                .navigateChild {
+                   visibility: visible;
+                   opacity: 1;
+                   transition: all .2s linear;
+                }
+            }
+            .active {
+                color: var(--orange);
+            }
+            svg {
+                color: var(--white);
+                font-size: 23px;
+                margin: 3px 0;
+                :hover {
+                    color: var(--orange);
+                   
+                }
+            }
+            a {
+                height: 100%;
+                text-decoration: none;
+                padding: 3px 0;
+            }
+
+            .dot {
+                position: absolute;
+                left: 41.67%;
+                right: 0;
+                top: 12.5%;
+                bottom: 12.5%;
+                color: #fff;
+                text-align: right;
+                margin-right: 10px;
+            }
+            .navigateChild {
+                display: flex;
+                text-align: left;
+                flex-direction: column;
+                background-color: var(--violetLight);
+                border-radius: 0 8px 8px 0;
+                width: 190px;
+                padding: 8px 20px;
+                position: absolute;
+                top: 0;
+                left: 100%; 
+                visibility: hidden;
+                opacity: 0;
+                a {
+                    color: var(--white);
+                    font-size: 13px;
+                    width: 100%;
+                    padding: 7px 0;
+                    &:hover {
+                        color: var(--orange);
+                   }
+                }
+                
+
+            }
+        }
+    }
+}

@@ -3,29 +3,27 @@ import styled from 'styled-components'
 import root from './table.module.scss'
 
 function Table() {
-    const TableStyled = styled.table`
-        
-    `
+
   return (
     <div>
         <table className={root.table}>
             <thead>
                 <tr>
                     <th><p>STT</p></th>
-                    <th><p>Ten ban ghi</p></th>
+                    <th><p>Tên bản ghi</p></th>
                     <th><p>Ma ISRC</p></th>
-                    <th><p>Thoi luong</p></th>
-                    <th><p>Ca si</p></th>
-                    <th><p>Tac gia</p></th>
-                    <th><p>The Loai</p></th>
-                    <th><p>Ding dang</p></th>
-                    <th><p>Thoi han su dung</p></th>
+                    <th><p>Thời lượng</p></th>
+                    <th><p>Ca sĩ</p></th>
+                    <th><p>Tác giả</p></th>
+                    <th><p>Thể loại</p></th>
+                    <th><p>Định dạng</p></th>
+                    <th><p>Thời hạn sử dụng</p></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><p>1</p></td>
-                    <td><p>Mat em</p></td>
+                    <td><p>Mất em</p></td>
                     <td><p>KRA40105463</p></td>
                     <td><p>04:27</p></td>
                     <td><p>Phan Mạnh Quỳnh</p></td>
@@ -38,7 +36,7 @@ function Table() {
                 </tr>
                 <tr>
                     <td><p>1</p></td>
-                    <td><p>Mat em</p></td>
+                    <td><p>Mất em</p></td>
                     <td><p>KRA40105463</p></td>
                     <td><p>04:27</p></td>
                     <td><p>Phan Mạnh Quỳnh</p></td>
@@ -51,7 +49,7 @@ function Table() {
                 </tr>
                 <tr>
                     <td><p>1</p></td>
-                    <td><p>Mat em</p></td>
+                    <td><p>Mất em</p></td>
                     <td><p>KRA40105463</p></td>
                     <td><p>04:27</p></td>
                     <td><p>Phan Mạnh Quỳnh</p></td>
@@ -64,7 +62,7 @@ function Table() {
                 </tr>
                 <tr>
                     <td><p>1</p></td>
-                    <td><p>Mat em</p></td>
+                    <td><p>Mất em</p></td>
                     <td><p>KRA40105463</p></td>
                     <td><p>04:27</p></td>
                     <td><p>Phan Mạnh Quỳnh</p></td>
@@ -77,7 +75,7 @@ function Table() {
                 </tr>
                 <tr>
                     <td><p>1</p></td>
-                    <td><p>Mat em</p></td>
+                    <td><p>Mất em</p></td>
                     <td><p>KRA40105463</p></td>
                     <td><p>04:27</p></td>
                     <td><p>Phan Mạnh Quỳnh</p></td>

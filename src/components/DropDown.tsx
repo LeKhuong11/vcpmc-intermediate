@@ -31,7 +31,7 @@ function DropDown(props: Iprops) {
         <Dropdown menu={props.menuProps}>
         <Button>
             <Space>
-            Tat Ca 
+            Tất cả
             <DownOutlined />
             </Space>
         </Button>

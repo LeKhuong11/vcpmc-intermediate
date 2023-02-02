@@ -63,7 +63,7 @@ const items: MenuProps['items'] = [
 
   return (
     <div className={root.store}>
-      <h2>Kho Ban Ghi</h2>
+      <h2>Kho bản ghi</h2>
       <div>
         <div>
           <SearchStyled placeholder="Ten ban ghi, ca si,... "  />
@@ -71,19 +71,19 @@ const items: MenuProps['items'] = [
         <div>
           <div className={root.options}>
             <div>
-              <p>The Loai:</p>
+              <p>Thể loại: </p>
               <DropDown menuProps={menuProps} orange />
             </div>
             <div>
-              <p>Dinh Dang:</p>
+              <p>Định dạng: </p>
               <DropDown menuProps={menuProps} orange />
             </div>
             <div>
-              <p>Thoi han su dung:</p>
+              <p>Thời hạn sử dụng: </p>
               <DropDown menuProps={menuProps} orange />
             </div>
             <div>
-              <p>Trang thai:</p>
+              <p>Trạng thái: </p>
               <DropDown menuProps={menuProps} orange />
             </div>
           </div>
@@ -94,7 +94,7 @@ const items: MenuProps['items'] = [
           <div>
             <SlNote color='orange' size={27} />
           </div>
-          <p>Quan ly phe duyet</p>
+          <p>Quản lý phê duyệtv</p>
       </div>
       
     </div>

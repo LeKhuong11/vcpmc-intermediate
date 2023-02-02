@@ -2,7 +2,7 @@ import React from 'react'
 
 function PlayList() {
   return (
-    <div>This is PlayList</div>
+    <div>This is PlayList page</div>
   )
 }
 

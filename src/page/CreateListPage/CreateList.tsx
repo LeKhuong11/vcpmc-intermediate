@@ -2,7 +2,7 @@ import React from 'react'
 
 function CreateList() {
   return (
-    <div>This is CreateList</div>
+    <div>This is CreateList page</div>
   )
 }
 

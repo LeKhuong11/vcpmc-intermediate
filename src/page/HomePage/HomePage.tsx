@@ -7,6 +7,7 @@ import Typography from 'antd/es/typography';
 import { MenuProps, message } from 'antd';
 import DropDown from '../../components/DropDown';
 import root from './home.module.scss';
+import { Link } from 'react-router-dom';
 
 const TypographyStyled = styled(Typography.Text)`
 &&& {
@@ -54,8 +55,10 @@ const items: MenuProps['items'] = [
         <div className={root.homeHeader}>
             <DropDown menuProps={menuProps} />
           <div>
-            <Avatar>A</Avatar>
-            <TypographyStyled>Ng.Tuyet</TypographyStyled>
+            <Link to="dashboard">
+              <Avatar>A</Avatar>
+              <TypographyStyled>Ng.Tuyet</TypographyStyled>
+            </Link>
           </div>
         </div>
         <div>

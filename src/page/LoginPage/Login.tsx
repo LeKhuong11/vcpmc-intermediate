@@ -12,7 +12,7 @@ function Login() {
 
   const handleClick = (e: any): void => {
     e.preventDefault();
-    navigate('/');
+    navigate('/store');
   }
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
@@ -49,10 +49,10 @@ const items: MenuProps['items'] = [
         <div>
           <LogoSVG />
         </div>
-        <h3>Dang nhap</h3>
+        <h3>Đăng nhập</h3>
         <form action="">
           <div>
-            <p>Ten dang nhap: </p>
+            <p>Tên đăng nhập: </p>
             <Input width={471} type="text" />
           </div>
           <div>
@@ -60,10 +60,10 @@ const items: MenuProps['items'] = [
             <Input width={471} type="password" />
           </div>
           <div>
-            <Checkbox><p>Ghi nho dang nhap</p></Checkbox>
+            <Checkbox><p>Ghi nhớ đăng nhập</p></Checkbox>
           </div>
           <div className={root.formBtn}>
-            <Button widthProps={208} contentProps="Dang Nhap" onClick={handleClick} />
+            <Button widthProps={208} contentProps="Đăng nhập" onClick={handleClick} />
           </div>
         </form>
         <div className={root.selectLanguage}>

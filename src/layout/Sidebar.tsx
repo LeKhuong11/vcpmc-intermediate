@@ -1,5 +1,5 @@
 import React from 'react'
-import './Sidebar.scss'
+import root from './Sidebar.module.scss'
 import { FaWindowRestore } from "react-icons/fa";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { SiGoogletagmanager } from "react-icons/si";
@@ -7,15 +7,17 @@ import { TbReportMoney } from "react-icons/tb";
 import { MdPlaylistPlay } from "react-icons/md";
 import { SlSettings } from "react-icons/sl";
 import { MdContactSupport } from "react-icons/md";
-import { NavLink } from 'react-router-dom';
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { Link, NavLink } from 'react-router-dom';
+import { LogoSVG } from '../image/logo';
 
 function Sidebar() {
   return (
-    <div className='side-bar'>
-      <div>
-        <img src='' alt="" />
+    <div className={root.sidebar}>
+      <div className={root.logo}>
+        <LogoSVG />
       </div>
-      <div className='menu'>
+      <div className={root.menu}>
         
         <ul>
           <li>
@@ -28,16 +30,59 @@ function Sidebar() {
             <NavLink to='create-list'><FaRegCalendarAlt /><p>Lập lịch phát</p></NavLink>
           </li>
           <li>
-            <NavLink to={'manager'}><SiGoogletagmanager /><p>Quản lý</p></NavLink>
+            <div>
+              <SiGoogletagmanager /><p>Quản lý</p>
+            </div>
+            <div className={root.dot}>
+              <BiDotsVerticalRounded />
+            </div>
+            <div className={root.navigateChild}>
+              <Link to="manager/contract">Quản lí hợp đồng</Link>
+              <Link to="manager/device">Quản lí thiết bị</Link>
+              <Link to="">Đơn vị ủy quyền</Link>
+              <Link to="">Đơn vị sử dụng</Link>
+            </div>
           </li>
           <li>
-            <NavLink to={'revenue'}><TbReportMoney /><p>Doanh thu</p></NavLink>
+            <div>
+              <TbReportMoney /><p>Doanh thu</p>
+            </div>
+            <div className={root.dot}>
+              <BiDotsVerticalRounded />
+            </div>
+            <div className={root.navigateChild}>
+              <Link to="">Báo cáo doanh thu</Link>
+              <Link to="">Lịch sử đối soát</Link>
+              <Link to="">Phân phối doanh thu</Link>
+            </div>
           </li>
           <li>
-            <NavLink to={'setting'}><SlSettings /><p>Cài đặt</p></NavLink>
+            <div>
+              <SlSettings /><p>Cài đặt</p>
+            </div>
+            <div className={root.dot}>
+              <BiDotsVerticalRounded />
+            </div>
+            <div className={root.navigateChild}>
+              <Link to="">Phân quyền người dùng</Link>
+              <Link to="">Cấu hình</Link>
+              <Link to="">Quản lí hợp đồng</Link>
+              <Link to="">Thông tin tác phẩm</Link>
+              <Link to="">Chu kì đối soát</Link>
+            </div>
           </li>
           <li>
-            <NavLink to={'support'}><MdContactSupport /><p>Hỗ trợ</p></NavLink>
+            <div>
+              <MdContactSupport /><p>Hỗ trợ</p>
+            </div>
+            <div className={root.dot}>
+              <BiDotsVerticalRounded />
+            </div>
+            <div className={root.navigateChild}>
+              <Link to="">Hướng dẫn sử dụng</Link>
+              <Link to="">Tải app</Link>
+              <Link to="">Feedback</Link> 
+            </div>
           </li>
         </ul>
       </div>
