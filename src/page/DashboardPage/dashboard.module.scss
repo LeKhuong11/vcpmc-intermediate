@@ -1,0 +1,30 @@
+.dashboard {
+    position: relative;
+    .info {
+        display: flex;
+        margin-top: 20px;
+        
+        .avatar {
+            margin: 10px 70px 0 0;
+
+            h4 {
+                margin-top: 10px;
+                text-align: center;
+            }
+        }
+        .infoUser {
+            width: 60%;
+
+            &>div {
+                padding: 10px;
+                display: flex;
+                &>div {
+                    margin-right: 15px;
+                    p {
+                        margin-bottom: 7px;
+                    }
+                }
+            }
+        }
+    }
+}

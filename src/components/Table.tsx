@@ -1,94 +1,43 @@
 import React from 'react'
-import styled from 'styled-components'
 import root from './table.module.scss'
 
-function Table() {
+interface Iprops {
+    columnMusic: string[],
+    storeMusic: any[]
+}
+function Table( {columnMusic, storeMusic}: Iprops) {
 
   return (
-    <div>
-        <table className={root.table}>
-            <thead>
-                <tr>
-                    <th><p>STT</p></th>
-                    <th><p>Tên bản ghi</p></th>
-                    <th><p>Ma ISRC</p></th>
-                    <th><p>Thời lượng</p></th>
-                    <th><p>Ca sĩ</p></th>
-                    <th><p>Tác giả</p></th>
-                    <th><p>Thể loại</p></th>
-                    <th><p>Định dạng</p></th>
-                    <th><p>Thời hạn sử dụng</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><p>1</p></td>
-                    <td><p>Mất em</p></td>
-                    <td><p>KRA40105463</p></td>
-                    <td><p>04:27</p></td>
-                    <td><p>Phan Mạnh Quỳnh</p></td>
-                    <td><p>Phan Mạnh Quỳnh</p></td>
-                    <td><p>Ballad</p></td>
-                    <td><p>Audio</p></td>
-                    <td><p>Còn thời hạn</p></td>
-                    <td><p><a href="">Cập nhật</a></p></td>
-                    <td><p><a href="">Nghe</a></p></td>
-                </tr>
-                <tr>
-                    <td><p>1</p></td>
-                    <td><p>Mất em</p></td>
-                    <td><p>KRA40105463</p></td>
-                    <td><p>04:27</p></td>
-                    <td><p>Phan Mạnh Quỳnh</p></td>
-                    <td><p>Phan Mạnh Quỳnh</p></td>
-                    <td><p>Ballad</p></td>
-                    <td><p>Audio</p></td>
-                    <td><p>Còn thời hạn</p></td>
-                    <td><p><a href="">Cập nhật</a></p></td>
-                    <td><p><a href="">Nghe</a></p></td>
-                </tr>
-                <tr>
-                    <td><p>1</p></td>
-                    <td><p>Mất em</p></td>
-                    <td><p>KRA40105463</p></td>
-                    <td><p>04:27</p></td>
-                    <td><p>Phan Mạnh Quỳnh</p></td>
-                    <td><p>Phan Mạnh Quỳnh</p></td>
-                    <td><p>Ballad</p></td>
-                    <td><p>Audio</p></td>
-                    <td><p>Còn thời hạn</p></td>
-                    <td><p><a href="">Cập nhật</a></p></td>
-                    <td><p><a href="">Nghe</a></p></td>
-                </tr>
-                <tr>
-                    <td><p>1</p></td>
-                    <td><p>Mất em</p></td>
-                    <td><p>KRA40105463</p></td>
-                    <td><p>04:27</p></td>
-                    <td><p>Phan Mạnh Quỳnh</p></td>
-                    <td><p>Phan Mạnh Quỳnh</p></td>
-                    <td><p>Ballad</p></td>
-                    <td><p>Audio</p></td>
-                    <td><p>Còn thời hạn</p></td>
-                    <td><p><a href="">Cập nhật</a></p></td>
-                    <td><p><a href="">Nghe</a></p></td>
-                </tr>
-                <tr>
-                    <td><p>1</p></td>
-                    <td><p>Mất em</p></td>
-                    <td><p>KRA40105463</p></td>
-                    <td><p>04:27</p></td>
-                    <td><p>Phan Mạnh Quỳnh</p></td>
-                    <td><p>Phan Mạnh Quỳnh</p></td>
-                    <td><p>Ballad</p></td>
-                    <td><p>Audio</p></td>
-                    <td><p>Còn thời hạn</p></td>
-                    <td><p><a href="">Cập nhật</a></p></td>
-                    <td><p><a href="">Nghe</a></p></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <table className={root.table}>
+        <thead>
+            <tr>
+            {
+                columnMusic.map((item, index) => (
+                    <th key={index}><p>{item}</p></th>
+                ))
+            }
+            </tr>
+        </thead>
+        <tbody>
+            {
+                storeMusic.map(item => (
+                    <tr key={item.id}>
+                        <td><p>{item.stt}</p></td>
+                        <td><p>{item.nameMusic}</p></td>
+                        <td><p>{item.IRCId}</p></td>
+                        <td><p>{item.time}</p></td>
+                        <td><p>{item.singer}</p></td>
+                        <td><p>{item.auth}</p></td>
+                        <td><p>{item.type}</p></td>
+                        <td><p>{item.format}</p></td>
+                        <td><p>{item.date}</p></td>
+                        <td><p><a href="">{item.status}</a></p></td>
+                        <td><p><a href="">{item.status2 ? item.status2 : ''}</a></p></td>
+                    </tr>
+                ))
+            }
+        </tbody>
+    </table>
   )
 }
 

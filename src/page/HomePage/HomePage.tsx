@@ -56,7 +56,7 @@ const items: MenuProps['items'] = [
             <DropDown menuProps={menuProps} />
           <div>
             <Link to="dashboard">
-              <Avatar>A</Avatar>
+              <Avatar style={{ backgroundColor: '#f56a00', marginRight: 5 }}>T</Avatar>
               <TypographyStyled>Ng.Tuyet</TypographyStyled>
             </Link>
           </div>

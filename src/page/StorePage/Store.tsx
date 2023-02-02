@@ -1,35 +1,14 @@
 import React from 'react'
-import Input from 'antd/es/input';
-import styled from 'styled-components';
 import { MenuProps, message } from 'antd';
 import DropDown from '../../components/DropDown';
 import root from './store.module.scss';
 import Table from '../../components/Table';
 import { SlNote } from 'react-icons/sl';
+import FeatureInPage from '../../components/FeatureInPage';
+import InputSearch from '../../components/InputSearch';
 
 
-const { Search } = Input;
-const SearchStyled = styled(Search)`
-  &&& {
-    :where(.css-dev-only-do-not-override-1n7nwfa).ant-input-group-wrapper {
-      width: 40%;
-    }
-    .ant-input {
-      background-color: #515170;
-      border: none;
-      color: #fff;
-      padding: 5px;
-    }m
-    .ant-btn {
-      background-color: #515170;
-      border: none;
 
-      .anticon {
-        color: #fff;
-      }
-    }
-  }
-`
 function Store() {
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
@@ -61,12 +40,107 @@ const items: MenuProps['items'] = [
     onClick: handleMenuClick,
   };
 
+  const featureProps = [
+    {
+      icon: SlNote,
+      text: "Quan li phe duyet"
+    }
+  ];
+
+  const storeMusic = [
+    {
+      stt: 1,
+      id: 1,
+      nameMusic: 'Mất em',
+      IRCId: 'KRA40105463',
+      time: '04:27',
+      singer: 'Phan Mạnh Quỳnh',
+      auth: 'Phan Mạnh Quỳnh',
+      type: 'Ballad',
+      format: 'Audio',
+      date: 'Còn thời hạn',
+      status: 'cập nhật',
+      status2: 'nghe',
+    },
+    {
+      stt: 1,
+      id: 2,
+      nameMusic: 'Mất em',
+      IRCId: 'KRA40105463',
+      time: '04:27',
+      singer: 'Phan Mạnh Quỳnh',
+      auth: 'Phan Mạnh Quỳnh',
+      type: 'Ballad',
+      format: 'Audio',
+      date: 'Còn thời hạn',
+      status: 'cập nhật',
+      status2: 'nghe',
+    },
+    {
+      stt: 1,
+      id: 3,
+      nameMusic: 'Mất em',
+      IRCId: 'KRA40105463',
+      time: '04:27',
+      singer: 'Phan Mạnh Quỳnh',
+      auth: 'Phan Mạnh Quỳnh',
+      type: 'Ballad',
+      format: 'Audio',
+      date: 'Còn thời hạn',
+      status: 'cập nhật',
+      status2: 'nghe',
+    },
+    {
+      stt: 1,
+      id: 4,
+      nameMusic: 'Mất em',
+      IRCId: 'KRA40105463',
+      time: '04:27',
+      singer: 'Phan Mạnh Quỳnh',
+      auth: 'Phan Mạnh Quỳnh',
+      type: 'Ballad',
+      format: 'Audio',
+      date: 'Còn thời hạn',
+      status: 'cập nhật',
+      status2: 'nghe',
+    },
+    {
+      stt: 1,
+      id: 5,
+      nameMusic: 'Mất em',
+      IRCId: 'KRA40105463',
+      time: '04:27',
+      singer: 'Phan Mạnh Quỳnh',
+      auth: 'Phan Mạnh Quỳnh',
+      type: 'Ballad',
+      format: 'Audio',
+      date: 'Còn thời hạn',
+      status: 'cập nhật',
+      status2: 'nghe',
+    },
+    {
+      stt: 1,
+      id: 6,
+      nameMusic: 'Mất em',
+      IRCId: 'KRA40105463',
+      time: '04:27',
+      singer: 'Phan Mạnh Quỳnh',
+      auth: 'Phan Mạnh Quỳnh',
+      type: 'Ballad',
+      format: 'Audio',
+      date: 'Còn thời hạn',
+      status: 'cập nhật',
+      status2: 'nghe',
+    }
+  ]
+  const columnMusic = ['STT', 'Tên bản ghi', 'Mã IRC', 'Thời lượng', 'Ca sĩ', 'Tác Giả', 'Thể loại', 'Định dạng', 'Thời hạn sử dụng']
+
   return (
     <div className={root.store}>
       <h2>Kho bản ghi</h2>
       <div>
         <div>
-          <SearchStyled placeholder="Ten ban ghi, ca si,... "  />
+          <InputSearch placehoder='Tên bản ghi, ca sĩ,...' />
         </div>
         <div>
           <div className={root.options}>
@@ -88,14 +162,9 @@ const items: MenuProps['items'] = [
             </div>
           </div>
         </div>
-          <Table />
+          <Table columnMusic={columnMusic} storeMusic={storeMusic} />
       </div>
-      <div className={root.note}>
-          <div>
-            <SlNote color='orange' size={27} />
-          </div>
-          <p>Quản lý phê duyệtv</p>
-      </div>
+      <FeatureInPage featureProps={featureProps} />
       
     </div>
   )

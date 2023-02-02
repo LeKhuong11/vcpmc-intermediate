@@ -5,7 +5,9 @@ import { Input as InputAntd } from 'antd';
 interface Iprops {
   plahoder?: string;
   width: number;
-  type: string
+  type: string;
+  disabled?: boolean;
+  value?: string
 }
 
 const InputStyled = styled(InputAntd)`
@@ -19,10 +21,10 @@ const InputStyled = styled(InputAntd)`
     border: none;
   `
 
-function Input({plahoder, width, type}: Iprops) {
+function Input({plahoder, width, type, disabled = false, value}: Iprops) {
 
   return (
-        <InputStyled type={type} style={{width: width}} placeholder={plahoder}/>
+        <InputStyled type={type} style={{width: width}} placeholder={plahoder} disabled={disabled} value={value}/>
   )
 }
 
