@@ -2,11 +2,12 @@ import React from 'react'
 import styled from 'styled-components';
 
 interface IFreature {
-    featureProps: any[]
+    featureProps: Iitems[]
 }
 interface Iitems {
     icon: Function;
     text: string;
+    event?: any
 }
 const FreatureStyled = styled.div`
     display: flex;
@@ -36,7 +37,7 @@ function FeatureInPage( {featureProps}: IFreature) {
     <FreatureStyled>
         {
             featureProps.map((item: Iitems, index: number) => (
-                <div key={index}>
+                <div key={index} onClick={item.event}>
                     <div>
                         <item.icon color='#FF7506' size={27} />
                     </div>

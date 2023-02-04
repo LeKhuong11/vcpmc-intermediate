@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 import Sidebar from '../../layout/Sidebar';
 import styled from 'styled-components';
 import Avatar from 'antd/es/avatar';
@@ -8,6 +8,7 @@ import { MenuProps, message } from 'antd';
 import DropDown from '../../components/DropDown';
 import root from './home.module.scss';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/store';
 
 const TypographyStyled = styled(Typography.Text)`
 &&& {
@@ -24,7 +25,7 @@ function HomePage() {
     console.log('click', e);
   };
 
-const items: MenuProps['items'] = [
+  const items: MenuProps['items'] = [
     {
       label: '1st menu item',
       key: '1'

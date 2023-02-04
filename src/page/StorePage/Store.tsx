@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MenuProps, message } from 'antd';
 import DropDown from '../../components/DropDown';
 import root from './store.module.scss';
-import Table from '../../components/Table';
+import Table from './components/Table';
 import { SlNote } from 'react-icons/sl';
 import FeatureInPage from '../../components/FeatureInPage';
 import InputSearch from '../../components/InputSearch';
-
 
 
 function Store() {
@@ -162,7 +161,7 @@ const items: MenuProps['items'] = [
             </div>
           </div>
         </div>
-          <Table columnMusic={columnMusic} storeMusic={storeMusic} />
+          <Table columnMusic={columnMusic} storeMusic={storeMusic} heightProp={62} />
       </div>
       <FeatureInPage featureProps={featureProps} />
       

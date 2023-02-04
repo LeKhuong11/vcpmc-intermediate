@@ -1,7 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
+import { auth } from './firebase/configfb';
 import HomePage from './page/HomePage/HomePage';
 import Login from './page/LoginPage/Login';
+import { fetchUser } from './redux/slice/userSlice';
+import { useAppDispatch } from './redux/store';
 import { publicRoutes } from './routes';
 
 interface typeRoute {
@@ -10,6 +14,25 @@ interface typeRoute {
 }
 
 function App() {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch();
+  
+  useEffect(()=> {
+    const unSub = auth.onAuthStateChanged((currentUser) => {
+        if(currentUser) {
+          const { uid } = currentUser;
+          dispatch(fetchUser(uid))
+          
+          return
+        }
+        navigate('login')        
+    })
+
+    //cleanup function
+    return () => {
+        unSub();
+    }
+}, [navigate])
 
   return (
     <div className="App">

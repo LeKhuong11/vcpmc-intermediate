@@ -7,7 +7,8 @@ interface Iprops {
   width: number;
   type: string;
   disabled?: boolean;
-  value?: string
+  value?: string | number;
+  setValue?: any
 }
 
 const InputStyled = styled(InputAntd)`
@@ -21,10 +22,10 @@ const InputStyled = styled(InputAntd)`
     border: none;
   `
 
-function Input({plahoder, width, type, disabled = false, value}: Iprops) {
+function Input({plahoder, width, type, disabled = false, value, setValue}: Iprops) {
 
   return (
-        <InputStyled type={type} style={{width: width}} placeholder={plahoder} disabled={disabled} value={value}/>
+        <InputStyled onChange={(e) => setValue(e.target.value)} type={type} style={{width: width}} placeholder={plahoder} disabled={disabled} value={value}/>
   )
 }
 
