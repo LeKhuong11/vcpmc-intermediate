@@ -8,7 +8,7 @@ const SearchStyled = styled(Search)`
     margin: 7px 0;
   &&& {
     :where(.css-dev-only-do-not-override-1n7nwfa).ant-input-group-wrapper {
-      width: 40%;
+      width: 453px;
     }
     .ant-input {
       background-color: #2B2B3F;

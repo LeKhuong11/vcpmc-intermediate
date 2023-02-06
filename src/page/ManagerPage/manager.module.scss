@@ -1,0 +1,14 @@
+
+
+.managerDevice {
+
+    & .dropdownAndSearch {
+        display: flex;
+        justify-content: space-between;
+        & div:first-child {
+            display: flex;
+            align-items: center;
+
+        }
+    }
+}

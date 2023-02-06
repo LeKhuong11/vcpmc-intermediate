@@ -28,6 +28,7 @@ type User = {
     lastName: string;
     phone: number;
     userName:string;
+    avatar: null
 }
 interface UserState {
     user: User

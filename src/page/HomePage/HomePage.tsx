@@ -1,5 +1,5 @@
-import React from 'react'
-import { Outlet, useNavigate } from 'react-router';
+import React, { useEffect, useState } from 'react'
+import { Outlet } from 'react-router';
 import Sidebar from '../../layout/Sidebar';
 import styled from 'styled-components';
 import Avatar from 'antd/es/avatar';
@@ -8,7 +8,7 @@ import { MenuProps, message } from 'antd';
 import DropDown from '../../components/DropDown';
 import root from './home.module.scss';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../redux/store';
+import { useAppSelector } from '../../redux/store';
 
 const TypographyStyled = styled(Typography.Text)`
 &&& {
@@ -19,6 +19,13 @@ const TypographyStyled = styled(Typography.Text)`
 `
 
 function HomePage() {
+  const { user } = useAppSelector((state) => state.user);
+
+  const [ currentUser, setCurrentUser ] = useState(user)
+
+    useEffect(() => {
+        setCurrentUser(user)
+    }, [user])
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     message.info('Click on menu item.');
@@ -58,7 +65,7 @@ function HomePage() {
           <div>
             <Link to="dashboard">
               <Avatar style={{ backgroundColor: '#f56a00', marginRight: 5 }}>T</Avatar>
-              <TypographyStyled>Ng.Tuyet</TypographyStyled>
+              <TypographyStyled>Tuyết Nguyễn</TypographyStyled>
             </Link>
           </div>
         </div>

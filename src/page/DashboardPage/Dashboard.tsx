@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import { deleteUser } from '../../redux/slice/userSlice'
 
 function Dashboard() {
-    const user = useAppSelector((state) => state.user.user);
+    const { user } = useAppSelector((state) => state.user);
     const [ currentUser, setCurrentUser ] = useState(user)
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
@@ -55,7 +55,7 @@ function Dashboard() {
         <div className={root.info}>
             <div className={root.avatar}>
                 <div>
-                    <Avatar size={170}>{currentUser.lastName.charAt(0).toUpperCase()}</Avatar>
+                    <Avatar style={{ backgroundColor: '#f56a00', fontSize: 35}} size={170}>T</Avatar>
                 </div>
                 <h4>{currentUser.displayName}</h4>
             </div>
@@ -73,11 +73,11 @@ function Dashboard() {
                 <div>
                     <div>
                         <p>Ngay sinh: </p>
-                        <Input type='data' width={274} value={currentUser.birthday} />
+                        <Input type='text' width={274} value={currentUser.birthday} />
                     </div>
                     <div>
                         <p>So dien thoai: </p>
-                        <Input type='number' width={274} value={currentUser.phone} />
+                        <Input type='text' width={274} value={currentUser.phone} />
                     </div>
                 </div>
                 <div>
