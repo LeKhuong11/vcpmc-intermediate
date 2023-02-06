@@ -3,8 +3,9 @@
     border-radius: 8px;
     width: 93%;
     margin-top: 10px;
+    padding: 0 10px;
     table {
-        width: 98%;
+        width: 100%;
         & thead{
             padding: 10px;
             & tr {
@@ -22,11 +23,11 @@
         & tbody {
             td {
                 padding: 5px 0;
-                
+                border-bottom: 1px solid rgb(97, 96, 96);
                 p {
                     text-align: left;
-                    padding: 0 10px 10px 0;
-                    border-bottom: 1px solid rgb(97, 96, 96);
+                    padding: 5px 5px 5px 0;
+                  
                     letter-spacing: 0.015em;
                     font-size: 12px;
     
@@ -45,4 +46,5 @@
             margin-right: 5px;
         }
     }
+   
 }

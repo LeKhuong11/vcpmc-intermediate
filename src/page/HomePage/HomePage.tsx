@@ -21,12 +21,6 @@ const TypographyStyled = styled(Typography.Text)`
 function HomePage() {
   const { user } = useAppSelector((state) => state.user);
 
-  const [ currentUser, setCurrentUser ] = useState(user)
-
-    useEffect(() => {
-        setCurrentUser(user)
-    }, [user])
-
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     message.info('Click on menu item.');
     console.log('click', e);

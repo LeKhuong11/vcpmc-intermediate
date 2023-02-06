@@ -9,7 +9,8 @@ import Store from "../page/StorePage/Store";
 export const publicRoutes = [
     {
         path: 'store',
-        component: Store 
+        component: Store,
+        index: true 
     },
     {
         path: 'play-list',

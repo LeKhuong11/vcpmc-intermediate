@@ -10,7 +10,8 @@ import { publicRoutes } from './routes';
 
 interface typeRoute {
   component: Function,
-  path: string
+  path: string,
+  index?: boolean
 }
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
             <Route path='/' element={<HomePage />}>
               {publicRoutes.map((route: typeRoute, index: number) => {
                 const Page = route.component;
-                return <Route key={index} path={route.path} element={<Page />} />
+                return <Route key={index} index={route.index ? true : false} path={route.path} element={<Page />} />
               })}
             </Route>
         </Routes>

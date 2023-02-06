@@ -65,7 +65,7 @@
                 display: flex;
                 text-align: left;
                 flex-direction: column;
-                background-color: var(--violetLight);
+                background-color: rgb(56, 56, 73);
                 border-radius: 0 8px 8px 0;
                 width: 190px;
                 padding: 8px 20px;
@@ -74,6 +74,7 @@
                 left: 100%; 
                 visibility: hidden;
                 opacity: 0;
+                z-index: 99;
                 a {
                     color: var(--white);
                     font-size: 13px;

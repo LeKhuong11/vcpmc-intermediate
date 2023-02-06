@@ -39,7 +39,7 @@ function Sidebar() {
             <div className={root.navigateChild}>
               <Link to="manager/contract">Quản lí hợp đồng</Link>
               <Link to="manager/device">Quản lí thiết bị</Link>
-              <Link to="">Đơn vị ủy quyền</Link>
+              <Link to="">Đối tác uỷ quyền</Link>
               <Link to="">Đơn vị sử dụng</Link>
             </div>
           </li>

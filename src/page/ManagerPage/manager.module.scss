@@ -1,14 +1,41 @@
 
+.managerContract {
+    .dropdownAndSearch {
+        display: flex;
+        justify-content: space-between;
+        width: 93%;
+
+        &>div {
+            display: flex;
+            
+            &>div {
+                margin-right: 25px;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}
 
 .managerDevice {
-
     & .dropdownAndSearch {
         display: flex;
         justify-content: space-between;
+        width: 93%;
         & div:first-child {
             display: flex;
             align-items: center;
 
+        }
+    }
+    table {
+        & tbody {
+           & td {
+               border-bottom: 1px solid rgb(97, 96, 96);
+            &>span {
+                padding: 0 10px 10px 0;
+            }
+           }
         }
     }
 }
