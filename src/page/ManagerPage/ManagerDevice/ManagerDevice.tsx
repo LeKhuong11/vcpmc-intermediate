@@ -41,7 +41,28 @@ const items: MenuProps['items'] = [
     onClick: handleMenuClick,
   };
 
-  const store = [
+  
+ 
+  const featureProp=[
+    {
+      icon: MdAdd,
+      text: 'Thêm thiết bị'
+    },
+    {
+      icon: FiPower,
+      text: 'Kích hoạt thiết bị'
+    },
+    {
+      icon: FiLock,
+      text: 'Khóa thiết bị'
+    },
+    {
+      icon: RiDeleteBinFill,
+      text: 'Xóa thiết bị'
+    }
+  ]
+  
+ const store = [
     {
       stt: 1,
       id: 1,
@@ -123,26 +144,6 @@ const items: MenuProps['items'] = [
       memory: '0.00GB/32GB'
     }, 
   ]
-
-  const featureProp=[
-    {
-      icon: MdAdd,
-      text: 'Thêm thiết bị'
-    },
-    {
-      icon: FiPower,
-      text: 'Kích hoạt thiết bị'
-    },
-    {
-      icon: FiLock,
-      text: 'Khóa thiết bị'
-    },
-    {
-      icon: RiDeleteBinFill,
-      text: 'Xóa thiết bị'
-    }
-  ]
-
   const column = ['', 'STT', 'Tên thiết bị',  'Trạng thái', 'Địa điểm', 'Hạn hợp đồng', 'MAC Address', 'Memory'];
   return (
     <div className={root.managerDevice}>

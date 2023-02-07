@@ -1,19 +1,51 @@
 
 .managerContract {
-    .dropdownAndSearch {
+    .blockTabs {
         display: flex;
-        justify-content: space-between;
-        width: 93%;
+        margin: 10px 0;
 
-        &>div {
+        button {
+            width: 205px;
+            border-radius: 15px;
+            border: 1px solid var(--orange);
+            color: var(--white);
+            background-color: var(--violet);
+            height: 34px;
+            cursor: pointer;
+        }
+        .active {
+            background-color: var(--orange);
+            z-index: 99;
+        }
+        
+        & button:nth-child(2) {
+            margin-left: -22px;
+        }
+        
+    }
+    .contentTabs {
+
+        .dropdownAndSearch {
             display: flex;
-            
+            justify-content: space-between;
+            width: 93%;
+    
             &>div {
-                margin-right: 25px;
                 display: flex;
-                align-items: center;
+                
+                &>div {
+                    margin-right: 25px;
+                    display: flex;
+                    align-items: center;
+                }
             }
         }
+    }
+    .content {
+        display: none;
+    }
+    .activeContent {
+        display: block;
     }
 }
 
