@@ -22,7 +22,7 @@ const FreatureStyled = styled.div`
     background: #2F2F41;
     position: fixed;
     right: 0;
-    top: 70px;
+    top: 100px;
     cursor: pointer;
     text-align: center;
     &>div {

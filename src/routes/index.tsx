@@ -9,6 +9,9 @@ import ManagerPage from "../page/ManagerPage/ManagerPage";
 import Authorized from "../page/ManagerPage/AuthorizedPartner/Authorized";
 import Login from "../page/LoginPage/Login";
 import HomePage from "../page/HomePage/HomePage";
+import UnitUsedPage from "../page/ManagerPage/UnitUsed/UnitUsedPage";
+import HistoryForControl from "../page/RevenuePage/HistoryForControlPage/HistoryForControl";
+import RevenuePage from "../page/RevenuePage/RevenuePage";
 
 
 export function Router() {
@@ -48,6 +51,20 @@ export function Router() {
                         {
                             path: 'authorized-partner',
                             element: <Authorized />
+                        },
+                        {
+                            path: 'unit-used',
+                            element: <UnitUsedPage />
+                        }
+                    ]
+                },
+                {
+                    path: 'revenue',
+                    element: <RevenuePage />,
+                    children: [
+                        {
+                            path: 'history-for-control',
+                            element: <HistoryForControl />
                         }
                     ]
                 },

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface ITopic {
-    texts: string[]
+    topics: string[]
 }
 const TopicStyled = styled.span`
     margin: 2px 4px;
@@ -11,10 +11,10 @@ const TopicStyled = styled.span`
     padding: 3px;
     font-size: 12px;
 `
-function Topic({texts} :ITopic) {
+function Topic({topics} :ITopic) {
   return (
     <>
-        {texts.map((item, index) => (
+        {topics.map((item, index) => (
             <TopicStyled key={item}>
                 {index > 4 ? '...' : item}
             </TopicStyled>

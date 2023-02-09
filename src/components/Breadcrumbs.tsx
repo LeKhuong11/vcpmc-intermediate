@@ -86,7 +86,9 @@ function Breadcrumbs() {
     .map(crumb => {
       currentPath += `/${crumb}`
 
-      return <Breadcrumb.Item key={crumb} ><Link to={currentPath}>{crumb}</Link></Breadcrumb.Item>
+      return <Breadcrumb.Item key={crumb} >
+        <Link to={currentPath}>{crumb}</Link>
+      </Breadcrumb.Item>
       
     })
 

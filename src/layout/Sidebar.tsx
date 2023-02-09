@@ -40,7 +40,7 @@ function Sidebar() {
               <Link to="manager/contract">Quản lí hợp đồng</Link>
               <Link to="manager/device">Quản lí thiết bị</Link>
               <Link to="manager/authorized-partner">Đối tác uỷ quyền</Link>
-              <Link to="manager/">Đơn vị sử dụng</Link>
+              <Link to="manager/unit-used">Đơn vị sử dụng</Link>
             </div>
           </li>
           <li>
@@ -52,7 +52,7 @@ function Sidebar() {
             </div>
             <div className={root.navigateChild}>
               <Link to="">Báo cáo doanh thu</Link>
-              <Link to="">Lịch sử đối soát</Link>
+              <Link to="revenue/history-for-control">Lịch sử đối soát</Link>
               <Link to="">Phân phối doanh thu</Link>
             </div>
           </li>

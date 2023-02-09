@@ -59,7 +59,7 @@ function Store() {
   const featureProps = [
     {
       icon: SlNote,
-      text: "Quan li phe duyet"
+      text: "Quản lí phê duyệt"
     }
   ];
   

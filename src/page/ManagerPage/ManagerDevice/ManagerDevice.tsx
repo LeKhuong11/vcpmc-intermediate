@@ -1,5 +1,5 @@
 import React from 'react'
-import { MenuProps } from 'antd';
+import { Checkbox, MenuProps } from 'antd';
 import { MdAdd } from 'react-icons/md';
 import { FiPower } from 'react-icons/fi';
 import { FiLock } from 'react-icons/fi';
@@ -8,8 +8,21 @@ import DropDown from '../../../components/DropDown'
 import FeatureInPage from '../../../components/FeatureInPage';
 import InputSearch from '../../../components/InputSearch';
 import root from '../manager.module.scss'
-import Table from './components/Table';
+import { ColumnsType } from 'antd/es/table';
+import CustomTable from '../../../components/Table';
+import { RxDotFilled } from 'react-icons/rx';
 
+interface DataType {
+  checkbox: any,
+  stt: number,
+  key: number,
+  nameDevice: string,
+  status: boolean,
+  address: string,
+  duration: string,
+  MacAddress: string,
+  memory: string
+}
 
 function ManagerDevice() {
 
@@ -41,8 +54,6 @@ const items: MenuProps['items'] = [
     onClick: handleMenuClick,
   };
 
-  
- 
   const featureProp=[
     {
       icon: MdAdd,
@@ -61,11 +72,13 @@ const items: MenuProps['items'] = [
       text: 'Xóa thiết bị'
     }
   ]
+
   
- const store = [
+  const dataSource: DataType[] = [
     {
+      checkbox: '',
       stt: 1,
-      id: 1,
+      key: 1,
       nameDevice: 'Device A12231',
       status: true,
       address: '86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh',
@@ -74,8 +87,9 @@ const items: MenuProps['items'] = [
       memory: '0.00GB/32GB'
     }, 
     {
+      checkbox: '',
       stt: 2,
-      id: 2,
+      key: 2,
       nameDevice: 'Device A12231',
       status: false,
       address: '86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh',
@@ -84,8 +98,9 @@ const items: MenuProps['items'] = [
       memory: '0.00GB/32GB'
     }, 
     {
+      checkbox: '',
       stt: 3,
-      id: 3,
+      key: 3,
       nameDevice: 'Device A12231',
       status: true,
       address: '86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh',
@@ -94,8 +109,9 @@ const items: MenuProps['items'] = [
       memory: '0.00GB/32GB'
     }, 
     {
+      checkbox: '',
       stt: 4,
-      id: 4,
+      key: 4,
       nameDevice: 'Device A12231',
       status: false,
       address: '86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh',
@@ -104,8 +120,9 @@ const items: MenuProps['items'] = [
       memory: '0.00GB/32GB'
     }, 
     {
+      checkbox: '',
       stt: 5,
-      id: 5,
+      key: 5,
       nameDevice: 'Device A12231',
       status: true,
       address: '86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh',
@@ -114,8 +131,9 @@ const items: MenuProps['items'] = [
       memory: '0.00GB/32GB'
     }, 
     {
+      checkbox: '',
       stt: 6,
-      id: 6,
+      key: 6,
       nameDevice: 'Device A12231',
       status: false,
       address: '86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh',
@@ -124,8 +142,9 @@ const items: MenuProps['items'] = [
       memory: '0.00GB/32GB'
     }, 
     {
+      checkbox: '',
       stt: 7,
-      id: 7,
+      key: 7,
       nameDevice: 'Device A12231',
       status: true,
       address: '86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh',
@@ -134,8 +153,9 @@ const items: MenuProps['items'] = [
       memory: '0.00GB/32GB'
     }, 
     {
+      checkbox: '',
       stt: 8,
-      id: 8,
+      key: 8,
       nameDevice: 'Device A12231',
       status: true,
       address: '86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh',
@@ -144,7 +164,58 @@ const items: MenuProps['items'] = [
       memory: '0.00GB/32GB'
     }, 
   ]
-  const column = ['', 'STT', 'Tên thiết bị',  'Trạng thái', 'Địa điểm', 'Hạn hợp đồng', 'MAC Address', 'Memory'];
+  const coulumsTable: ColumnsType<DataType> = [
+    {
+      title: '',
+      dataIndex: 'checkbox',
+      key: 'checkbox',
+      render: (_, ) => {
+
+        return <Checkbox />
+      }
+    },
+    {
+      title: 'STT',
+      dataIndex: 'stt',
+      key: 'stt'
+    },
+    {
+      title: 'Tên thiết bị',
+      dataIndex: 'nameDevice',
+      key: 'nameDevice'
+    },
+    {
+      title: 'Trạng thái',
+      dataIndex: 'status',
+      key: 'status',
+      render: (_, {status}) => (
+        <>{status ? 
+          <p><RxDotFilled color="green" />Đang kích hoạt | Đang hoạt động</p> : 
+          <p><RxDotFilled color="red" />Ngừng kích hoạt</p>}</>
+      )
+    },
+    {
+      title: 'Địa điểm',
+      dataIndex: 'address',
+      key: 'address'
+    },
+    {
+      title: 'Hạn hợp đồng',
+      dataIndex: 'duration',
+      key: 'duration'
+    },
+    {
+      title: 'MAC Address',
+      dataIndex: 'MacAddress',
+      key: 'MacAddress'
+    },
+    {
+      title: 'Memory',
+      dataIndex: 'memory',
+      key: 'memory'
+    },
+  ]
+
   return (
     <div className={root.managerDevice}>
       <h2>Danh sách thiết bị</h2>
@@ -158,7 +229,7 @@ const items: MenuProps['items'] = [
         </div>
       </div>
       <div>
-        <Table column={column} store={store} heightProp={70} />
+        <CustomTable columns={coulumsTable} dataSrouce={dataSource} heightProps={70} />
       </div>
       <FeatureInPage featureProps={featureProp} />
     </div>

@@ -16,6 +16,7 @@ const TableStyled = styled(Table)`
         }
         .ant-table-thead {
             border: none;
+
         }
         .ant-table-cell {
             background-color: #2F2F41;
@@ -24,8 +25,8 @@ const TableStyled = styled(Table)`
             padding: 8px;
             font-family: "Montserrat";
             font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
+            font-weight: 500;
+            font-size: 13px;
             line-height: 17px;
             color: var(--orange);
             vertical-align: middle;
@@ -74,7 +75,7 @@ const TableStyled = styled(Table)`
 const TableContainerStyled = styled.div`
     background-color: #2F2F41;
     border-radius: 8px;
-    width: 93%;
+    width: 94%;
 `
 
 interface ITableProps {

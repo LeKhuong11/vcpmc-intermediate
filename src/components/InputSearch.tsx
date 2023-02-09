@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const { Search } = Input;
 const SearchStyled = styled(Search)`
-    margin: 7px 0;
+    margin: 7px 0 12px 0;
   &&& {
     :where(.css-dev-only-do-not-override-1n7nwfa).ant-input-group-wrapper {
       width: 453px;
