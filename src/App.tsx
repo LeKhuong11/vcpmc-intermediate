@@ -1,18 +1,11 @@
 import { useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 import { auth } from './firebase/configfb';
-import HomePage from './page/HomePage/HomePage';
-import Login from './page/LoginPage/Login';
 import { fetchUser } from './redux/slice/userSlice';
 import { useAppDispatch } from './redux/store';
-import { publicRoutes } from './routes';
+import { Router } from './routes';
 
-interface typeRoute {
-  component: Function,
-  path: string,
-  index?: boolean
-}
 
 function App() {
   const navigate = useNavigate()
@@ -35,18 +28,10 @@ function App() {
     }
 }, [navigate])
 
+
   return (
     <div className="App">
-        <Routes>
-            <Route path='login' element={<Login />}/>
-            <Route path='/' element={<HomePage />}>
-              {publicRoutes.map((route: typeRoute, index: number) => {
-                const Page = route.component;
-                return <Route key={index} index={route.index ? true : false} path={route.path} element={<Page />} />
-              })}
-            </Route>
-        </Routes>
-        
+        <Router />
     </div>
   );
 }

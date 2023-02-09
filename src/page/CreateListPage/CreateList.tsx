@@ -1,28 +1,37 @@
 import React from 'react'
 import FeatureInPage from '../../components/FeatureInPage';
-import Table from './components/Table'
 import root from './createList.module.scss'
 import { MdPlaylistAdd } from 'react-icons/md'
+import { ColumnsType } from 'antd/es/table';
+import CustomTable from '../../components/Table';
+
+interface DataType {
+  id: number,
+  stt: number,
+  name: string,
+  time: string,
+  detail: string,
+  delete: string,
+}
 
 function CreateList() {
 
-  const store = [
+  const dataSource: DataType[] = [
     {
-      stt: 1,
       id: 1,
+      stt: 1,
       name: 'Lịch phát số 1',
       time: '22/05/2021 - 30/05/2021',
-      status: 'Xem chi tiết',
-      status2: 'Xóa',
-     
+      detail: 'Xem chi tiết',
+      delete: 'Xóa',
     },
     {
       stt: 2,
       id: 2,
       name: 'Lịch phát số 1',
       time: '22/05/2021 - 30/05/2021',
-      status: 'Xem chi tiết',
-      status2: 'Xóa',
+      detail: 'Xem chi tiết',
+      delete: 'Xóa',
      
     },
     {
@@ -30,8 +39,8 @@ function CreateList() {
       id: 3,
       name: 'Lịch phát số 1',
       time: '22/05/2021 - 30/05/2021',
-      status: 'Xem chi tiết',
-      status2: 'Xóa',
+      detail: 'Xem chi tiết',
+      delete: 'Xóa',
      
     },
     {
@@ -39,8 +48,8 @@ function CreateList() {
       id: 4,
       name: 'Lịch phát số 1',
       time: '22/05/2021 - 30/05/2021',
-      status: 'Xem chi tiết',
-      status2: 'Xóa',
+      detail: 'Xem chi tiết',
+      delete: 'Xóa',
      
     },
     {
@@ -48,8 +57,8 @@ function CreateList() {
       id: 5,
       name: 'Lịch phát số 1',
       time: '22/05/2021 - 30/05/2021',
-      status: 'Xem chi tiết',
-      status2: 'Xóa',
+      detail: 'Xem chi tiết',
+      delete: 'Xóa',
      
     },
     {
@@ -57,8 +66,8 @@ function CreateList() {
       id: 6,
       name: 'Lịch phát số 1',
       time: '22/05/2021 - 30/05/2021',
-      status: 'Xem chi tiết',
-      status2: 'Xóa',
+      detail: 'Xem chi tiết',
+      delete: 'Xóa',
      
     },
     {
@@ -66,13 +75,48 @@ function CreateList() {
       id: 7,
       name: 'Lịch phát số 1',
       time: '22/05/2021 - 30/05/2021',
-      status: 'Xem chi tiết',
-      status2: 'Xóa',
+      detail: 'Xem chi tiết',
+      delete: 'Xóa',
      
     },
+  ]
+  
+  const columns: ColumnsType<DataType> = [
+      {
+        title: 'STT',
+        dataIndex: 'stt',
+        key: 'stt'
+      },
+      {
+        title: 'Tên lịch',
+        dataIndex: 'name',
+        key: 'name'
+      },
+      {
+        title: 'Thời gian phát',
+        dataIndex: 'time',
+        key: 'time'
+      },
+      {
+        title: '',
+        dataIndex: 'detail',
+        key: 'detail',
+        render: (_, {detail}) => {
+
+          return <a>{detail}</a>
+        }
+      },
+      {
+        title: '',
+        dataIndex: 'delete',
+        key: 'delete',
+        render: (_, ) => {
+
+          return <a>Xóa</a>
+        }
+      },
 
   ]
-  const column = ['STT', 'Tên lịch', 'Thời gian phát'];
 
   const featureProps = [
     {
@@ -84,7 +128,7 @@ function CreateList() {
     <div className={root.createList}>
         <h2>Danh sách lịch phát</h2>
         <div>
-            <Table store={store} column={column} heightProp={77} />
+            <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} />
         </div>
         <FeatureInPage featureProps={featureProps} />
     </div>

@@ -1,33 +1,42 @@
-import { Breadcrumb, MenuProps } from 'antd'
+import { MenuProps } from 'antd'
 import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import styled from 'styled-components'
-import { IoIosArrowForward } from "react-icons/io";
 import DropDown from '../../../components/DropDown'
 import InputSearch from '../../../components/InputSearch'
 import root from '../manager.module.scss'
 import FeatureInPage from '../../../components/FeatureInPage';
 import { MdAdd } from 'react-icons/md';
-import Table from './components/Table';
-import TableTab2 from './components/TableTab2';
+import { ColumnsType } from 'antd/es/table'
+import CustomTable from '../../../components/Table'
+import { RxDotFilled } from 'react-icons/rx'
 
+interface DataTypeTabIndex1 {
+      stt: number,
+      key: number,
+      contractID: string,
+      contractName: string,
+      authorized: string,
+      author: string,
+      timeActive: boolean,
+      createAt: string,
+      detail: string,
+      cancel: boolean
+}
 
-const BreadcrumbStyled = styled(Breadcrumb)`
-  &&& {
-    .ant-breadcrumb-link {
-      color: var(--white);
-      font-size:  16px;
-    }
-    .ant-breadcrumb-separator {
-      color: var(--orange);
-    }
-  }
-`
+interface DataTypeTabIndex2 {
+      stt: number,
+      key: number,
+      contractID: string,
+      customerName: string,
+      created: string,
+      startDay: string,
+      date: string,
+      timeActive: string,
+      detail: string,
+      copyContract: string
+}
 
 function ManagerContract() {
-  const location = useLocation();
   const [toggleState, setToggleState] = useState(1);
-
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     console.log('click', e);
@@ -64,170 +73,291 @@ const items: MenuProps['items'] = [
     }
   ]
 
-  const storeTab1 = [
+ 
+  const DataSourceTabIndex1: DataTypeTabIndex1[] = [
     {
       stt: 1,
-      id: 1,
+      key: 1,
       contractID: 'HD123',
       contractName: 'Hợp đồng ủy quyền bài hát',
       authorized: 'Vương Anh Tú',
-      autho: 'Người biểu diễn',
+      author: 'Người biểu diễn',
       timeActive: true,
-      created: '01/04/2021',
-      status: 'Xem chi tiết'
+      createAt: '01/04/2021',
+      detail: 'Xem chi tiết',
+      cancel: true
     },
     {
       stt: 2,
-      id: 2,
+      key: 2,
       contractID: 'HD123',
       contractName: 'Hợp đồng ủy quyền bài hát',
       authorized: 'Khắc Hưng',
-      autho: 'Người biểu diễn',
+      author: 'Người biểu diễn',
       timeActive: true,
-      created: '01/04/2021',
-      status: 'Xem chi tiết'
+      createAt: '01/04/2021',
+      detail: 'Xem chi tiết',
+      cancel: true
     },
     {
       stt: 3,
-      id: 3,
+      key: 3,
       contractID: 'HD123',
       contractName: 'Hợp đồng ủy quyền bài hát',
       authorized: 'Châu Đăng Khoa',
-      autho: 'Người biểu diễn',
+      author: 'Người biểu diễn',
       timeActive: true,
-      created: '01/04/2021',
-      status: 'Xem chi tiết'
+      createAt: '01/04/2021',
+      detail: 'Xem chi tiết',
+      cancel: true
     }, 
     {
       stt: 4,
-      id: 4,
+      key: 4,
       contractID: 'HD123',
       contractName: 'Hợp đồng ủy quyền bài hát',
       authorized: 'Vương Anh Tú',
-      autho: 'Người biểu diễn',
+      author: 'Người biểu diễn',
       timeActive: false,
-      created: '01/04/2021',
-      status: 'Xem chi tiết'
+      createAt: '01/04/2021',
+      detail: 'Xem chi tiết',
+      cancel: false
     },
     {
       stt: 5,
-      id: 5,
+      key: 5,
       contractID: 'HD123',
       contractName: 'Hợp đồng ủy quyền bài hát',
       authorized: 'Phan Mạnh Quỳnh',
-      autho: 'Người biểu diễn',
+      author: 'Người biểu diễn',
       timeActive: false,
-      created: '01/04/2021',
-      status: 'Xem chi tiết'
+      createAt: '01/04/2021',
+      detail: 'Xem chi tiết',
+      cancel: false
     }, 
     {
       stt: 6,
-      id: 6,
+      key: 6,
       contractID: 'HD123',
       contractName: 'Hợp đồng ủy quyền bài hát',
       authorized: 'Vương Anh Tú',
-      autho: 'Người biểu diễn',
+      author: 'Người biểu diễn',
       timeActive: true,
-      created: '01/04/2021',
-      status: 'Xem chi tiết'
+      createAt: '01/04/2021',
+      detail: 'Xem chi tiết',
+      cancel: true
     }, 
     {
       stt: 7,
-      id: 7,
+      key: 7,
       contractID: 'HD123',
       contractName: 'Hợp đồng ủy quyền bài hát',
       authorized: 'Karik',
-      autho: 'Người biểu diễn',
+      author: 'Người biểu diễn',
       timeActive: false,
-      created: '01/04/2021',
-      status: 'Xem chi tiết'
+      createAt: '01/04/2021',
+      detail: 'Xem chi tiết',
+      cancel: false
     }, 
     {
       stt: 8,
-      id: 8,
+      key: 8,
       contractID: 'HD123',
       contractName: 'Hợp đồng ủy quyền bài hát',
       authorized: 'Đen Vâu',
-      autho: 'Người biểu diễn',
+      author: 'Người biểu diễn',
       timeActive: true,
-      created: '01/04/2021',
-      status: 'Xem chi tiết'
+      createAt: '01/04/2021',
+      detail: 'Xem chi tiết',
+      cancel: true
     }
   ]
-  const columnTab1 = ['STT', 'Số hợp đồng', 'Tên hợp đồng', 'Người ủy quyền', 'Quyền sở hữu', 'Hiệu lực hợp đồng', 'Ngày tạo']
+  const columnTabIndex1: ColumnsType<DataTypeTabIndex1> = [
+    {
+      title: 'STT',
+      dataIndex: 'stt',
+      key: 'stt'
+    },
+    {
+      title: 'Số hợp đồng',
+      dataIndex: 'contractID',
+      key: 'contractID'
+    },
+    {
+      title: 'Tên hợp đồng',
+      dataIndex: 'contractName',
+      key: 'contractName'
+    },
+    {
+      title: 'Người ủy quyền',
+      dataIndex: 'authorized',
+      key: 'authorized'
+    },
+    {
+      title: 'Quyền sở hữu',
+      dataIndex: 'author',
+      key: 'author'
+    },
+    {
+      title: 'Hiệu lực hợp đồng',
+      dataIndex: 'timeActive',
+      key: 'timeActive',
+      render: (_, {timeActive}) => {
 
-  const storetab2 = [
+        return <>
+          {timeActive ? 
+            <p><RxDotFilled color="blue" />Còn thời hạn</p> : 
+            <p><RxDotFilled color="gray" />Đã hủy</p>}
+        </>
+      }
+    },
+    {
+      title: 'Ngày tạo',
+      dataIndex: 'createAt',
+      key: 'createAt'
+    },
+    {
+      title: '',
+      dataIndex: 'detail',
+      key: 'detail',
+      render: (_, { detail }) => {
+
+        return <a>{detail}</a>
+      }
+    },
+    {
+      title: '',
+      dataIndex: 'cancel',
+      key: 'cancel',
+      render: (_, { timeActive,cancel }) => {
+
+        return <a>{timeActive ? '' : "Lý do hủy"}</a>
+      }
+    },
+  ]
+
+
+  const DataSourceTabIndex2: DataTypeTabIndex2[] = [
     {
       stt: 1,
-      id: 1,
+      key: 1,
       contractID: 'HD123',
       customerName: 'Hợp đồng kinh doanh 1',
       created: '01/04/2021',
       startDay: '02/12/2021',
       date: '02/12/2022',
       timeActive: 'Còn hiệu lực',
-      status: 'Xem chi tiết',
-      status2: 'Sao chép hợp đồng'
+      detail: 'Xem chi tiết',
+      copyContract: 'Sao chép hợp đồng'
     },
     {
       stt: 2,
-      id: 2,
+      key: 2,
       contractID: 'HD123',
       customerName: 'Hợp đồng kinh doanh 1',
       created: '01/04/2021',
       startDay: '02/12/2021',
       date: '02/12/2022',
       timeActive: 'Còn hiệu lực',
-      status: 'Xem chi tiết',
-      status2: 'Sao chép hợp đồng'
+      detail: 'Xem chi tiết',
+      copyContract: 'Sao chép hợp đồng'
     },
     {
       stt: 3,
-      id: 3,
+      key: 3,
       contractID: 'HD123',
       customerName: 'Hợp đồng kinh doanh 1',
       created: '01/04/2021',
       startDay: '02/12/2021',
       date: '02/12/2022',
       timeActive: 'Còn hiệu lực',
-      status: 'Xem chi tiết',
-      status2: 'Sao chép hợp đồng'
+      detail: 'Xem chi tiết',
+      copyContract: 'Sao chép hợp đồng'
     },
     {
       stt: 4,
-      id: 4,
+      key: 4,
       contractID: 'HD123',
       customerName: 'Hợp đồng kinh doanh 1',
       created: '01/04/2021',
       startDay: '02/12/2021',
       date: '02/12/2022',
       timeActive: 'Còn hiệu lực',
-      status: 'Xem chi tiết',
-      status2: 'Sao chép hợp đồng'
+      detail: 'Xem chi tiết',
+      copyContract: 'Sao chép hợp đồng'
     },
     {
       stt: 5,
-      id: 5,
+      key: 5,
       contractID: 'HD123',
       customerName: 'Hợp đồng kinh doanh 1',
       created: '01/04/2021',
       startDay: '02/12/2021',
       date: '02/12/2022',
       timeActive: 'Còn hiệu lực',
-      status: 'Xem chi tiết',
-      status2: 'Sao chép hợp đồng'
+      detail: 'Xem chi tiết',
+      copyContract: 'Sao chép hợp đồng'
+    },
+  ] 
+  const columnTabIndex2: ColumnsType<DataTypeTabIndex2> = [
+    {
+      title: 'STT',
+      dataIndex: 'stt',
+      key: 'stt'
+    },
+    {
+      title: 'Số hợp đồng',
+      dataIndex: 'contractID',
+      key: 'contractID'
+    },
+    {
+      title: 'Khách hàng',
+      dataIndex: 'customerName',
+      key: 'customerName'
+    },
+    {
+      title: 'Ngày tạo',
+      dataIndex: 'created',
+      key: 'created'
+    },
+    {
+      title: 'Ngày hiệu lực',
+      dataIndex: 'startDay',
+      key: 'startDay'
+    },
+    {
+      title: 'Ngày hết hạn',
+      dataIndex: 'date',
+      key: 'date'
+    },
+    {
+      title: 'Hiệu lực hợp đồng',
+      dataIndex: 'timeActive',
+      key: 'timeActive'
+    },
+    {
+      title: '',
+      dataIndex: 'detail',
+      key: 'detail',
+      render: (_, { detail }) => {
+
+        return <a>{detail}</a>
+      }
+    },
+    {
+      title: '',
+      dataIndex: 'cancel',
+      key: 'cancel',
+      render: (_, { copyContract }) => {
+
+        return <a>{copyContract}</a>
+      }
     },
   ]
-  const columnTab2 = ['STT', 'Số hợp đồng', 'Khách hàng', 'Ngày tạo', 'Ngày hiệu lực', 'Ngày hết hạn', 'Hiệu lực hợp đồng']
+  
 
   return (
     <div className={root.managerContract}>
-        <nav className={root.navigate}> 
-          <BreadcrumbStyled separator={<IoIosArrowForward />}>
-            <Breadcrumb.Item>Quản lý</Breadcrumb.Item>
-            <Breadcrumb.Item>Quản lý hợp đồng</Breadcrumb.Item>
-          </BreadcrumbStyled>
-        </nav>
         <h2>Danh sách hợp đồng</h2>
         <div>
           <div className={root.blockTabs}>
@@ -253,7 +383,7 @@ const items: MenuProps['items'] = [
                   <InputSearch placehoder="Tên hợp đồng, số hợp đồng, người ủy quyền,..." />
                 </div>
               </div>
-              <Table column={columnTab1} store={storeTab1} heightProp={60} />
+              <CustomTable columns={columnTabIndex1} dataSrouce={DataSourceTabIndex1} heightProps={60}/>
             </div>
             <div className={toggleState === 2 ? root.activeContent : root.content} >
               {/* TAB 2 */}
@@ -261,7 +391,7 @@ const items: MenuProps['items'] = [
                 <InputSearch placehoder='Tên hợp đồng, tác giả, ...' />
               </div>
               <div>
-                <TableTab2 column={columnTab2} store={storetab2} heightProp={60} />
+                <CustomTable columns={columnTabIndex2} dataSrouce={DataSourceTabIndex2} heightProps={60} />
               </div>
             </div>
           </div>

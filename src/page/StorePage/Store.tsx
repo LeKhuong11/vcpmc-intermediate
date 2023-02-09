@@ -1,12 +1,29 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { MenuProps, message } from 'antd';
 import DropDown from '../../components/DropDown';
 import root from './store.module.scss';
-import Table from './components/Table';
 import { SlNote } from 'react-icons/sl';
 import FeatureInPage from '../../components/FeatureInPage';
 import InputSearch from '../../components/InputSearch';
+import { ColumnsType } from 'antd/es/table';
+import CustomTable from '../../components/Table';
+import { RxDotFilled } from 'react-icons/rx';
 
+
+interface DataType {
+  key: number,
+  stt: number,
+  nameMusic: string,
+  IRCID: string,
+  time: string,
+  singer: string,
+  author: string,
+  type: string,
+  format: string,
+  date: boolean,
+  update: string,
+  listen: string,
+}
 
 function Store() {
 
@@ -15,7 +32,7 @@ function Store() {
     console.log('click', e);
   };
 
-const items: MenuProps['items'] = [
+  const items: MenuProps['items'] = [
     {
       label: '1st menu item',
       key: '1'
@@ -45,94 +62,177 @@ const items: MenuProps['items'] = [
       text: "Quan li phe duyet"
     }
   ];
-
-  const storeMusic = [
+  
+  const dataSource: DataType[] = [
     {
+      key: 1,
       stt: 1,
-      id: 1,
       nameMusic: 'Mất em',
-      IRCId: 'KRA40105463',
-      time: '04:27',
+      IRCID: 'KRA40105463',
+      time: '	04:27',
       singer: 'Phan Mạnh Quỳnh',
-      auth: 'Phan Mạnh Quỳnh',
+      author: 'Phan Mạnh Quỳnh',
       type: 'Ballad',
       format: 'Audio',
-      date: 'Còn thời hạn',
-      status: 'cập nhật',
-      status2: 'nghe',
+      date: true,
+      update: 'Cập nhật',
+      listen: 'Nghe'
     },
     {
-      stt: 1,
-      id: 2,
+      key: 2,
+      stt: 2,
       nameMusic: 'Mất em',
-      IRCId: 'KRA40105463',
-      time: '04:27',
+      IRCID: 'KRA40105463',
+      time: '	04:27',
       singer: 'Phan Mạnh Quỳnh',
-      auth: 'Phan Mạnh Quỳnh',
+      author: 'Phan Mạnh Quỳnh',
       type: 'Ballad',
       format: 'Audio',
-      date: 'Còn thời hạn',
-      status: 'cập nhật',
-      status2: 'nghe',
+      date: true,
+      update: 'Cập nhật',
+      listen: 'Nghe'
     },
     {
-      stt: 1,
-      id: 3,
+      key: 3,
+      stt: 3,
       nameMusic: 'Mất em',
-      IRCId: 'KRA40105463',
-      time: '04:27',
+      IRCID: 'KRA40105463',
+      time: '	04:27',
       singer: 'Phan Mạnh Quỳnh',
-      auth: 'Phan Mạnh Quỳnh',
+      author: 'Phan Mạnh Quỳnh',
       type: 'Ballad',
       format: 'Audio',
-      date: 'Còn thời hạn',
-      status: 'cập nhật',
-      status2: 'nghe',
+      date: true,
+      update: 'Cập nhật',
+      listen: 'Nghe'
     },
     {
-      stt: 1,
-      id: 4,
+      key: 4,
+      stt: 4,
       nameMusic: 'Mất em',
-      IRCId: 'KRA40105463',
-      time: '04:27',
+      IRCID: 'KRA40105463',
+      time: '	04:27',
       singer: 'Phan Mạnh Quỳnh',
-      auth: 'Phan Mạnh Quỳnh',
+      author: 'Phan Mạnh Quỳnh',
       type: 'Ballad',
       format: 'Audio',
-      date: 'Còn thời hạn',
-      status: 'cập nhật',
-      status2: 'nghe',
+      date: false,
+      update: 'Cập nhật',
+      listen: 'Nghe'
     },
     {
-      stt: 1,
-      id: 5,
+      key: 5,
+      stt: 5,
       nameMusic: 'Mất em',
-      IRCId: 'KRA40105463',
-      time: '04:27',
+      IRCID: 'KRA40105463',
+      time: '	04:27',
       singer: 'Phan Mạnh Quỳnh',
-      auth: 'Phan Mạnh Quỳnh',
+      author: 'Phan Mạnh Quỳnh',
       type: 'Ballad',
       format: 'Audio',
-      date: 'Còn thời hạn',
-      status: 'cập nhật',
-      status2: 'nghe',
+      date: true,
+      update: 'Cập nhật',
+      listen: 'Nghe'
     },
     {
-      stt: 1,
-      id: 6,
+      key: 6,
+      stt: 6,
       nameMusic: 'Mất em',
-      IRCId: 'KRA40105463',
-      time: '04:27',
+      IRCID: 'KRA40105463',
+      time: '	04:27',
       singer: 'Phan Mạnh Quỳnh',
-      auth: 'Phan Mạnh Quỳnh',
+      author: 'Phan Mạnh Quỳnh',
       type: 'Ballad',
       format: 'Audio',
-      date: 'Còn thời hạn',
-      status: 'cập nhật',
-      status2: 'nghe',
+      date: false,
+      update: 'Cập nhật',
+      listen: 'Nghe'
+    },
+    {
+      key: 7,
+      stt: 7,
+      nameMusic: 'Mất em',
+      IRCID: 'KRA40105463',
+      time: '	04:27',
+      singer: 'Phan Mạnh Quỳnh',
+      author: 'Phan Mạnh Quỳnh',
+      type: 'Ballad',
+      format: 'Audio',
+      date: true,
+      update: 'Cập nhật',
+      listen: 'Nghe'
     }
   ]
-  const columnMusic = ['STT', 'Tên bản ghi', 'Mã IRC', 'Thời lượng', 'Ca sĩ', 'Tác Giả', 'Thể loại', 'Định dạng', 'Thời hạn sử dụng']
+
+  const columns: ColumnsType<DataType> = [
+    {
+      title: 'STT',
+      dataIndex: 'stt',
+      key: 'stt'
+    },
+    {
+      title: 'Tên bản ghi',
+      dataIndex: 'nameMusic',
+      key: 'nameMusic'
+    },
+    {
+      title: 'Mã IRC',
+      dataIndex: 'IRCID',
+      key: 'IRCID'
+    },
+    {
+      title: 'Thời lượng',
+      dataIndex: 'time',  
+      key: 'time'
+    },
+    {
+      title: 'Ca sĩ',
+      dataIndex: 'singer',
+      key: 'singer'
+    },
+    {
+      title: 'Tác giả',
+      dataIndex: 'author',
+      key: 'author'
+    },
+    {
+      title: 'Thể loại',
+      dataIndex: 'type',
+      key: 'type'
+    },
+    {
+      title: 'Định dạng',
+      dataIndex: 'format',
+      key: 'format'
+    },
+    {
+      title: 'Thời hạn sử dụng',
+      dataIndex: 'date',
+      key: 'date',
+      render: (_, { date }) => {
+
+        return <>{date ? <p><RxDotFilled color="blue" />Còn thời hạn</p> : <p><RxDotFilled color="gray" />Hết thời hạn</p>}</>
+      }
+    },
+    {
+      title: '',
+      dataIndex: 'status',
+      key: 'status',
+      render: (_, { update }) => {
+
+        return <a>{update}</a>
+      }
+    },
+    {
+      title: '',
+      dataIndex: 'status2',
+      key: 'status2',
+      render: (_, { listen }) => {
+
+        return <a>{listen}</a>
+      }
+    },
+  ]
 
   return (
     <div className={root.store}>
@@ -161,7 +261,7 @@ const items: MenuProps['items'] = [
             </div>
           </div>
         </div>
-          <Table columnMusic={columnMusic} storeMusic={storeMusic} heightProp={62} />
+        <CustomTable columns={columns} dataSrouce={dataSource} heightProps={64} />
       </div>
       <FeatureInPage featureProps={featureProps} />
       
