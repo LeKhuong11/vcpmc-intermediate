@@ -165,7 +165,7 @@ function Authorized() {
   
   return (
     <div className={root.authorized}>
-      <h2>Danh sách đối tác ủy quyền</h2>
+      <h3>Danh sách đối tác ủy quyền</h3>
         <div>
           <InputSearch placehoder='Họ tên, tên đăng nhập, email,...' />
         </div>

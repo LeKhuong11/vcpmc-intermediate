@@ -126,7 +126,7 @@ function CreateList() {
   ]
   return (
     <div className={root.createList}>
-        <h2>Danh sách lịch phát</h2>
+        <h3>Danh sách lịch phát</h3>
         <div>
             <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} />
         </div>

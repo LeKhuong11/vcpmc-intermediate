@@ -1,5 +1,4 @@
 import React from 'react'
-import { DatePicker } from 'antd'
 import { RangePickerProps } from 'antd/es/date-picker';
 import dayjs from 'dayjs';
 import root from '../revenue.module.scss'
@@ -8,6 +7,7 @@ import { ColumnsType } from 'antd/es/table';
 import CustomTable from '../../../components/Table';
 import { MdOutlineLogout } from 'react-icons/md';
 import FeatureInPage from '../../../components/FeatureInPage';
+import CustomDatePicker from '../../../components/DatePicker';
 
 
 interface DataType {
@@ -24,10 +24,10 @@ interface DataType {
   detail: string
 }
 
-function HistoryForControl() {
+function HistoryForControlPage() {
 
 
-  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+  const disabledDateProps: RangePickerProps['disabledDate'] = (current) => {
     // Can not select days before today and today
     return current && current < dayjs().endOf('day');
   };
@@ -174,17 +174,17 @@ function HistoryForControl() {
   const featureProps = [
     {
       icon: MdOutlineLogout,
-      text: 'Đăng xuất',
+      text: 'Xuất file',
     }
   ]
 
   return (
     <div className={root.historyForControl}>
-        <h2>Lịch sử đối soát doanh thu</h2>
+        <h3>Lịch sử đối soát doanh thu</h3>
         <div className={root.timeAndSearch}>
             <div>
               <h5>Thời gian thực hiện: </h5>
-              <DatePicker picker="month" disabledDate={disabledDate} />
+              <CustomDatePicker disabledDate={disabledDateProps} />
             </div>
             <div>
               <InputSearch placehoder='Nhập tên tài khoản quản trị' />
@@ -201,4 +201,4 @@ function HistoryForControl() {
   )
 }
 
-export default HistoryForControl
+export default HistoryForControlPage

@@ -10,8 +10,11 @@ import Authorized from "../page/ManagerPage/AuthorizedPartner/Authorized";
 import Login from "../page/LoginPage/Login";
 import HomePage from "../page/HomePage/HomePage";
 import UnitUsedPage from "../page/ManagerPage/UnitUsed/UnitUsedPage";
-import HistoryForControl from "../page/RevenuePage/HistoryForControlPage/HistoryForControl";
 import RevenuePage from "../page/RevenuePage/RevenuePage";
+import RevenueDistributionPage from "../page/RevenuePage/RevenueDistributionPage/RevenueDistributionPage";
+import HistoryForControlPage from "../page/RevenuePage/HistoryForControlPage/HistoryForControlPage";
+import SettingPage from "../page/SettingPage/SettingPage";
+import AuthenticationPage from "../page/SettingPage/AuthenticationPage/AuthenticationPage";
 
 
 export function Router() {
@@ -64,7 +67,21 @@ export function Router() {
                     children: [
                         {
                             path: 'history-for-control',
-                            element: <HistoryForControl />
+                            element: <HistoryForControlPage />
+                        },
+                        {
+                            path: 'revenue-distribution',
+                            element: <RevenueDistributionPage />
+                        },
+                    ]
+                },
+                {
+                    path: 'setting',
+                    element: <SettingPage />,
+                    children: [
+                        {
+                            path: 'authentication',
+                            element: <AuthenticationPage />
                         }
                     ]
                 },

@@ -236,7 +236,7 @@ function Store() {
 
   return (
     <div className={root.store}>
-      <h2>Kho bản ghi</h2>
+      <h3>Kho bản ghi</h3>
       <div>
         <div>
           <InputSearch placehoder='Tên bản ghi, ca sĩ,...' />

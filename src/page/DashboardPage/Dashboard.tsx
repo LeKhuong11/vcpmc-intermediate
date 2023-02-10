@@ -51,7 +51,7 @@ function Dashboard() {
   return (
     <div className={root.dashboard}>
         <div>
-            <h2>Thông tin cơ bản</h2>
+            <h3>Thông tin cơ bản</h3>
         </div>
         <div className={root.info}>
             <div className={root.avatar}>

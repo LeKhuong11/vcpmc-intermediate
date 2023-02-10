@@ -218,7 +218,7 @@ const items: MenuProps['items'] = [
 
   return (
     <div className={root.managerDevice}>
-      <h2>Danh sách thiết bị</h2>
+      <h3>Danh sách thiết bị</h3>
       <div className={root.dropdownAndSearch}>
         <div>
           <DropDown menuProps={menuProps} />

@@ -162,7 +162,7 @@ function PlayList() {
   ] 
   return (
     <div className={root.playlist}>
-      <h2>Playlist</h2>
+      <h3>Playlist</h3>
       <div>
         <InputSearch placehoder='Tên chủ đề, người tạo,...' />
       </div>
