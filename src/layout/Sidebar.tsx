@@ -65,9 +65,9 @@ function Sidebar() {
             </div>
             <div className={root.navigateChild}>
               <Link to="setting/authentication">Phân quyền người dùng</Link>
-              <Link to="">Cấu hình</Link>
-              <Link to="">Quản lí hợp đồng</Link>
-              <Link to="">Thông tin tác phẩm</Link>
+              <Link to="setting/configuration">Cấu hình</Link>
+              <Link to="setting/manager-contract">Quản lí hợp đồng</Link>
+              <Link to="setting/edit-information">Thông tin tác phẩm</Link>
               <Link to="">Chu kì đối soát</Link>
             </div>
           </li>

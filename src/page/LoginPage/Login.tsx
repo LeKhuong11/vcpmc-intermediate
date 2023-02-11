@@ -90,7 +90,7 @@ const items: MenuProps['items'] = [
             <Checkbox><p>Ghi nhớ đăng nhập</p></Checkbox>
           </div>
           <div className={root.formBtn}>
-            <Button widthProps={208} contentProps="Đăng nhập" onClick={handleClickLogin} />
+            <Button type='secondary' heightProps={56} widthProps={208} contentProps="Đăng nhập" onClick={handleClickLogin} />
           </div>
         </form>
         <div className={root.selectLanguage}>

@@ -79,7 +79,6 @@ function TabControl({buttons, items} :ITabProps) {
         <div className='contentTabs' >
             {items.map(item => {
                 const Page = item.component;
-                console.log(Page)
                 return <div key={item.id} className={toggleState === item.id ? 'activeContent' : 'content'} >
                     <Page />
                 </div>

@@ -15,6 +15,9 @@ import RevenueDistributionPage from "../page/RevenuePage/RevenueDistributionPage
 import HistoryForControlPage from "../page/RevenuePage/HistoryForControlPage/HistoryForControlPage";
 import SettingPage from "../page/SettingPage/SettingPage";
 import AuthenticationPage from "../page/SettingPage/AuthenticationPage/AuthenticationPage";
+import ConfigurationPage from "../page/SettingPage/ConfigurationPage/ConfigurationPage";
+import ManagerContractPage from "../page/SettingPage/ManagerContractPage/ManagerContract";
+import EditInformationPage from "../page/SettingPage/EditInformationPage/EditInformationPage";
 
 
 export function Router() {
@@ -82,6 +85,18 @@ export function Router() {
                         {
                             path: 'authentication',
                             element: <AuthenticationPage />
+                        },
+                        {
+                            path: 'configuration',
+                            element: <ConfigurationPage />
+                        },
+                        {
+                            path: 'manager-contract',
+                            element: <ManagerContractPage />
+                        },
+                        {
+                            path: 'edit-information',
+                            element: <EditInformationPage />
                         }
                     ]
                 },

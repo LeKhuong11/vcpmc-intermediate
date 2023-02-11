@@ -1,5 +1,7 @@
 import { ColumnsType } from 'antd/es/table'
 import React from 'react'
+import { AiOutlineUserAdd } from 'react-icons/ai'
+import FeatureInPage from '../../../../components/FeatureInPage'
 import CustomTable from '../../../../components/Table'
 
 interface DataType {
@@ -167,9 +169,16 @@ function TabIndex1() {
             edit: 'Chỉnh sửa'
         },
     ]
+    const featureProps = [
+        {
+            icon: AiOutlineUserAdd,
+            text: "Thêm người dùng"
+        }
+    ]
   return (
     <>
         <CustomTable dataSrouce={dataSource} columns={columns} heightProps={70} />
+        <FeatureInPage featureProps={featureProps} />
     </>
   )
 }

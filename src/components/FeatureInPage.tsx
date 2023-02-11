@@ -14,10 +14,10 @@ const FreatureStyled = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 16px;
+    padding: 12px;
     margin: 5px 0;
     gap: 10px;
-    width: 90px;
+    width: 95px;
     border-radius: 16px 0px 0px 16px;
     background: #2F2F41;
     position: fixed;

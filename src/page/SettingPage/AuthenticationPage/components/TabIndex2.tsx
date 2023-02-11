@@ -1,6 +1,8 @@
-import { ColumnsType } from 'antd/es/table'
 import React from 'react'
+import { ColumnsType } from 'antd/es/table'
+import FeatureInPage from '../../../../components/FeatureInPage'
 import CustomTable from '../../../../components/Table'
+import { FiUsers } from "react-icons/fi";
 
 interface DataType {
     key: number,
@@ -10,7 +12,7 @@ interface DataType {
     rolo: string,
     description: string,
     update: string,
-    delete: boolean
+    del: boolean
 }
 
 function TabIndex2() {
@@ -54,9 +56,9 @@ function TabIndex2() {
             title: '',
             dataIndex: 'delete',
             key: 'delete',
-            render: (_, ) => {
+            render: (_, {del}) => {
 
-                return <a>Xóa</a>
+                return <a>{del ? "Xóa" : ''}</a>
             }
         },
     ]
@@ -69,7 +71,7 @@ function TabIndex2() {
             rolo: 'System Admin',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
             update: 'Cập nhật',
-            delete: false
+            del: false
         },
         {
             key: 2,
@@ -79,7 +81,7 @@ function TabIndex2() {
             rolo: 'System Admin',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
             update: 'Cập nhật',
-            delete: false
+            del: false
         },
         {
             key: 3,
@@ -89,7 +91,7 @@ function TabIndex2() {
             rolo: 'System Admin',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
             update: 'Cập nhật',
-            delete: false
+            del: true
         },
         {
             key: 4,
@@ -99,7 +101,7 @@ function TabIndex2() {
             rolo: 'System Admin',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
             update: 'Cập nhật',
-            delete: false
+            del: false
         },
         {
             key: 5,
@@ -109,7 +111,7 @@ function TabIndex2() {
             rolo: 'System Admin',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
             update: 'Cập nhật',
-            delete: false
+            del: true
         },
         {
             key: 6,
@@ -119,12 +121,19 @@ function TabIndex2() {
             rolo: 'System Admin',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
             update: 'Cập nhật',
-            delete: false
+            del: false
         },
+    ]
+    const featureProps = [
+        {
+            icon: FiUsers,
+            text: "Thêm vai trò"
+        }
     ]
   return (
     <>
         <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} />
+        <FeatureInPage featureProps={featureProps} />
     </>
   )
 }
