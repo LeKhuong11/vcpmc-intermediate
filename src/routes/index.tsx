@@ -18,6 +18,8 @@ import AuthenticationPage from "../page/SettingPage/AuthenticationPage/Authentic
 import ConfigurationPage from "../page/SettingPage/ConfigurationPage/ConfigurationPage";
 import ManagerContractPage from "../page/SettingPage/ManagerContractPage/ManagerContract";
 import EditInformationPage from "../page/SettingPage/EditInformationPage/EditInformationPage";
+import CycleForControlPage from "../page/SettingPage/CycleForControlPage/CycleForControlPage";
+import UserManualPage from "../page/SupportPage/UserManualPage/UserManualPage";
 
 
 export function Router() {
@@ -97,6 +99,19 @@ export function Router() {
                         {
                             path: 'edit-information',
                             element: <EditInformationPage />
+                        },
+                        {
+                            path: 'cycle-for-control',
+                            element: <CycleForControlPage />
+                        }
+                    ]
+                },
+                {
+                    path: 'support',
+                    children: [
+                        {
+                            path: 'user-manual',
+                            element: <UserManualPage />
                         }
                     ]
                 },

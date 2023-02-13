@@ -68,7 +68,7 @@ function Sidebar() {
               <Link to="setting/configuration">Cấu hình</Link>
               <Link to="setting/manager-contract">Quản lí hợp đồng</Link>
               <Link to="setting/edit-information">Thông tin tác phẩm</Link>
-              <Link to="">Chu kì đối soát</Link>
+              <Link to="setting/cycle-for-control">Chu kì đối soát</Link>
             </div>
           </li>
           <li>
@@ -79,7 +79,7 @@ function Sidebar() {
               <BiDotsVerticalRounded />
             </div>
             <div className={root.navigateChild}>
-              <Link to="">Hướng dẫn sử dụng</Link>
+              <Link to="support/user-manual">Hướng dẫn sử dụng</Link>
               <Link to="">Tải app</Link>
               <Link to="">Feedback</Link> 
             </div>
