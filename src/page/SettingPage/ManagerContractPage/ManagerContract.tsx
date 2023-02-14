@@ -59,7 +59,7 @@ function ManagerContractPage() {
   ]
   return (
     <div className={root.managerContract}>
-      <h2>Loại hợp đồng</h2>
+      <h3>Loại hợp đồng</h3>
       <div className={root.containerContent}>
         <div>
           <CustomTable dataSrouce={dataSource} columns={columns} heightProps={20} />

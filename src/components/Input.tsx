@@ -21,6 +21,7 @@ const InputStyled = styled(InputAntd)`
     background: #33334D;
     color: var(--white);
     border: none;
+    margin-top: 6px;
   `
 
 function Input({plahoder, width, height, type, disabled = false, value,  setValue}: IInputprops) {

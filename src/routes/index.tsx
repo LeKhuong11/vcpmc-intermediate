@@ -20,6 +20,7 @@ import ManagerContractPage from "../page/SettingPage/ManagerContractPage/Manager
 import EditInformationPage from "../page/SettingPage/EditInformationPage/EditInformationPage";
 import CycleForControlPage from "../page/SettingPage/CycleForControlPage/CycleForControlPage";
 import UserManualPage from "../page/SupportPage/UserManualPage/UserManualPage";
+import UpdateInformationPage from "../page/StorePage/UpdateInformationPage/UpdateInformationPage";
 
 
 export function Router() {
@@ -35,6 +36,10 @@ export function Router() {
                 {
                     path: 'store',
                     element: <Store />
+                },
+                {
+                    path: 'store/update-infomation/:id',
+                    element: <UpdateInformationPage />
                 },
                 {
                     path: 'play-list',

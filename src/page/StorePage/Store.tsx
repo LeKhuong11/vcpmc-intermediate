@@ -8,10 +8,13 @@ import InputSearch from '../../components/InputSearch';
 import { ColumnsType } from 'antd/es/table';
 import CustomTable from '../../components/Table';
 import { RxDotFilled } from 'react-icons/rx';
+import { useAppSelector } from '../../redux/store';
+import { Link, Outlet } from 'react-router-dom';
 
 
 interface DataType {
   key: number,
+  id: string,
   stt: number,
   nameMusic: string,
   IRCID: string,
@@ -26,6 +29,9 @@ interface DataType {
 }
 
 function Store() {
+  const storeMusic = useAppSelector(state => state.storeMusic.store);
+  const [store, setStore] = React.useState(storeMusic)
+  
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     message.info('Click on menu item.');
@@ -63,107 +69,7 @@ function Store() {
     }
   ];
   
-  const dataSource: DataType[] = [
-    {
-      key: 1,
-      stt: 1,
-      nameMusic: 'Mất em',
-      IRCID: 'KRA40105463',
-      time: '	04:27',
-      singer: 'Phan Mạnh Quỳnh',
-      author: 'Phan Mạnh Quỳnh',
-      type: 'Ballad',
-      format: 'Audio',
-      date: true,
-      update: 'Cập nhật',
-      listen: 'Nghe'
-    },
-    {
-      key: 2,
-      stt: 2,
-      nameMusic: 'Mất em',
-      IRCID: 'KRA40105463',
-      time: '	04:27',
-      singer: 'Phan Mạnh Quỳnh',
-      author: 'Phan Mạnh Quỳnh',
-      type: 'Ballad',
-      format: 'Audio',
-      date: true,
-      update: 'Cập nhật',
-      listen: 'Nghe'
-    },
-    {
-      key: 3,
-      stt: 3,
-      nameMusic: 'Mất em',
-      IRCID: 'KRA40105463',
-      time: '	04:27',
-      singer: 'Phan Mạnh Quỳnh',
-      author: 'Phan Mạnh Quỳnh',
-      type: 'Ballad',
-      format: 'Audio',
-      date: true,
-      update: 'Cập nhật',
-      listen: 'Nghe'
-    },
-    {
-      key: 4,
-      stt: 4,
-      nameMusic: 'Mất em',
-      IRCID: 'KRA40105463',
-      time: '	04:27',
-      singer: 'Phan Mạnh Quỳnh',
-      author: 'Phan Mạnh Quỳnh',
-      type: 'Ballad',
-      format: 'Audio',
-      date: false,
-      update: 'Cập nhật',
-      listen: 'Nghe'
-    },
-    {
-      key: 5,
-      stt: 5,
-      nameMusic: 'Mất em',
-      IRCID: 'KRA40105463',
-      time: '	04:27',
-      singer: 'Phan Mạnh Quỳnh',
-      author: 'Phan Mạnh Quỳnh',
-      type: 'Ballad',
-      format: 'Audio',
-      date: true,
-      update: 'Cập nhật',
-      listen: 'Nghe'
-    },
-    {
-      key: 6,
-      stt: 6,
-      nameMusic: 'Mất em',
-      IRCID: 'KRA40105463',
-      time: '	04:27',
-      singer: 'Phan Mạnh Quỳnh',
-      author: 'Phan Mạnh Quỳnh',
-      type: 'Ballad',
-      format: 'Audio',
-      date: false,
-      update: 'Cập nhật',
-      listen: 'Nghe'
-    },
-    {
-      key: 7,
-      stt: 7,
-      nameMusic: 'Mất em',
-      IRCID: 'KRA40105463',
-      time: '	04:27',
-      singer: 'Phan Mạnh Quỳnh',
-      author: 'Phan Mạnh Quỳnh',
-      type: 'Ballad',
-      format: 'Audio',
-      date: true,
-      update: 'Cập nhật',
-      listen: 'Nghe'
-    }
-  ]
-
+  const dataSource: DataType[] = store
   const columns: ColumnsType<DataType> = [
     {
       title: 'STT',
@@ -218,9 +124,9 @@ function Store() {
       title: '',
       dataIndex: 'status',
       key: 'status',
-      render: (_, { update }) => {
-
-        return <a>{update}</a>
+      render: (_, { update, id }) => {
+        
+        return <Link to={`update-infomation/${id}`}>{update}</Link>
       }
     },
     {
@@ -264,7 +170,6 @@ function Store() {
         <CustomTable columns={columns} dataSrouce={dataSource} heightProps={64} />
       </div>
       <FeatureInPage featureProps={featureProps} />
-      
     </div>
   )
 }

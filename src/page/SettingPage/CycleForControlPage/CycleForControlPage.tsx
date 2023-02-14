@@ -5,10 +5,10 @@ import root from '../setting.module.scss'
 function CycleForControlPage() {
   return (
     <div className={root.cycleForControl}>
-        <h2>Cài đặt hệ thống</h2>
+        <h3>Cài đặt hệ thống</h3>
         <div className={root.container}>
             <div className={root.contentPage}>
-                <h3>Cài đặt chu kì đối soát</h3>
+                <h4>Cài đặt chu kì đối soát</h4>
                 <Radio.Group>
                     <Radio value={"quarterly"}><h5>Đối soát theo quý</h5></Radio> <br />
                     <div className={root.quarterly}>

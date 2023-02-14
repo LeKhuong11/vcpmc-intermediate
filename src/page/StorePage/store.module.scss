@@ -14,3 +14,88 @@
         }
     }
 }
+
+.UpdateInformation {
+
+    .container {
+        display: flex;
+        margin: 12px 0;
+        justify-content: center;
+        width: 100%;
+        .info {
+
+            & h4 {
+                color: var(--orange);
+            }
+
+            &>div:first-child {
+                width: 400px;
+                height: 286px;
+                border-radius: 8px;
+                padding: 12px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: var(--violetLight);
+                margin: 0 7px 14px 0;
+                & div {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 93%;
+                    margin: 2px 0;
+                    & p {
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+                    }
+                }
+            }
+
+            &>div:last-child {
+                background-color: var(--violetLight);
+                border-radius: 8px;
+                padding: 12px;
+                width: 400px;
+                height: 180px;
+                margin: 5px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 7px 7px 0 0;
+                &>div {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 93%;
+                    margin: 2px 0;
+                    & p {
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+
+        .updateInfo {
+            width: 453px;
+            height: 474px;
+            border-radius: 8px;
+            padding: 12px;
+            margin-left: 7px;
+            background-color: var(--violetLight);
+
+            & h4 {
+                color: var(--orange);
+            }
+        }   
+
+    }
+    .button {
+        display: flex;
+        justify-content: center ;
+        & button {
+            margin-right: 15px;
+
+        }
+    }
+}
