@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/configfb";
 
 
-interface storeMusic {
+export interface DataType {
     key: number,
-    id: string,
+    id?: string,
     stt: number,
     nameMusic: string,
     IRCID: string,
@@ -17,10 +17,10 @@ interface storeMusic {
     date: boolean,
     update: string,
     listen: string,
-}
+  }
 
 interface IStoreState {
-    store: storeMusic[]
+    store: DataType[]
 }
 
 const initialState: IStoreState = {
@@ -36,7 +36,7 @@ export const fetchStoreMusic = createAsyncThunk(
         query.docs.forEach( doc => {
             store.push({...doc.data(), id: doc.id})
         })
-    
+        
         return store;
 })
 

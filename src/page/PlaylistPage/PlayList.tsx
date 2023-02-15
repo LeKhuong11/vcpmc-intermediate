@@ -1,27 +1,42 @@
 import { ColumnsType } from 'antd/es/table'
-import React from 'react'
+import { collection, onSnapshot } from 'firebase/firestore'
+import React, {useEffect, useState} from 'react'
 import { MdPlaylistAdd } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 import FeatureInPage from '../../components/FeatureInPage'
 import InputSearch from '../../components/InputSearch'
 import CustomTable from '../../components/Table'
+import { db } from '../../firebase/configfb'
+import { DataType, fetchPlaylist } from '../../redux/slice/playlistSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
 import Topic from './components/Topic'
 import root from './playlist.module.scss'
 
 
-interface DataType {
-    stt: number,
-    key: number,
-    title: string,
-    quantity: number,
-    time: string,
-    topics: string[],
-    createAt: string,
-    author: string,
-    detail: string,
-    
-}
-
 function PlayList() {
+  const dispatch = useAppDispatch();
+  const { playlist } = useAppSelector(state => state.playlist);
+  const [ playlistStore, setPlaylistStore ] = useState<DataType[]>(playlist);
+
+  useEffect(() => {
+    const colRef = collection(db, "play-list")
+    //real time update
+    const unsub = onSnapshot(colRef, (snapshot: any) => {
+        const items: DataType[] = []
+        snapshot.docs.forEach((doc: any) => {
+          items.push({...doc.data(), id: doc.id})
+        })
+        setPlaylistStore(items)
+    })
+
+    return () => {
+      unsub()
+    };
+}, [])
+  
+  useEffect(() => {
+    dispatch(fetchPlaylist())
+  }, [dispatch])
 
   const featureProps = [
     {
@@ -31,90 +46,13 @@ function PlayList() {
   ]
 
 
-  const dataSource: DataType[] = [
-    {
-      stt: 1,
-      key: 1,
-      title: 'Top ca khúc 2021',
-      quantity: 20,
-      time: '01:04:27',
-      topics: ['Pop', 'Chill', 'Dingga', 'Songs', 'Lofi'],
-      createAt: '22/10/2020',
-      author: 'Cindy Cường',
-      detail: 'Chi tiết',
-    },
-    {
-      stt: 2,
-      key: 2,
-      title: 'Top ca khúc 2022',
-      quantity: 22,
-      time: '01:04:27',
-      topics: ['Pop', 'Chill', 'Dingga', 'Songs', 'Lofi', 'Hiphop'],
-      createAt: '22/10/2020',
-      author: 'Cindy Cường',
-      detail: 'Chi tiết',
-    },
-    {
-      stt: 3,
-      key: 3,
-      title: 'Top ca khúc 2022',
-      quantity: 22,
-      time: '01:04:27',
-      topics: ['Pop', 'Chill', 'Dingga', 'Songs', 'Lofi', 'Hiphop'],
-      createAt: '22/10/2020',
-      author: 'Cindy Cường',
-      detail: 'Chi tiết',
-    },
-    {
-      stt: 4,
-      key: 4,
-      title: 'Top ca khúc 2022',
-      quantity: 22,
-      time: '01:04:27',
-      topics: ['Pop', 'Chill', 'Dingga', 'Songs', 'Lofi', 'Hiphop'],
-      createAt: '22/10/2020',
-      author: 'Cindy Cường',
-      detail: 'Chi tiết',
-    },
-    {
-      stt: 5,
-      key: 5,
-      title: 'Top ca khúc 2022',
-      quantity: 22,
-      time: '01:04:27',
-      topics: ['Pop', 'Chill', 'Dingga', 'Songs', 'Lofi', 'Hiphop'],
-      createAt: '22/10/2020',
-      author: 'Cindy Cường',
-      detail: 'Chi tiết',
-    },
-    {
-      stt: 6,
-      key: 6,
-      title: 'Top ca khúc 2022',
-      quantity: 22,
-      time: '01:04:27',
-      topics: ['Pop', 'Chill', 'Dingga', 'Songs', 'Lofi', 'Hiphop'],
-      createAt: '22/10/2020',
-      author: 'Cindy Cường',
-      detail: 'Chi tiết',
-    },
-    {
-      stt: 7,
-      key: 7,
-      title: 'Top ca khúc 2022',
-      quantity: 22,
-      time: '01:04:27',
-      topics: ['Pop', 'Chill', 'Dingga', 'Songs', 'Lofi', 'Hiphop'],
-      createAt: '22/10/2020',
-      author: 'Cindy Cường',
-      detail: 'Chi tiết',
-    },
-  ]
+  //colums and dataSource of component Table
+  const dataSource: DataType[] = playlistStore
   const columns: ColumnsType<DataType> = [
     {
       title: 'STT',
-      dataIndex: 'stt',
-      key: 'stt'
+      dataIndex: 'key',
+      key: 'key'
     },
     {
       title: 'Tiêu đề',
@@ -124,7 +62,11 @@ function PlayList() {
     {
       title: 'Số bản ghi',
       dataIndex: 'quantity',
-      key: 'quantity'
+      key: 'quantity',
+      render: (_, {idSong}) => {
+
+        return <p>{idSong.length}</p>
+      }
     },
     {
       title: 'Thời lượng',
@@ -154,9 +96,9 @@ function PlayList() {
       title: '',
       dataIndex: 'detail',
       key: 'detail',
-      render: (_, {detail}) => {
+      render: (_, {id}) => {
 
-        return <a>{detail}</a>
+        return <Link to={`detail/${id}`}>Chi tiết</Link>
       }
     },
   ] 

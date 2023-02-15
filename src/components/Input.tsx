@@ -10,6 +10,7 @@ interface IInputprops {
   value?: any;
   setValue?: any,
   height?: number,
+  name?: string
 }
 
 const InputStyled = styled(InputAntd)`
@@ -24,16 +25,17 @@ const InputStyled = styled(InputAntd)`
     margin-top: 6px;
   `
 
-function Input({plahoder, width, height, type, disabled = false, value,  setValue}: IInputprops) {
+function Input({plahoder, width, height, type, disabled = false, value,  setValue, name}: IInputprops) {
 
   return (
         <InputStyled 
-          onChange={(e) => setValue(e.target.value)} 
+          onChange={(e) => setValue(e.target)} 
           type={type} 
           style={{width: width, height: height}} 
           placeholder={plahoder} 
           disabled={disabled} 
           defaultValue={value}
+          name={name}
         />
   )
 }

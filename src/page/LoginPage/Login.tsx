@@ -15,8 +15,10 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
+  const [ login, setLogin ] = useState({
+    email: '',
+    password: ''
+  });
   const [ err, setErr ] = useState(false);
   const user = useAppSelector((state) => state.user.user);
 
@@ -29,7 +31,7 @@ function Login() {
   const handleClickLogin = async (e: any) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      await signInWithEmailAndPassword(auth, login.email, login.password)
         .then(res => {
           dispatch(fetchUser(res.user.uid));
           message.success("Đăng nhập thành công")
@@ -38,6 +40,18 @@ function Login() {
     } catch(error: any) {
       message.error("Đăng nhập thất bại")
     }
+  }
+
+  const handleChangeValueToLogin = (e: any) => {
+    const name: string = e.name;
+    const value: string = e.value
+
+    setLogin(prev => {
+      return {
+          ...login,
+          [name]: value
+      }
+  })
   }
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
@@ -79,11 +93,11 @@ const items: MenuProps['items'] = [
         <form action="">
           <div>
             <p>Tên đăng nhập: </p>
-            <Input width={471} type="text" setValue={setEmail} />
+            <Input width={471} type="text" setValue={handleChangeValueToLogin} name="email" />
           </div>
           <div>
             <p>Password: </p>
-            <Input width={471} type="password" setValue={setPassword}/>
+            <Input width={471} type="password" setValue={handleChangeValueToLogin} name="password"/>
             {err && <p>{err}</p>}
           </div>
           <div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MenuProps, message } from 'antd';
 import DropDown from '../../components/DropDown';
 import root from './store.module.scss';
@@ -9,24 +9,10 @@ import { ColumnsType } from 'antd/es/table';
 import CustomTable from '../../components/Table';
 import { RxDotFilled } from 'react-icons/rx';
 import { useAppSelector } from '../../redux/store';
-import { Link, Outlet } from 'react-router-dom';
-
-
-interface DataType {
-  key: number,
-  id: string,
-  stt: number,
-  nameMusic: string,
-  IRCID: string,
-  time: string,
-  singer: string,
-  author: string,
-  type: string,
-  format: string,
-  date: boolean,
-  update: string,
-  listen: string,
-}
+import { Link } from 'react-router-dom';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from '../../firebase/configfb';
+import { DataType } from '../../redux/slice/storeSlice';
 
 function Store() {
   const storeMusic = useAppSelector(state => state.storeMusic.store);
@@ -139,6 +125,26 @@ function Store() {
       }
     },
   ]
+
+  // listen 
+  // When data changes on firestore, we receive that update here in this
+  // callback and then update the UI based on current state 
+  useEffect(() => {
+    const colRef = collection(db, "store-music")
+    //real time update
+    const unsub = onSnapshot(colRef, (snapshot: any) => {
+        const items: DataType[] = []
+        snapshot.docs.forEach((doc: any) => {
+          items.push({...doc.data(), id: doc.id})
+        })
+        setStore(items)
+    })
+
+    return () => {
+      unsub()
+    };
+}, [])
+  
 
   return (
     <div className={root.store}>

@@ -1,3 +1,7 @@
+.active {
+    transform: translateX(-118px);
+    transition: transform .3s linear;
+}
 .sidebar {
     width: 150px;
     height: 100vh;
@@ -6,6 +10,9 @@
     bottom: 0;
     background-color: var(--violetDark);
     border-radius: 0px 20px 20px 0px;
+    transition: transform .3s linear;
+    position: relative;
+    z-index: 100;
 
     .logo {
         display: flex;
@@ -87,6 +94,22 @@
                 
 
             }
+        }
+    }
+    .btnClickToggleSidebar {
+        width: 17px;
+        height: 15px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 0 8px 8px 0;
+
+        & svg {
+            color: var(--orange);
         }
     }
 }

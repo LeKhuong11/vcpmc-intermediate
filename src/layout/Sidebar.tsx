@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import root from './Sidebar.module.scss'
 import { FaWindowRestore } from "react-icons/fa";
 import { FaRegCalendarAlt } from "react-icons/fa";
@@ -10,10 +10,16 @@ import { MdContactSupport } from "react-icons/md";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { Link, NavLink } from 'react-router-dom';
 import { LogoSVG } from '../image/logo';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 function Sidebar() {
+  const [ toggleSidebar, setToggleSidebar ] = useState(false)
+
+  const handleClickToggleSidebar = () => {
+    setToggleSidebar(!toggleSidebar)
+  }
   return (
-    <div className={root.sidebar}>
+    <div className={toggleSidebar ? `${root.sidebar} ${root.active}` : `${root.sidebar}`}>
       <div className={root.logo}>
         <LogoSVG />
       </div>
@@ -85,6 +91,10 @@ function Sidebar() {
             </div>
           </li>
         </ul>
+      </div>
+      <div className={root.btnClickToggleSidebar} onClick={handleClickToggleSidebar}>
+        {toggleSidebar ? <IoIosArrowForward size={15} /> : <IoIosArrowBack size={15}/>}
+        
       </div>
     </div>
   )
