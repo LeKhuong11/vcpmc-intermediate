@@ -2,7 +2,7 @@ import { ColumnsType } from 'antd/es/table'
 import { collection, onSnapshot } from 'firebase/firestore'
 import React, {useEffect, useState} from 'react'
 import { MdPlaylistAdd } from 'react-icons/md'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import FeatureInPage from '../../components/FeatureInPage'
 import InputSearch from '../../components/InputSearch'
 import CustomTable from '../../components/Table'
@@ -15,6 +15,7 @@ import root from './playlist.module.scss'
 
 function PlayList() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { playlist } = useAppSelector(state => state.playlist);
   const [ playlistStore, setPlaylistStore ] = useState<DataType[]>(playlist);
 
@@ -38,10 +39,14 @@ function PlayList() {
     dispatch(fetchPlaylist())
   }, [dispatch])
 
+  const handleClickAddNewPlaylist = () => {
+    navigate('add-new-playlist')
+  }
   const featureProps = [
     {
       icon: MdPlaylistAdd,
-      text: 'Thêm Playlist'
+      text: 'Thêm Playlist',
+      event: handleClickAddNewPlaylist
     }
   ]
 

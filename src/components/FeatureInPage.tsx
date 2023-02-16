@@ -30,6 +30,13 @@ const FreatureStyled = styled.div`
         p {
             font-size: 11px;
         }
+
+        & svg {
+
+            :hover {
+                color: #FF4747;
+            }
+        }
     }
 `
 function FeatureInPage( {featureProps}: IFreature) {

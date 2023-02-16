@@ -22,6 +22,7 @@ import CycleForControlPage from "../page/SettingPage/CycleForControlPage/CycleFo
 import UserManualPage from "../page/SupportPage/UserManualPage/UserManualPage";
 import UpdateInformationPage from "../page/StorePage/UpdateInformationPage/UpdateInformationPage";
 import DetailPlayListPage from "../page/PlaylistPage/DetailPlayListPage/DetailPlayListPage";
+import AddNewPlaylistPage from "../page/PlaylistPage/AddNewPlaylistPage/AddNewPlaylistPage";
 
 
 export function Router() {
@@ -49,6 +50,10 @@ export function Router() {
                 {
                     path: 'play-list/detail/:id',
                     element: <DetailPlayListPage />
+                },
+                {
+                    path: 'play-list/add-new-playlist',
+                    element: <AddNewPlaylistPage />
                 },
                 {
                     path: 'create-list',

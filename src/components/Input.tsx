@@ -19,7 +19,7 @@ const InputStyled = styled(InputAntd)`
     align-items: center;
     padding: 11px 24px 13px 16px;
     height: 40px;
-    background: #33334D;
+    background: #2B2B3F;
     color: var(--white);
     border: none;
     margin-top: 6px;

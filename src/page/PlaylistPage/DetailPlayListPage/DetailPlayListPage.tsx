@@ -5,7 +5,7 @@ import { SlNote } from 'react-icons/sl';
 import { Link, useParams } from 'react-router-dom'
 import FeatureInPage from '../../../components/FeatureInPage';
 import CustomTable from '../../../components/Table';
-import { LogoSVG } from '../../../image/logo';
+import {  PlaylistSVG } from '../../../image/playlist';
 import { useAppSelector } from '../../../redux/store';
 import root from '../playlist.module.scss'
 
@@ -137,7 +137,7 @@ function DetailPlayListPage() {
         <div className={root.container}>
             <div className={root.infoPlaylist}>
                 <div>
-                    <LogoSVG />
+                    <PlaylistSVG />
                     <h4>{playlistItem[0].title}</h4>
                 </div>
                 <div>
