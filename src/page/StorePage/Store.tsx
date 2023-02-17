@@ -12,7 +12,7 @@ import { useAppSelector } from '../../redux/store';
 import { Link } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase/configfb';
-import { DataType } from '../../redux/slice/storeSlice';
+import { DataTypeStoreMusic } from '../../redux/slice/storeSlice';
 
 function Store() {
   const storeMusic = useAppSelector(state => state.storeMusic.store);
@@ -55,8 +55,8 @@ function Store() {
     }
   ];
   
-  const dataSource: DataType[] = store
-  const columns: ColumnsType<DataType> = [
+  const dataSource: DataTypeStoreMusic[] = store
+  const columns: ColumnsType<DataTypeStoreMusic> = [
     {
       title: 'STT',
       dataIndex: 'stt',
@@ -133,7 +133,7 @@ function Store() {
     const colRef = collection(db, "store-music")
     //real time update
     const unsub = onSnapshot(colRef, (snapshot: any) => {
-        const items: DataType[] = []
+        const items: DataTypeStoreMusic[] = []
         snapshot.docs.forEach((doc: any) => {
           items.push({...doc.data(), id: doc.id})
         })

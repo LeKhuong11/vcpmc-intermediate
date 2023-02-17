@@ -97,10 +97,85 @@
             }
         }
 
-        .addSong {
+        .tablePlaylist {
             width: 100%;
             height: 70vh;
             margin: 20px 0 0 10px;
+
+            & .btn {
+                margin-top: 15px;
+                display: flex;
+                justify-content: center;
+
+
+            }
         }   
+    }
+}
+
+
+.addNewSong {
+    position: fixed;
+    left: 35px;
+    width: 95%;
+    .container {
+        display: flex;
+        justify-content: space-between;
+        .storeMusic {
+            background-color: var(--violetLight);
+            width: 49%;
+            border-radius: 8px;
+            padding: 14px 17px;
+            &>div {
+                display: flex;
+            }
+            .dropdown {
+                
+                & div {
+                    display: flex;
+
+                    & p {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+
+
+            }
+            .table {
+                height: 300px;
+            }
+        }
+        .newListSong {
+            width: 49%;
+            padding: 14px 0 0 15px;
+            background-color: var(--violetLight);
+            border-radius: 8px;
+
+            & .numberOfSongandTime {
+                display: flex;
+
+                &>div {
+                    display: flex;
+                    margin-right: 25px;
+                    & h5 {
+                        margin-right: 13px;
+                    }
+                    & p {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+            .table {
+                height: 300px;
+            }
+        }
+        
+    }
+    .btn {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
     }
 }

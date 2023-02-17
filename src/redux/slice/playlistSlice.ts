@@ -1,25 +1,29 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/configfb";
+import { DataTypeStoreMusic } from "./storeSlice";
 
 
-export interface DataType {
+export interface DataTypePlaylist {
     key: number,
     title: string,
     id?: string,
-    idSong: string[],
+    idSong: DataTypeStoreMusic[],
     time: string,
     topics: string[],
+    desc: string
     createAt: string,
     author: string,
 }
 
 interface IPlaylist {
-    playlist: DataType[]
+    playlist: DataTypePlaylist[],
+    tempStoreMusicAddToPlaylist: DataTypeStoreMusic[]
 }
 
 const initialState: IPlaylist = {
-    playlist: []
+    playlist: [],
+    tempStoreMusicAddToPlaylist: []
 } 
 
 export const fetchPlaylist = createAsyncThunk(
@@ -40,6 +44,12 @@ const playlistSlice = createSlice({
     name: 'playlist',
     initialState,
     reducers: {
+        tempPlaylist: (state, action) => {
+            state.tempStoreMusicAddToPlaylist = action.payload
+        },
+        cancelTempPlaylist: (state) => {
+            state.tempStoreMusicAddToPlaylist = []
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchPlaylist.fulfilled, (state, action) => {
@@ -50,3 +60,4 @@ const playlistSlice = createSlice({
 })
 
 export default playlistSlice;
+export const { tempPlaylist, cancelTempPlaylist } = playlistSlice.actions;

@@ -23,6 +23,7 @@ import UserManualPage from "../page/SupportPage/UserManualPage/UserManualPage";
 import UpdateInformationPage from "../page/StorePage/UpdateInformationPage/UpdateInformationPage";
 import DetailPlayListPage from "../page/PlaylistPage/DetailPlayListPage/DetailPlayListPage";
 import AddNewPlaylistPage from "../page/PlaylistPage/AddNewPlaylistPage/AddNewPlaylistPage";
+import AddNewSongPage from "../page/PlaylistPage/AddNewSongPage/AddNewSongPage";
 
 
 export function Router() {
@@ -54,6 +55,11 @@ export function Router() {
                 {
                     path: 'play-list/add-new-playlist',
                     element: <AddNewPlaylistPage />
+                    
+                },
+                {
+                    path: 'play-list/add-new-playlist/add-new-song',
+                    element: <AddNewSongPage />
                 },
                 {
                     path: 'create-list',

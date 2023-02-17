@@ -3,9 +3,9 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/configfb";
 
 
-export interface DataType {
+export interface DataTypeStoreMusic {
     key: number,
-    id?: string,
+    id: string,
     stt: number,
     nameMusic: string,
     IRCID: string,
@@ -20,7 +20,7 @@ export interface DataType {
   }
 
 interface IStoreState {
-    store: DataType[]
+    store: DataTypeStoreMusic[]
 }
 
 const initialState: IStoreState = {

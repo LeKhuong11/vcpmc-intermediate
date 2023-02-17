@@ -63,9 +63,7 @@ function HomePage() {
             </Link>
           </div>
         </div>
-        <div>
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
     </div>
   )

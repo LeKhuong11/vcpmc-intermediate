@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const ContainerStyledBtn = styled.div`
-  
+  margin-right: 10px;
   & button {
     display: flex;
     flex-direction: row;
@@ -31,11 +31,13 @@ interface IProps {
   type: string;
   contentProps: string;
   onClick?: any,
+  icon?: any
 }
-function Button({widthProps, heightProps, contentProps, type, onClick}: IProps) {
+function Button({widthProps, heightProps, contentProps, type, onClick, icon}: IProps) {
   return (
     <ContainerStyledBtn > 
       <button className={type} style={{width: widthProps, height: heightProps}} onClick={onClick} >
+        {icon ? icon : ''}
         {contentProps}
       </button>
     </ContainerStyledBtn>

@@ -16,7 +16,6 @@ const TableStyled = styled(Table)`
         }
         .ant-table-thead {
             border: none;
-
         }
         .ant-table-cell {
             background-color: #2F2F41;
@@ -58,8 +57,16 @@ const TableStyled = styled(Table)`
                 background-color: rgba(66, 66, 83, 0.7);
             }
         }
-        .ant-pagination {
-            display: none;
+        
+        .ant-pagination-prev, .ant-pagination-next {
+           
+            & svg{
+                color: var(--orange);
+            }
+        }
+        .ant-pagination-item-active {
+            background-color: var(--white);
+            border: none;
         }
         .ant-table-tbody >tr:last-child>td {
             border: none;
@@ -77,18 +84,20 @@ const TableContainerStyled = styled.div`
     background-color: #2F2F41;
     border-radius: 8px;
     width: 94%;
+    position: relative;
 `
 
 interface ITableProps {
     columns: any[],
     dataSrouce: any[],
-    heightProps: number
+    heightProps: number,
+    pagination?: boolean | Object
 }
 
 function CustomTable({columns, dataSrouce, heightProps}: ITableProps) {
   return (
     <TableContainerStyled style={{height: `${heightProps}vh`}}>
-        <TableStyled columns={columns} dataSource={dataSrouce} />
+        <TableStyled columns={columns} dataSource={dataSrouce} pagination={false} />
     </TableContainerStyled>
   )
 }

@@ -11,7 +11,7 @@ const SearchStyled = styled(Search)`
       width: 453px;
     }
     .ant-input {
-      background-color: #2B2B3F;
+      background-color: #33334D;
       border: none;
       color: #fff;
       padding: 5px;
@@ -20,7 +20,7 @@ const SearchStyled = styled(Search)`
         color: var(--white);
     }
     .ant-btn, .ant-btn-default {
-      background-color: #2B2B3F;
+      background-color: #33334D;
       border: none;
 
       .anticon {

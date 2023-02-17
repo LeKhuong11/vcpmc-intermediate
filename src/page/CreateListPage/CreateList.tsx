@@ -6,12 +6,12 @@ import { ColumnsType } from 'antd/es/table';
 import CustomTable from '../../components/Table';
 
 interface DataType {
-  id: number,
-  stt: number,
-  name: string,
-  time: string,
-  detail: string,
-  delete: string,
+      id: number,
+      stt: number,
+      name: string,
+      time: string,
+      detail: string,
+      delete: string,
 }
 
 function CreateList() {

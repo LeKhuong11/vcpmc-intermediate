@@ -7,7 +7,7 @@ import FeatureInPage from '../../components/FeatureInPage'
 import InputSearch from '../../components/InputSearch'
 import CustomTable from '../../components/Table'
 import { db } from '../../firebase/configfb'
-import { DataType, fetchPlaylist } from '../../redux/slice/playlistSlice'
+import { DataTypePlaylist, fetchPlaylist } from '../../redux/slice/playlistSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import Topic from './components/Topic'
 import root from './playlist.module.scss'
@@ -17,13 +17,13 @@ function PlayList() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { playlist } = useAppSelector(state => state.playlist);
-  const [ playlistStore, setPlaylistStore ] = useState<DataType[]>(playlist);
+  const [ playlistStore, setPlaylistStore ] = useState<DataTypePlaylist[]>(playlist);
 
   useEffect(() => {
     const colRef = collection(db, "play-list")
     //real time update
     const unsub = onSnapshot(colRef, (snapshot: any) => {
-        const items: DataType[] = []
+        const items: DataTypePlaylist[] = []
         snapshot.docs.forEach((doc: any) => {
           items.push({...doc.data(), id: doc.id})
         })
@@ -52,8 +52,8 @@ function PlayList() {
 
 
   //colums and dataSource of component Table
-  const dataSource: DataType[] = playlistStore
-  const columns: ColumnsType<DataType> = [
+  const dataSource: DataTypePlaylist[] = playlistStore
+  const columns: ColumnsType<DataTypePlaylist> = [
     {
       title: 'STT',
       dataIndex: 'key',

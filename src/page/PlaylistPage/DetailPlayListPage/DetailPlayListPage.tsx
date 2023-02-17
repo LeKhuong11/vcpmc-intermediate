@@ -10,7 +10,7 @@ import { useAppSelector } from '../../../redux/store';
 import root from '../playlist.module.scss'
 
 
-interface DataType {
+interface DataTypeOfTablePlatlist {
     key: number,
     stt: number,
     nameMusic: string,
@@ -28,7 +28,7 @@ function DetailPlayListPage() {
         return item.id === id
     }) 
 
-    const dataSource: DataType[] = [
+    const dataSource: DataTypeOfTablePlatlist[] = [
         {
             key: 1,
             stt: 1,
@@ -79,7 +79,7 @@ function DetailPlayListPage() {
             author: 'Akilier',
         },
     ]
-    const columns: ColumnsType<DataType> = [
+    const columns: ColumnsType<DataTypeOfTablePlatlist> = [
         {
             title: 'STT',
             dataIndex: 'stt',
@@ -155,7 +155,7 @@ function DetailPlayListPage() {
                     </div>
                 </div>
                 <div>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam molestias sapiente, ipsum minus</p>
+                    <p>{playlistItem[0].desc}</p>
                 </div>
             </div>
             <div className={root.tablePlaylist}>
