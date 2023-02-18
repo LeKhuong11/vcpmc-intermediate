@@ -2,15 +2,15 @@ import { MenuProps, message, Modal } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import Breadcrumbs from '../../../components/Breadcrumbs'
-import Button from '../../../components/Button'
-import DropDown from '../../../components/DropDown'
-import InputSearch from '../../../components/InputSearch'
-import CustomTable from '../../../components/Table'
-import { cancelTempPlaylist, tempPlaylist } from '../../../redux/slice/playlistSlice'
-import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice'
-import { useAppDispatch, useAppSelector } from '../../../redux/store'
-import root from '../playlist.module.scss'
+import Breadcrumbs from '../../../../components/Breadcrumbs'
+import Button from '../../../../components/Button'
+import DropDown from '../../../../components/DropDown'
+import InputSearch from '../../../../components/InputSearch'
+import CustomTable from '../../../../components/Table'
+import { cancelTempPlaylist, tempPlaylist } from '../../../../redux/slice/playlistSlice'
+import { DataTypeStoreMusic } from '../../../../redux/slice/storeSlice'
+import { useAppDispatch, useAppSelector } from '../../../../redux/store'
+import root from '../../playlist.module.scss'
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 function AddNewSongPage() {
@@ -244,7 +244,7 @@ function AddNewSongPage() {
               <div className={root.numberOfSongandTime}>
                 <div>
                   <h5>Tổng số:</h5> 
-                  <p>0 bản ghi</p>
+                  <p>{listSong.length} bản ghi</p>
                 </div>
                 <div>
                   <h5>Tổng thời lượng:</h5> 

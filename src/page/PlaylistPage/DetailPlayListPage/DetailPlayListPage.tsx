@@ -1,24 +1,23 @@
+import { message } from 'antd';
 import { ColumnsType } from 'antd/es/table';
+import { deleteDoc, doc } from 'firebase/firestore';
 import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa';
 import { SlNote } from 'react-icons/sl';
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import FeatureInPage from '../../../components/FeatureInPage';
 import CustomTable from '../../../components/Table';
+import { db } from '../../../firebase/configfb';
 import {  PlaylistSVG } from '../../../image/playlist';
-import { useAppSelector } from '../../../redux/store';
+import { tempPlaylist } from '../../../redux/slice/playlistSlice';
+import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import root from '../playlist.module.scss'
 
 
-interface DataTypeOfTablePlatlist {
-    key: number,
-    stt: number,
-    nameMusic: string,
-    singer: string,
-    author: string,
-}
-
 function DetailPlayListPage() {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const { id } = useParams();
     const { playlist } = useAppSelector(state => state.playlist);
 
@@ -27,59 +26,9 @@ function DetailPlayListPage() {
     const playlistItem = playlist.filter(item => {
         return item.id === id
     }) 
-
-    const dataSource: DataTypeOfTablePlatlist[] = [
-        {
-            key: 1,
-            stt: 1,
-            nameMusic: 'Small Concrete Fish',
-            singer: 'Nguyên Hà',
-            author: 'Akilier',
-        },
-        {
-            key: 2,
-            stt: 2,
-            nameMusic: 'Gorgeous Wooden Bike',
-            singer: 'Tăng Phúc ft Mỹ Lệ',
-            author: 'Origin',
-        },
-        {
-            key: 3,
-            stt: 3,
-            nameMusic: 'Kings & Queens',
-            singer: 'Đinh Hương',
-            author: 'Mondaro',
-        },
-        {
-            key: 4,
-            stt: 4,
-            nameMusic: 'Clap',
-            singer: 'Minh Khôi',
-            author: 'Multy Field',
-        },
-        {
-            key: 5,
-            stt: 5,
-            nameMusic: 'Small Concrete Fish',
-            singer: 'Nguyên Hà',
-            author: 'Akilier',
-        },
-        {
-            key: 6,
-            stt: 6,
-            nameMusic: 'Small Concrete Fish',
-            singer: 'Nguyên Hà',
-            author: 'Akilier',
-        },
-        {
-            key: 7,
-            stt: 7,
-            nameMusic: 'Small Concrete Fish',
-            singer: 'Nguyên Hà',
-            author: 'Akilier',
-        },
-    ]
-    const columns: ColumnsType<DataTypeOfTablePlatlist> = [
+    
+    const dataSource: DataTypeStoreMusic[] = playlist[0].idSong
+    const columns: ColumnsType<DataTypeStoreMusic> = [
         {
             title: 'STT',
             dataIndex: 'stt',
@@ -108,24 +57,34 @@ function DetailPlayListPage() {
                 <Link to="">Nghe</Link>
             )
         },
-        {
-            title: '',
-            dataIndex: '',
-            key: '',
-            render: (_, ) => (
-                <Link to="">Gỡ</Link>
-            )
-        },
     ]
+
+
+    const handleClickRemovePlaylist = async () => {
+        try {
+            await deleteDoc(doc(db, "play-list", `${id}`));
+            navigate('../../play-list');
+            message.success("Xóa Playlist thành công")
+        } catch(err) {
+            message.error("Xóa Playlist thất bại")            
+        }
+    }
+
+    const handleClickMoveToEditPage = () => {
+        navigate(`edit`); 
+        dispatch(tempPlaylist(playlistItem[0].idSong))
+    }
 
     const featureProps = [
         {
             icon: SlNote,
-            text: 'Chỉnh sửa'
+            text: 'Chỉnh sửa',
+            event: handleClickMoveToEditPage
         },
         {
             icon: FaTrashAlt,
-            text: 'Xóa Playlist'
+            text: 'Xóa Playlist',
+            event: handleClickRemovePlaylist
         },
     ]
 
