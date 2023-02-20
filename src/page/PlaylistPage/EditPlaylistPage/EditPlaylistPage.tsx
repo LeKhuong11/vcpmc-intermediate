@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { message, Modal, Select, SelectProps, UploadFile } from 'antd'
+import { message, Modal, Select, SelectProps } from 'antd'
 import root from '../playlist.module.scss'
 import Input from '../../../components/Input';
 import CustomTable from '../../../components/Table';
@@ -10,11 +10,12 @@ import FeatureInPage from '../../../components/FeatureInPage';
 import Button from '../../../components/Button';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { cancelTempPlaylist, DataTypePlaylist, tempPlaylist } from '../../../redux/slice/playlistSlice';
+import { cancelTempPlaylist, tempPlaylist } from '../../../redux/slice/playlistSlice';
 import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/configfb';
 import { PlaylistSVG } from '../../../image/playlist';
+import { updateDocConfig } from '../../../hooks/useUpdateDoc';
 
 type Playlist = {
     key: number,
@@ -34,7 +35,6 @@ function EditPlaylistPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    const { user } = useAppSelector(state => state.user)
     const { tempStoreMusicAddToPlaylist } = useAppSelector(state => state.playlist)
 
     const [ loading, setLoading ] = useState<Boolean>()
@@ -119,17 +119,23 @@ function EditPlaylistPage() {
 
     //Button edit playlist to store and cancel playlist
     const handleClickEditPlaylist = async () => {
+        const params = {
+            documentName: 'play-list',
+            id: id,
+            data: newPlaylist
+        }
+        
+        const update = await updateDocConfig(params)
 
-        const docRef = doc(db, "play-list", `${id}`)
-        try {
-            await updateDoc(docRef, newPlaylist);
+        if(update) {
             navigate(`../play-list/detail/${id}`);
             dispatch(cancelTempPlaylist());
             message.success("Sửa playlist thành công")
-        } catch(err) {
-            message.error("Sửa playlist thất bại")            
         }
-        // console.log(newPlaylist, tempPlaylistSong);
+        else {
+            message.success("Sửa playlist thất bại")
+        }
+        
         
     }
 
@@ -171,7 +177,11 @@ function EditPlaylistPage() {
     {
         title: 'STT',
         dataIndex: 'stt',
-        key: 'stt'
+        key: 'stt',
+        render: (_, {}, index) => {
+
+            return <p>{index + 1}</p>
+          }
     },
     {
         title: 'Tên bản ghi',

@@ -14,7 +14,6 @@ import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
 import { useAppDispatch} from '../../../redux/store';
 import root from '../playlist.module.scss'
 import Loading from '../../../components/Loading';
-import { isArray } from 'util';
 
 
 function DetailPlayListPage() {
@@ -49,7 +48,11 @@ function DetailPlayListPage() {
         {
             title: 'STT',
             dataIndex: 'stt',
-            key: 'stt'
+            key: 'stt',
+            render: (_, {}, index) => {
+
+                return <p>{index + 1}</p>
+              }
         },
         {
             title: 'Tên bản ghi',
@@ -91,7 +94,6 @@ function DetailPlayListPage() {
         navigate(`edit`); 
         dispatch(tempPlaylist(playlistId.idSong))
     }
-    console.log(playlistId.idSong);
     
     
     const featureProps = [

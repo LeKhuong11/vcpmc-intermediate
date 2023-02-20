@@ -18,7 +18,7 @@ interface DataType {
     copyContract: string
 }
 
-function TabIndex2() {
+function MiningContractTab() {
     
 
   const DataSourceTabIndex2: DataType[] = [
@@ -151,4 +151,4 @@ function TabIndex2() {
   )
 }
 
-export default TabIndex2
+export default MiningContractTab

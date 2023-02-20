@@ -1,6 +1,5 @@
 
+export function onShapshotCustom() {
 
-export function useSnapshot() {
 
-    return 
 }

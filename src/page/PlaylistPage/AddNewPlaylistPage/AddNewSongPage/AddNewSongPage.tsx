@@ -100,8 +100,9 @@ function AddNewSongPage() {
       title: 'STT',
       dataIndex: 'stt',
       key: 'stt',
-      render: (_, {key}) => {
-        return <p>{key}</p>
+      render: (_, {}, index) => {
+
+        return <p>{index + 1}</p>
       }
     },
     {

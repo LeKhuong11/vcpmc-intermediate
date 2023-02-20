@@ -14,6 +14,7 @@ import root from '../../playlist.module.scss'
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../../../../firebase/configfb'
+import { updateDocConfig } from '../../../../hooks/useUpdateDoc'
 
 function AddNewSongInEditPlaylistPage() {
   const navigate = useNavigate()
@@ -111,18 +112,20 @@ function AddNewSongInEditPlaylistPage() {
   }
 
   const handleClickSaveListSongsToPlaylist = async () => {
-    const data = {
-      idSong: listSong
+    const params = {
+      documentName: 'play-list',
+      id: id,
+      data: {
+        idSong: listSong
+      }
     }
-    const docRef = doc(db, "play-list", `${id}`)
-        try {
-            await updateDoc(docRef, data);
-            navigate(`../play-list/detail/${id}/edit`)
-        } catch(err) {
-            message.error("Sửa playlist thất bại")            
-        }
-
-    dispatch(tempPlaylist(listSong))
+    const update = await updateDocConfig(params);
+    if(update) {
+      navigate(`../play-list/detail/${id}/edit`)
+      dispatch(tempPlaylist(listSong))
+      return
+    } 
+    message.error("Sửa playlist thất bại")            
   }
   
 
@@ -132,8 +135,9 @@ function AddNewSongInEditPlaylistPage() {
       title: 'STT',
       dataIndex: 'stt',
       key: 'stt',
-      render: (_, {key}) => {
-        return <p>{key}</p>
+      render: (_, {}, index) => {
+
+        return <p>{index + 1}</p>
       }
     },
     {
@@ -178,7 +182,11 @@ function AddNewSongInEditPlaylistPage() {
     {
       title: 'STT',
       dataIndex: 'stt',
-      key: 'stt'
+      key: 'stt',
+      render: (_, {}, index) => {
+
+        return <p>{index + 1}</p>
+      }
     },
     {
       title: 'Tên bản ghi',

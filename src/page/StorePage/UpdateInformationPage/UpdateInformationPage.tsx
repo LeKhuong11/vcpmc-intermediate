@@ -10,6 +10,7 @@ import { useAppSelector } from '../../../redux/store'
 import root from '../store.module.scss'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../../firebase/configfb'
+import { updateDocConfig } from '../../../hooks/useUpdateDoc'
 
 
 function UpdateInformationPage() {
@@ -73,14 +74,18 @@ function UpdateInformationPage() {
     }
 
     const handleClickUpdateSong = async () => {
-        const docRef = doc(db, "store-music", `${id}`)
-        try {
-            await updateDoc(docRef, updateSong);
+        const params = {
+            documentName: 'store-music',
+            id: id,
+            data: updateSong
+          }
+          const update = await updateDocConfig(params);
+          if(update) {
             navigate('../../store');
             message.success("Chỉnh sửa thành công")
-        } catch(err) {
-            message.error("Chỉnh sửa thất bại")            
-        }
+            return
+          } 
+          message.error("Chỉnh sửa thất bại")
     }
 
 

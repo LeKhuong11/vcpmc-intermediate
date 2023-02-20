@@ -29,7 +29,7 @@ function PlayList() {
         })
         setPlaylistStore(items)
     })
-
+ 
     return () => {
       unsub()
     };
@@ -57,7 +57,11 @@ function PlayList() {
     {
       title: 'STT',
       dataIndex: 'key',
-      key: 'key'
+      key: 'key',
+      render: (_, {}, index) => {
+
+        return <p>{index + 1}</p>
+      }
     },
     {
       title: 'Tiêu đề',

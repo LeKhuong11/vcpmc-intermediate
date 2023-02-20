@@ -1,16 +1,23 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import root from '../manager.module.scss'
 import FeatureInPage from '../../../components/FeatureInPage';
 import { MdAdd } from 'react-icons/md';
 import TabControl from '../../../components/TabControl';
-import TabIndex1 from './components/TabIndex1';
-import TabIndex2 from './components/TabIndex2';
+import MiningContractTab from './MiningContractTab/MiningContractTab';
+import AuthorizedContractTab from './AuthorizedContractTab/AuthorizedContractTab';
+import { useAppDispatch} from '../../../redux/store';
+import {  fetchContract } from '../../../redux/slice/contractSlice';
 
 
 
 
 function ManagerContract() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContract())
+  }, [dispatch])
 
   const featureProp = [
     {
@@ -19,7 +26,6 @@ function ManagerContract() {
     }
   ]
 
- 
   const tabControlItems = {
     buttons: [
       {
@@ -35,11 +41,11 @@ function ManagerContract() {
     items: [
       {
         id: 1,
-        component: TabIndex1,
+        component: AuthorizedContractTab,
       },
       {
         id: 2,
-        component: TabIndex2,
+        component: MiningContractTab,
       },
     ]
       

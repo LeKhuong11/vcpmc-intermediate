@@ -60,7 +60,11 @@ function Store() {
     {
       title: 'STT',
       dataIndex: 'stt',
-      key: 'stt'
+      key: 'stt',
+      render: (_, {}, index) => {
+
+        return <p>{index + 1}</p>
+      }
     },
     {
       title: 'Tên bản ghi',

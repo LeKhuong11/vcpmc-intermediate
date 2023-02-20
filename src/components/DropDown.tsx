@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Button from 'antd/es/button';
 import Dropdown from 'antd/es/dropdown';
 import { DownOutlined } from '@ant-design/icons';
@@ -10,14 +10,12 @@ interface Iprops {
     orange?: boolean
 }
 
-function DropDown(props: Iprops) {
-    const SpaceStyled = styled(Space)`
+const SpaceStyled = styled(Space)`
     &&& {
       .ant-btn-default {
         background-color: transparent;
         color: #C8C8DB;
         margin: 0 15px;
-        border: 1px solid ${props.orange ? '#FF7506;' : '#fff'};
       }
       :where(.css-dev-only-do-not-override-1n7nwfa).ant-dropdown .ant-dropdown-menu{
         background-color: #3E3E5B;
@@ -25,11 +23,14 @@ function DropDown(props: Iprops) {
       }
     }
     `
+
+function DropDown(props: Iprops) {
+    
   return (
     <div>
     <SpaceStyled>
         <Dropdown menu={props.menuProps}>
-        <Button>
+        <Button style={props.orange ? {border: '1px solid #FF7506'} : {border: '1px solid #fff'}}>
             <Space>
             Tất cả
             <DownOutlined />
@@ -41,4 +42,4 @@ function DropDown(props: Iprops) {
   )
 }
 
-export default DropDown
+export default memo(DropDown)
