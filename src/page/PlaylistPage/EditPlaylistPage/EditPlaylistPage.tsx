@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { message, Modal, Select, SelectProps, UploadFile } from 'antd'
 import root from '../playlist.module.scss'
 import Input from '../../../components/Input';
@@ -12,10 +12,21 @@ import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { cancelTempPlaylist, DataTypePlaylist, tempPlaylist } from '../../../redux/slice/playlistSlice';
 import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/configfb';
 import { PlaylistSVG } from '../../../image/playlist';
 
+type Playlist = {
+    key: number,
+    title: string,
+    id?: string,
+    idSong: DataTypeStoreMusic[],
+    time: string,
+    topics: string[],
+    desc: string
+    createAt: string,
+    author: string,
+}
 
 const { confirm } = Modal;
 
@@ -23,33 +34,45 @@ function EditPlaylistPage() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    const { tempStoreMusicAddToPlaylist } = useAppSelector(state => state.playlist)
     const { user } = useAppSelector(state => state.user)
-    const { playlist } = useAppSelector(state => state.playlist);
-    
-    //filter song follow id get from URL
-    //current, music is an array
-    const playlistItem = playlist.filter(item => {
-        return item.id === id
-    }) 
-    
+    const { tempStoreMusicAddToPlaylist } = useAppSelector(state => state.playlist)
 
+    const [ loading, setLoading ] = useState<Boolean>()
+    const [ playlist, setPlaylist ] = useState<any>({})
     const [ tempPlaylistSong, setTempPlaylistSong ] = useState(tempStoreMusicAddToPlaylist)
 
-    const [ newPlaylist, setNewPlaylist ] = useState({
-        key: playlistItem[0].key,
-        title: playlistItem[0].title,
-        idSong: tempPlaylistSong,
-        time: '05:35:00',
-        topics: playlistItem[0].topics,
-        desc: playlistItem[0].desc,
-        createAt: playlistItem[0].createAt,
-        author: playlistItem[0].createAt,
-    });
+    const [ newPlaylist, setNewPlaylist ] = useState<any>(null);
+ 
+    useEffect(() => {
+        setLoading(true)
+        const getData = async () => {
+            const docRef = doc(db, "play-list", `${id}`);
+            try {
+                //get a document follow uid
+                await getDoc(docRef)            
+                .then((res) => {
+                    setPlaylist(res.data())
+                    setLoading(false)
+                    setNewPlaylist(res.data()) 
+                })
+                
+            } catch(err) {
+                console.log(err);
+            }
+        }
+        getData()
+    }, [])
 
-    const fileList: UploadFile[] = [
-        
-    ];
+    useEffect(() => {
+        setNewPlaylist(() => {
+            return {
+                ...newPlaylist,
+                idSong: tempPlaylist
+            }
+        })
+    }, [])
+
+
     const optionsTopics: SelectProps['options'] = [
     {
         label: 'Pop',
@@ -94,19 +117,19 @@ function EditPlaylistPage() {
         setNewPlaylist({...newPlaylist, title: e.value})
     } 
 
-    //Button add and cancel playlist
+    //Button edit playlist to store and cancel playlist
     const handleClickEditPlaylist = async () => {
 
         const docRef = doc(db, "play-list", `${id}`)
         try {
             await updateDoc(docRef, newPlaylist);
-            dispatch(cancelTempPlaylist());
             navigate(`../play-list/detail/${id}`);
+            dispatch(cancelTempPlaylist());
             message.success("Sửa playlist thành công")
         } catch(err) {
             message.error("Sửa playlist thất bại")            
         }
-        console.log(newPlaylist);
+        // console.log(newPlaylist, tempPlaylistSong);
         
     }
 
@@ -196,7 +219,7 @@ function EditPlaylistPage() {
   return (
     <div className={root.addNewPlaylist}>
         <div>
-            <h3>Playlist {playlistItem[0].title}</h3>
+            <h3>Playlist {playlist.title}</h3>
         </div>
         <div className={root.container}>
             <div className={root.addInfo}>
@@ -210,17 +233,17 @@ function EditPlaylistPage() {
                         height={45} 
                         width={250} 
                         setValue={handleChangeSetValueTitle} 
-                        value={playlistItem[0].title}
+                        value={playlist.title}
                     />
                 </div>
                 <div className={root.numberOfSongAndtime}>
                     <div>
                         <h5>Người tải lên:</h5>
-                        <p>{playlistItem[0].author}</p>
+                        <p>{playlist.author}</p>
                     </div>
                     <div>
                         <h5>Tổng số:</h5>
-                        <p>{playlistItem[0].idSong.length} bản ghi</p>
+                        <p>{0} bản ghi</p>
                     </div>
                     <div>
                         <h5>Tổng thời lượng:</h5>
@@ -229,7 +252,7 @@ function EditPlaylistPage() {
                 </div>
                 <div className={root.description}>
                     <h5>Mô tả: </h5>
-                    <textarea typeof='text' value={playlistItem[0].desc} onChange={(e) => setNewPlaylist({...newPlaylist, desc: e.target.value})} />
+                    <textarea typeof='text' value={playlist.desc} onChange={(e) => setNewPlaylist({...newPlaylist, desc: e.target.value})} />
                 </div>
                 <div>
                     <h5>Chủ đề:</h5>
@@ -239,7 +262,7 @@ function EditPlaylistPage() {
                         placeholder="Nhập chủ đề"
                         onChange={handleChangeSelectTopic}
                         options={optionsTopics}
-                        value={playlistItem[0].topics}
+                        value={playlist.topics}
                     />
                 </div>
             </div>

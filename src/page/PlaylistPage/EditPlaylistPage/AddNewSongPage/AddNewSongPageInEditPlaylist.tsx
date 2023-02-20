@@ -1,6 +1,6 @@
 import { MenuProps, message, Modal } from 'antd'
 import { ColumnsType } from 'antd/es/table'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Breadcrumbs from '../../../../components/Breadcrumbs'
 import Button from '../../../../components/Button'
@@ -12,6 +12,8 @@ import { DataTypeStoreMusic } from '../../../../redux/slice/storeSlice'
 import { useAppDispatch, useAppSelector } from '../../../../redux/store'
 import root from '../../playlist.module.scss'
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { db } from '../../../../firebase/configfb'
 
 function AddNewSongInEditPlaylistPage() {
   const navigate = useNavigate()
@@ -21,7 +23,25 @@ function AddNewSongInEditPlaylistPage() {
   const { tempStoreMusicAddToPlaylist } = useAppSelector(state => state.playlist) 
   const [ listSong, setListSong ] = React.useState<DataTypeStoreMusic[]>(tempStoreMusicAddToPlaylist)
   const [ storePlaylist, setStorePlaylist ] = React.useState<DataTypeStoreMusic[]>(store)
+  const [ playlist, setPlaylist ] = useState<any>({})
 
+
+  useEffect(() => {
+    const getData = async () => {
+        const docRef = doc(db, "play-list", `${id}`);
+        try {
+            //get a document follow uid
+            await getDoc(docRef)            
+            .then((res) => {
+                setPlaylist(res.data())
+            })
+            
+        } catch(err) {
+            console.log(err);
+        }
+    }
+    getData()
+}, [])
 
   const handleClickAddSongToPlaylist = (id: string) => {
       //remove item added to new playlist
@@ -90,9 +110,19 @@ function AddNewSongInEditPlaylistPage() {
     navigate(`../play-list/detail/${id}/edit`)
   }
 
-  const handleClickSaveListSongsToPlaylist = () => {
+  const handleClickSaveListSongsToPlaylist = async () => {
+    const data = {
+      idSong: listSong
+    }
+    const docRef = doc(db, "play-list", `${id}`)
+        try {
+            await updateDoc(docRef, data);
+            navigate(`../play-list/detail/${id}/edit`)
+        } catch(err) {
+            message.error("Sửa playlist thất bại")            
+        }
+
     dispatch(tempPlaylist(listSong))
-    navigate(`../play-list/detail/${id}/edit`)
   }
   
 
