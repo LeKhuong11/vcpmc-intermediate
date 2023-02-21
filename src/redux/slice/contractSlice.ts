@@ -10,6 +10,7 @@ type royalties = {
 }
 
 export interface DataTypeContract {
+    id: string
     key: number
     contractID: string
     contractName: string

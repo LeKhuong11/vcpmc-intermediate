@@ -13,8 +13,6 @@ function SettingPage() {
 
   return (
     <div className={root.setting}>
-        <Breadcrumbs />
-
         <Outlet />
     </div>
   )

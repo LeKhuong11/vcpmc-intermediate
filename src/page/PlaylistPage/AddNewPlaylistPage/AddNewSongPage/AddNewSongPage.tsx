@@ -216,7 +216,6 @@ function AddNewSongPage() {
   
   return (
     <div className={root.addNewSong}>
-      <Breadcrumbs />
       <div>
         <h3>Thêm bản ghi</h3>
       </div>

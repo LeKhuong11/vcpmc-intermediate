@@ -12,8 +12,6 @@ function RevenuePage() {
 
   return (
     <div className={root.revenue}>
-        <Breadcrumbs />
-            
         <Outlet />
     </div>
   )

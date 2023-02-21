@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { cancelTempPlaylist, DataTypePlaylist, tempPlaylist } from '../../../redux/slice/playlistSlice';
 import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/configfb';
 
 

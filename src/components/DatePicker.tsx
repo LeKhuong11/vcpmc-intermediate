@@ -3,7 +3,9 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface DataType {
-    disabledDate: any
+    disabledDate?: any
+    defaultValue?: any
+    type?: string
 }
 
 const DataPickerStyled = styled(DatePicker)`
@@ -13,7 +15,10 @@ const DataPickerStyled = styled(DatePicker)`
             color: white;
             border: 1px solid #FF7506;
             box-shadow: none;
-
+            height: 35px;
+            .ant-picker-input >input {
+                color: var(--white);
+            }
             & ::placeholder {
                 color: var(--white);
             }
@@ -24,9 +29,9 @@ const DataPickerStyled = styled(DatePicker)`
     }
 `
 
-function CustomDatePicker({disabledDate}: DataType) {
+function CustomDatePicker({disabledDate, defaultValue, type}: DataType) {
   return (
-    <DataPickerStyled picker="month" disabledDate={disabledDate} />
+    <DataPickerStyled disabledDate={disabledDate} defaultValue={defaultValue} />
   )
 }
 

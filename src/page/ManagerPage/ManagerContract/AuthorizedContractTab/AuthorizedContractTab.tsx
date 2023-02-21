@@ -90,18 +90,16 @@ function AuthorizedContractTab() {
         key: 'timeActive',
         render: (_, {status}) => {
 
-          const statusobj = {
+          const statusobj: any = {
             new: <p><RxDotFilled color="green" />Mới</p>,
-            avtive: <p><RxDotFilled color="blue" />Còn thời hạn</p>,
+            active: <p><RxDotFilled color="blue" />Còn thời hạn</p>,
             expired: <p><RxDotFilled color="gray" />Đã hết hạn</p>,
             canceled: <p><RxDotFilled color="red" />Đã hủy</p>
           }
           
       
           return <>
-            {status ? 
-              <p><RxDotFilled color="blue" />Còn thời hạn</p> : 
-              <p><RxDotFilled color="gray" />Đã hủy</p>}
+            {statusobj[status]}
           </>
         }
       },
@@ -114,9 +112,9 @@ function AuthorizedContractTab() {
         title: '',
         dataIndex: 'detail',
         key: 'detail',
-        render: (_, { }) => {
+        render: (_, { id }) => {
   
-          return <Link to="">Xem chi Tiết</Link>
+          return <Link to={`detail/${id}`}>Xem chi Tiết</Link>
         }
       },
       {

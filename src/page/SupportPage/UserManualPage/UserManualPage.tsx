@@ -55,7 +55,6 @@ function UserManualPage() {
 
   return (
     <div className={root.userManual}>
-        <Breadcrumbs />
         <h3>Hướng dẫn sử dụng</h3>
         <div className={root.contentTab}>
             <TabColumn tabData={TabData} />
