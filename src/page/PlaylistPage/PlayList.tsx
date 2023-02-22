@@ -1,12 +1,12 @@
 import { ColumnsType } from 'antd/es/table'
-import { collection, onSnapshot } from 'firebase/firestore'
 import React, {useEffect, useState} from 'react'
 import { MdPlaylistAdd } from 'react-icons/md'
 import { Link, useNavigate } from 'react-router-dom'
 import FeatureInPage from '../../components/FeatureInPage'
 import InputSearch from '../../components/InputSearch'
+import Loading from '../../components/Loading'
 import CustomTable from '../../components/Table'
-import { db } from '../../firebase/configfb'
+import { usePaymentsCollection } from '../../hooks/useSnapshot'
 import { DataTypePlaylist, fetchPlaylist } from '../../redux/slice/playlistSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import Topic from './components/Topic'
@@ -18,27 +18,16 @@ function PlayList() {
   const navigate = useNavigate();
   const { playlist } = useAppSelector(state => state.playlist);
   const [ playlistStore, setPlaylistStore ] = useState<DataTypePlaylist[]>(playlist);
-
-  useEffect(() => {
-    const colRef = collection(db, "play-list")
-    //real time update
-    const unsub = onSnapshot(colRef, (snapshot: any) => {
-        const items: DataTypePlaylist[] = []
-        snapshot.docs.forEach((doc: any) => {
-          items.push({...doc.data(), id: doc.id})
-        })
-        setPlaylistStore(items)
-    })
- 
-    return () => {
-      unsub()
-    };
-}, [])
+  const { payments, loading } = usePaymentsCollection('play-list');
   
+
   useEffect(() => {
     dispatch(fetchPlaylist())
-  }, [dispatch])
+    setPlaylistStore(payments)
+  }, [payments])
 
+  console.log(222);
+  
   const handleClickAddNewPlaylist = () => {
     navigate('add-new-playlist')
   }
@@ -112,16 +101,20 @@ function PlayList() {
     },
   ] 
   return (
-    <div className={root.playlist}>
-      <h3>Playlist</h3>
-      <div>
-        <InputSearch placehoder='Tên chủ đề, người tạo,...' />
-      </div>
-      <div>
-        <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} /> 
-      </div>
-      <FeatureInPage featureProps={featureProps} />
-    </div>
+    <>
+      {loading ? <Loading /> : 
+        <div className={root.playlist}>
+          <h3>Playlist</h3>
+          <div>
+            <InputSearch placehoder='Tên chủ đề, người tạo,...' />
+          </div>
+          <div>
+            <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} /> 
+          </div>
+          <FeatureInPage featureProps={featureProps} />
+        </div>
+      }
+    </>
   )
 }
 

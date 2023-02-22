@@ -7,8 +7,10 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import DropDown from '../../../../components/DropDown'
 import InputSearch from '../../../../components/InputSearch'
+import Loading from '../../../../components/Loading'
 import CustomTable from '../../../../components/Table'
 import { db } from '../../../../firebase/configfb'
+import { usePaymentsCollection } from '../../../../hooks/useSnapshot'
 import { DataTypeContract } from '../../../../redux/slice/contractSlice'
 import { useAppSelector } from '../../../../redux/store'
 
@@ -33,24 +35,15 @@ const ContainerStyled = styled.div`
 function AuthorizedContractTab() {
   const { contracts } = useAppSelector(state => state.contracts)
   const [ listContract, setListContract ] = useState<DataTypeContract[]>(contracts)
+  const { payments, loading} = usePaymentsCollection('contract');
   
 
-
+  // listen 
+  // When data changes on firestore, we receive that update here in this
+  // callback and then update the UI based on current state 
   useEffect(() => {
-    const colRef = collection(db, "contract")
-    //real time update
-    const unsub = onSnapshot(colRef, (snapshot: any) => {
-        const items: DataTypeContract[] = []
-        snapshot.docs.forEach((doc: any) => {
-          items.push({...doc.data(), id: doc.id})
-        })
-        setListContract(items)
-    })
- 
-    return () => {
-      unsub()
-    };
-}, [])
+    setListContract(payments)
+  }, [payments])
 
 
     const DataSource: DataTypeContract[] = listContract
@@ -156,24 +149,28 @@ function AuthorizedContractTab() {
         onClick: handleMenuClick,
       };
   return (
-    <>
-        <ContainerStyled>
+      <>
+        {loading ? <Loading /> : 
+          <div>
+            <ContainerStyled>
+                <div>
+                    <div>
+                    <p>Quyền sở hữu:</p>
+                    <DropDown menuProps={menuProps} orange />
+                    </div>
+                    <div>
+                    <p>Hiệu lực hợp đồng:</p>
+                    <DropDown menuProps={menuProps} orange />
+                    </div>
+                </div>
             <div>
-                <div>
-                <p>Quyền sở hữu:</p>
-                <DropDown menuProps={menuProps} orange />
-                </div>
-                <div>
-                <p>Hiệu lực hợp đồng:</p>
-                <DropDown menuProps={menuProps} orange />
-                </div>
+                <InputSearch placehoder="Tên hợp đồng, số hợp đồng, người ủy quyền,..." />
             </div>
-        <div>
-            <InputSearch placehoder="Tên hợp đồng, số hợp đồng, người ủy quyền,..." />
-        </div>
-        </ContainerStyled>
-        <CustomTable columns={columnTab} dataSrouce={DataSource} heightProps={60}/>
-    </>
+            </ContainerStyled>
+            <CustomTable columns={columnTab} dataSrouce={DataSource} heightProps={60}/>
+          </div>
+        }
+      </>
   )
 }
 

@@ -28,6 +28,7 @@ import EditPlaylistPage from "../page/PlaylistPage/EditPlaylistPage/EditPlaylist
 import AddNewSongInEditPlaylistPage from "../page/PlaylistPage/EditPlaylistPage/AddNewSongPage/AddNewSongPageInEditPlaylist";
 import DetailContractPage from "../page/ManagerPage/ManagerContract/AuthorizedContractTab/DetailContractPage/DetailContractPage";
 import EditContractPage from "../page/ManagerPage/ManagerContract/AuthorizedContractTab/DetailContractPage/InforContractTab/EditContractPage/EditContractPage";
+import AddContractPage from "../page/ManagerPage/ManagerContract/AddContractPage/AddContractPage";
 
 
 export function Router() {
@@ -92,6 +93,10 @@ export function Router() {
                         {
                             path: 'contract/detail/:id/edit',
                             element:<EditContractPage />
+                        },
+                        {
+                            path: 'contract/add-contract',
+                            element:<AddContractPage />
                         },
                         {
                             path: 'device',

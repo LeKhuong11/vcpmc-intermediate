@@ -8,12 +8,15 @@ import MiningContractTab from './MiningContractTab/MiningContractTab';
 import AuthorizedContractTab from './AuthorizedContractTab/AuthorizedContractTab';
 import { useAppDispatch} from '../../../redux/store';
 import {  fetchContract } from '../../../redux/slice/contractSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 function ManagerContract() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     dispatch(fetchContract())
@@ -22,7 +25,8 @@ function ManagerContract() {
   const featureProp = [
     {
       icon: MdAdd,
-      text: 'Thêm hợp đồng'
+      text: 'Thêm hợp đồng',
+      event: () => navigate('add-contract')
     }
   ]
 

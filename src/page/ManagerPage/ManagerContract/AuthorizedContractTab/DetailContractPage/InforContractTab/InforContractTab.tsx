@@ -1,10 +1,17 @@
-import React from 'react'
+import { async } from '@firebase/util'
+import { message, Modal } from 'antd'
+import { doc, getDoc } from 'firebase/firestore'
+import React, { useEffect, useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { GiNotebook } from 'react-icons/gi'
+import { RxDotFilled } from 'react-icons/rx'
 import { SlNote } from 'react-icons/sl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import FeatureInPage from '../../../../../../components/FeatureInPage'
+import Loading from '../../../../../../components/Loading'
+import { db } from '../../../../../../firebase/configfb'
+import { updateDocConfig } from '../../../../../../hooks/useUpdateDoc'
 
 const ContainerStyled = styled.div`
     width: 86%;
@@ -47,9 +54,72 @@ const ContainerStyled = styled.div`
     }
 `
 
+const ModalStyled = styled(Modal)`
+    &&& {
+        .ant-modal-content {
+            background-color: #3E3E5B;
+            height: 40vh;
+        }
+        .ant-modal-title {
+            text-align: center;
+            color: var(--white);
+            background-color: #3E3E5B;
+            font-size: 23px;
+        }
+        .ant-modal-footer {
+            display: flex;
+            justify-content: center;
+        }
+        .ant-btn {
+            width: 100px;
+            border: 1.5px solid var(--orange);
+            color: var(--orange);
+            background-color: #3E3E5B;
+        }
+        .ant-btn-primary {
+            background-color: var(--orange);
+            color: var(--white);
+        }
+        & textarea {
+            width: 100%;
+            height: 120px;
+            background-color: #2B2B3F;
+            color: var(--white);
+            border-radius: 8px;
+            border: none;
+            font-family: 'Montserrat';
+            padding: 12px;
+        }
+    }
+`
+
 function InforContractTab() {   
     const navigate = useNavigate();
+    const { id } = useParams();
+    const [ contract, setContract ] = useState<any>({})
+    const [ loading, setLoading ] = useState(false)
+    const [ openModal, setOpenModal ] = useState(false)
 
+    useEffect(() => {
+        setLoading(true)
+        const getData = async () => {
+            const docRef = doc(db, "contract", `${id}`);
+            try {
+                //get a document follow uid
+                await getDoc(docRef)            
+                .then((res) => {
+                    setContract(res.data())
+                    setLoading(false)
+                })
+                
+            } catch(err) {
+                console.log(err);
+            }
+        }
+        getData()
+    }, [])
+ 
+    
     const featureInPage = [
         {
             icon: SlNote,
@@ -63,137 +133,181 @@ function InforContractTab() {
         },
         {
             icon: FaTimes,
-            text: 'Hủy hợp đồng'
+            text: 'Hủy hợp đồng',
+            event: () => setOpenModal(true)
         },
     ]
+
+    const statusobj: any = {
+        new: <p><RxDotFilled color="green" />Mới</p>,
+        active: <p><RxDotFilled color="blue" />Còn thời hạn</p>,
+        expired: <p><RxDotFilled color="gray" />Đã hết hạn</p>,
+        canceled: <p><RxDotFilled color="red" />Đã hủy</p>
+      }
+
+      const handleOk = async () => {
+        setOpenModal(false);
+        const status = {
+            status: 'canceled'
+        }
+        const params = {
+            documentName: 'contract',
+            id: id,
+            data: status
+        }
+        const updateDoc = await updateDocConfig(params)
+        if(updateDoc) {
+            navigate('../../manager/contract')
+            message.success("Hủy hợp đồng thành công")
+            return
+        }
+        message.success("Hủy hợp đồng thất bại")
+    };
+    
+    const handleCancel = () => {
+        setOpenModal(false);
+    };
+    
   return (
-    <ContainerStyled>
-        <div>
+    <>
+        {loading ? <Loading /> : 
+            <ContainerStyled>
             <div>
-                <span>
-                    <h5>Số hợp đồng:</h5>
-                    <p>BH123</p>
-                </span>
-                <span>
-                    <h5>Tên hợp đồng:</h5>
-                    <p>Hợp đồng uỷ quyền tác phẩm âm nhạc</p>
-                </span>
-                <span>
-                    <h5>Ngày hiệu lực:</h5>
-                    <p>01/05/2021</p>
-                </span>
-                <span>
-                    <h5>Ngày hết hạn:</h5>
-                    <p>01/12/2021</p>
-                </span>
-                <span>
-                    <h5>Tình trạng:</h5>
-                    <p>Còn thời hạn</p>
-                </span>
-            </div>
-            <div>
-                <span>
-                    <h5>Đính kèm tệp:</h5>
-                    <div style={{display: 'block'}}>
-                        <p>hetthuongcannho.doc</p>
-                        <p>hetthuongcannho.doc</p>
-                    </div>
-                </span>                
-            </div>
-            <div>
-                <h4 style={{color: '#FFAC69'}}>Mức nhuận bút</h4>
-                <span>
-                    <h5>Quyền tác giả:</h5>
-                    <p>0%</p>
-                </span>
-                <span>
-                    <h5>Quyền liên quan:</h5>
-                </span>
-                <span>
-                    <p>Quyền của người biểu diễn:</p>
-                    <p>50%</p>
-                </span>
-                <span>
-                    <p>Quyền của nhà sản xuất:</p>
-                    <p>50%</p>
-                </span>
-            </div>
-        </div>
-        <div>
-            <div className='authorized'>
-                <h4 style={{color: '#FFAC69', marginTop: -30}}>Thông tin pháp nhân uỷ quyền</h4>
-                <span>
-                    <h5>Pháp nhân uỷ quyền:</h5>
-                    <p>Cá nhân</p>
-                </span>
-                <span>
-                    <h5>Tên người uỷ quyền:</h5>
-                    <p>Nguyễn Văn A</p>
-                </span>
-                <span>
-                    <h5>Ngày sinh:</h5>
-                    <p>10/01/1984</p>
-                </span>
-                <span>
-                    <h5>Giới tính:</h5>
-                    <p>Nam</p>
-                </span>
-                <span>
-                    <h5>Quốc tịch:</h5>
-                    <p>Việt Nam</p>
-                </span>
-                <span>
-                    <h5>Số điện thoại:</h5>
-                    <p>(+84) 345 678 901</p>
-                </span>
+                <div>
+                    <span>
+                        <h5>Số hợp đồng:</h5>
+                        <p>{contract.contractID}</p>
+                    </span>
+                    <span>
+                        <h5>Tên hợp đồng:</h5>
+                        <p>{contract.contractName}</p>
+                    </span>
+                    <span>
+                        <h5>Ngày hiệu lực:</h5>
+                        <p>{contract.startDay}</p>
+                    </span>
+                    <span>
+                        <h5>Ngày hết hạn:</h5>
+                        <p>{contract.date}</p>
+                    </span>
+                    <span>
+                        <h5>Tình trạng:</h5>
+                        <p>{statusobj[contract.status]}</p>
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        <h5>Đính kèm tệp:</h5>
+                        <div style={{display: 'block'}}>
+                            <p>hetthuongcannho.doc</p>
+                            <p>hetthuongcannho.doc</p>
+                        </div>
+                    </span>                
+                </div>
+                <div>
+                    <h4 style={{color: '#FFAC69'}}>Mức nhuận bút</h4>
+                    <span>
+                        <h5>Quyền tác giả:</h5>
+                        <p>0%</p>
+                    </span>
+                    <span>
+                        <h5>Quyền liên quan:</h5>
+                    </span>
+                    <span>
+                        <p>Quyền của người biểu diễn:</p>
+                        <p>{0}%</p>
+                    </span>
+                    <span>
+                        <p>Quyền của nhà sản xuất:</p>
+                        <p>  {0}%</p>
+                    </span>
+                </div>
             </div>
             <div>
-                <span>
-                    <h5>Số CMND/ CCCD:</h5>
-                    <p>123456789012</p>
-                </span>
-                <span>
-                    <h5>Ngày cấp:</h5>
-                    <p>10/07/2011</p>
-                </span>
-                <span>
-                    <h5>Nơi cấp:</h5>
-                    <p>Tp.HCM, Việt Nam</p>
-                </span>
-                <span>
-                    <h5>Mã số thuế:</h5>
-                    <p>Mã số thuế:</p>
-                </span>
-                <span>
-                    <h5>Nơi cư trú:</h5>
-                    <p>69/53, Nguyễn Gia Trí, Phường 25, Quận Bình Thạnh, Thành phố Hồ Chí Minh</p>
-                </span>
+                <div className='authorized'>
+                    <h4 style={{color: '#FFAC69', marginTop: -30}}>Thông tin pháp nhân uỷ quyền</h4>
+                    <span>
+                        <h5>Pháp nhân uỷ quyền:</h5>
+                        <p>{contract.authorizedPerson}</p>
+                    </span>
+                    <span>
+                        <h5>Tên người uỷ quyền:</h5>
+                        <p>{contract.fullName}</p>
+                    </span>
+                    <span>
+                        <h5>Ngày sinh:</h5>
+                        <p>{contract.birthDay}</p>
+                    </span>
+                    <span>
+                        <h5>Giới tính:</h5>
+                        <p>{contract.sex}</p>
+                    </span>
+                    <span>
+                        <h5>Quốc tịch:</h5>
+                        <p>{contract.nationality}</p>
+                    </span>
+                    <span>
+                        <h5>Số điện thoại:</h5>
+                        <p>{contract.numberPhone}</p>
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        <h5>Số CMND/ CCCD:</h5>
+                        <p>{contract.personID}</p>
+                    </span>
+                    <span>
+                        <h5>Ngày cấp:</h5>
+                        <p>{contract.dateOfIssue}</p>
+                    </span>
+                    <span>
+                        <h5>Nơi cấp:</h5>
+                        <p>{contract.place}</p>
+                    </span>
+                    <span>
+                        <h5>Mã số thuế:</h5>
+                        <p>{contract.taxID}</p>
+                    </span>
+                    <span>
+                        <h5>Nơi cư trú:</h5>
+                        <p>{contract.address}</p>
+                    </span>
+                </div>
+                <div>
+                    <span> 
+                        <h5>Email:</h5>
+                        <p>{contract.email}</p>
+                    </span>
+                    <span>
+                        <h5>Tài khoản:</h5>
+                        <p>{contract.userName}</p>
+                    </span>
+                    <span>
+                        <h5>Mật khẩu:</h5>
+                        <p>{contract.pasword}</p>
+                    </span>
+                    <span>
+                        <h5>Số tài khoản:</h5>
+                        <p>{contract.accountNumber}</p>
+                    </span>
+                    <span>
+                        <h5>Ngân hàng:</h5>
+                        <p>{contract.bank}</p>
+                    </span>
+                </div>
             </div>
-            <div>
-                <span>
-                    <h5>Email:</h5>
-                    <p>nguyenvana@gmail.com</p>
-                </span>
-                <span>
-                    <h5>Tài khoản:</h5>
-                    <p>nguyenvana@gmail.com</p>
-                </span>
-                <span>
-                    <h5>Mật khẩu:</h5>
-                    <p>*******</p>
-                </span>
-                <span>
-                    <h5>Số tài khoản:</h5>
-                    <p>1231123312211223</p>
-                </span>
-                <span>
-                    <h5>Ngân hàng:</h5>
-                    <p>ACB - Ngân hàng Á Châu</p>
-                </span>
-            </div>
-        </div>
-        <FeatureInPage featureProps={featureInPage} />
-    </ContainerStyled>
+            <FeatureInPage featureProps={featureInPage} />
+            <ModalStyled
+                title="Hủy hợp đồng khai thác"
+                open={openModal}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <textarea placeholder='Cho chúng tôi biết lý do bạn muốn huỷ hợp đồng khai thác này...' />
+            </ModalStyled>
+        </ContainerStyled>
+        }
+    </>
   )
 }
 

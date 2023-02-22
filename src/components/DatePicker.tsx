@@ -5,7 +5,8 @@ import styled from 'styled-components'
 interface DataType {
     disabledDate?: any
     defaultValue?: any
-    type?: string
+    type?: string,
+    onChange?: any
 }
 
 const DataPickerStyled = styled(DatePicker)`
@@ -29,9 +30,13 @@ const DataPickerStyled = styled(DatePicker)`
     }
 `
 
-function CustomDatePicker({disabledDate, defaultValue, type}: DataType) {
+function CustomDatePicker({disabledDate, defaultValue, type, onChange}: DataType) {
   return (
-    <DataPickerStyled disabledDate={disabledDate} defaultValue={defaultValue} />
+    <DataPickerStyled 
+        disabledDate={disabledDate} 
+        defaultValue={defaultValue} 
+        onChange={onChange}
+    />
   )
 }
 

@@ -1,31 +1,52 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import Breadcrumbs from '../../../../../../../components/Breadcrumbs'
 import CustomDatePicker from '../../../../../../../components/DatePicker'
 import Input from '../../../../../../../components/Input'
 import dayjs from 'dayjs';
-import { Radio, RadioChangeEvent, Upload, UploadProps } from 'antd'
+import { DatePickerProps, message, Modal, Radio, Upload, UploadProps } from 'antd'
 import Button from '../../../../../../../components/Button'
 import { UploadOutlined } from '@ant-design/icons';
-
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../../../../../../../firebase/configfb'
+import Loading from '../../../../../../../components/Loading'
+import { updateDocConfig } from '../../../../../../../hooks/useUpdateDoc'
 
 const ContainerStyled = styled.div`
     width: 96%;
-    position: fixed;
     left: 45px;
-
+    position: fixed;
     & .content {
-        overflow: scroll;
+        overflow: auto;
+        height: 80vh;
         &>div {
             display: flex;
             justify-content: space-between;
             width: 90%;
+
+            
+            & .info {
+                & h5 {
+                    min-width: 170px;
+                }
+            }
         }
-       
+        
+        &>div:first-child {
+            border-bottom: 1px solid gray;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+        }
+        &>div:first-child {
+            border-bottom: 1px solid gray;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+        }
         & h4 {
             color: #FFAC69;
         }
+
 
         & span {
            display: flex;
@@ -38,14 +59,33 @@ const ContainerStyled = styled.div`
             & p {
                padding-right: 10px;
             }
+            
+            & i {
+                color: #FF4747;
+            }
+            & textarea {
+                width: 217px; 
+                height: 80px;
+                color: var(--white);
+                font-family: 'Montserrat';
+                border: none;
+                border-radius: 8px;
+                padding: 7px 0 0 7px;
+                background: #33334D;
+            }
 
             & .h5-special {
                 display: flex;
                 align-items: center;
                 height: 58px;
             }
-            }
         }
+        & .btn {
+            display: flex;
+            justify-content: center;
+        }
+        
+
     }
 `
 
@@ -63,7 +103,54 @@ const props: UploadProps = {
 
 function EditContractPage() {
     const { id } = useParams()
+    const navigate = useNavigate();
     const [radio, setRadio] = React.useState(1);
+    const [ contract, setContract ] = useState<any>({})
+    const [ loading, setLoading ] = useState(false);
+    const [ contractUpdate, setConTractUpdate ] = useState<any>(contract)
+
+    useEffect(() => {
+        setLoading(true)
+        const getData = async () => {
+            const docRef = doc(db, "contract", `${id}`);
+            try {
+                //get a document follow uid
+                await getDoc(docRef)            
+                .then((res) => {
+                    setContract(res.data())
+                    setLoading(false)
+                    setConTractUpdate(res.data())
+                })
+                
+            } catch(err) {
+                console.log(err);
+            }
+        }
+        getData()
+    }, [])
+
+    const handleChangeSetValueNewContract = (e: any) => {
+        setConTractUpdate({...contractUpdate, [e.name]: e.value})
+    } 
+    
+    const handleChangeDatePicker: DatePickerProps['onChange'] = (date, dateString) => {
+        console.log(dateString);
+      };
+
+    const handleClickUpdateContract = async () => {
+        const data = {
+            documentName: 'contract',
+            id: id,
+            data: contractUpdate
+        }
+       const updating = await updateDocConfig(data)
+        if(updating) {
+            navigate(`../contract/detail/${id}`)
+            message.success("Cập nhật thành công")
+            return
+        }
+        message.success("Cập nhật thất bạibại")
+    }
     const breadcrumb = [
         {
           key: 1,
@@ -85,159 +172,293 @@ function EditContractPage() {
             path: '',
             namePage: 'Chỉnh sửa thông tin'
         },
-      ]
+    ]
 
-      const onChangeRadio = (e: RadioChangeEvent) => {
-        console.log('radio checked', e.target.value);
-        setRadio(e.target.value);
-      };
+    const onChangeRadio = (e: any) => {
+    console.log('radio checked', e.target.value);
+
+    };
+
 
   return (
-    <ContainerStyled>
-        <div>
-            <Breadcrumbs crumbs={breadcrumb} />
-        </div>
-        <div>
-            <h3>Hợp đồng uỷ quyền bài hát - BH123</h3>
-        </div>
-        <div className='content'>
-            <div>
+    <>
+        {loading ? <Loading /> : 
+            <ContainerStyled>
                 <div>
-                    <span>
-                        <h5>Số hợp đồng:</h5>
-                        <Input type='text' width={220} height={35} value={'1421566747'}  />
-                    </span>
-                    <span>
-                        <h5>Tên hợp đồng:</h5>
-                        <Input type='text' width={220} height={35} value={'Hợp đồng uỷ quyền tác phẩm âm nhạc'} />
-                    </span>
-                    <span>
-                        <h5>Ngày hiệu lực:</h5>
-                        <CustomDatePicker  type='mondath' defaultValue={dayjs('01/05/2021', 'DD/MM/YYYY')}  />
-                    </span>
-                    <span>
-                        <h5>Ngày hết hạn:</h5>
-                        <CustomDatePicker  type='mondath' defaultValue={dayjs('01/12/2021', 'DD/MM/YYYY')}  />
-                    </span>
-                    <span>
-                        <h5>Tình trạng:</h5>
-                        <Input type='text' width={220} height={35} value={'Đang hiệu lực'}  />
-                    </span>
+                    <Breadcrumbs crumbs={breadcrumb} />
                 </div>
                 <div>
-                    <span>
-                        <h5 className='h5-special'>Đính kèm tệp:</h5>
-                        <div style={{display: 'block'}}>
-                            <Upload {...props}>
-                                <Button heightProps={35} widthProps={120} type='primary' contentProps='Upload' icon={<UploadOutlined />} />
-                            </Upload>
-                            <p>hetthuongcannho.doc</p>
-                            <p>hetthuongcannho.doc</p>
+                    <h3>Hợp đồng uỷ quyền bài hát - {contract.contractID}</h3>
+                </div>
+                <div className='content'>
+                    <div>
+                        <div>
+                            <span>
+                                <h5>Số hợp đồng:</h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={`${contract.contractID}`}  
+                                    name="contractID"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                            <span>
+                                <h5>Tên hợp đồng:</h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    name="contractName" 
+                                    value={contract.contractName}
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                            <span>
+                                <h5>Ngày hiệu lực:</h5>
+                                <CustomDatePicker  type='mondath' defaultValue={dayjs(contract.startDay, 'YYYY/MM/DD')}  />
+                            </span>
+                            <span>
+                                <h5>Ngày hết hạn:</h5>
+                                <CustomDatePicker  type='mondath' defaultValue={dayjs(contract.date, 'DD/MM/YYYY')}  />
+                            </span>
+                            <span>
+                                <h5>Tình trạng:</h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.status}
+                                />
+                            </span>
                         </div>
-                    </span>      
+                        <div>
+                            <span>
+                                <h5 className='h5-special'>Đính kèm tệp:</h5>
+                                <div style={{display: 'block'}}>
+                                    <Upload {...props}>
+                                        <Button heightProps={35} widthProps={120} type='primary' contentProps='Upload' icon={<UploadOutlined />} />
+                                    </Upload>
+                                    <p>hetthuongcannho.doc</p>
+                                    <p>hetthuongcannho.doc</p>
+                                </div>
+                            </span>      
+                        </div>
+                        <div>
+                            <h4 style={{color: '#FFAC69'}}>Mức nhuận bút</h4>
+                            <span>
+                                <h5>Quyền tác giả:</h5>
+                                <p>0%</p>
+                            </span>
+                            <span>
+                                <h5>Quyền liên quan:</h5>
+                            </span>
+                            <span>
+                                <p>Quyền của người biểu diễn:</p>
+                                <p>50%</p>
+                            </span>
+                            <span>
+                                <p>Quyền của nhà sản xuất:</p>
+                                <p>50%</p>
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <div className='info'>
+                            <h4>Thông tin pháp nhân uỷ quyền</h4>
+                            <span>
+                                <h5>Pháp nhân ủy quyền:</h5>
+                                
+                                <form action="">
+                                    <input 
+                                        type="radio" 
+                                        value="person" 
+                                        name="gender" 
+                                        id='person'
+                                        onChange={onChangeRadio}
+                                        
+                                    />
+                                    <label htmlFor="person">Cá nhân</label>
+                                    <input 
+                                        type="radio" 
+                                        value="organization" 
+                                        name="gender" 
+                                        id='organization'
+                                        onChange={onChangeRadio}
+                                    /> 
+                                    <label htmlFor="organization"> Tổ chức</label>
+                                </form>
+                            </span>
+                            <span>
+                                <h5>Tên người uỷ quyền:<i>*</i></h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.fullName}  
+                                    name="fullName"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                            <span>
+                                <h5>Ngày sinh:<i>*</i></h5>
+                                <CustomDatePicker  
+                                    defaultValue={dayjs(contract.birthDay, 'DD/MM/YYYY')}  
+                                    onChange={handleChangeDatePicker}
+                                />
+                            </span>
+                            <span>
+                                <h5>Giới tính:<i>*</i></h5>
+                                <form action="">
+                                    <input 
+                                        type="radio" 
+                                        value="1" 
+                                        name="gender" 
+                                        checked={contract.sex === 1 ? true : false} 
+                                        onChange={onChangeRadio}
+                                    /> Nam
+                                    <input 
+                                        type="radio" 
+                                        value="0" 
+                                        name="gender" 
+                                        checked={contract.sex === 0 ? true : false} 
+                                        onChange={onChangeRadio}
+                                    /> Nữ
+                                </form>
+                            </span>
+                            <span>
+                                <h5>Quốc tịch:<i>*</i></h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.nationality}  
+                                    name="nationality"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                            <span>
+                                <h5>Số điện thoại:*</h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.numberPhone}  
+                                    name="numberPhone"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                <h5>CMND/ CCCD:<i>*</i></h5>
+                                <Input 
+                                    type='number' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.personID} 
+                                    name="personID"
+                                    setValue={handleChangeSetValueNewContract}
+                                />  
+                            </span>
+                            <span>
+                                <h5>Ngày cấp:<i>*</i></h5>
+                                <CustomDatePicker  type='month' defaultValue={dayjs(`${contract.dateOfIssue}`, 'DD/MM/YYYY')}  />
+                            </span>
+                            <span>
+                                <h5>Nơi cấp:<i>*</i></h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.place}  
+                                    name="place"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                            <span>
+                                <h5>Mã số thuế:</h5>
+                                <Input 
+                                    type='number' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.taxID}  
+                                    name="taxID"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                            <span>
+                                <h5>Nơi cư trú:</h5>
+                                <textarea defaultValue={contract.address} />
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                <h5>Email:</h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.email}  
+                                    name="email"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                            <span>
+                                <h5>Tên đăng nhập:<i>*</i></h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.userName}  
+                                    name="userName"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                            <span>
+                                <h5>Mật khẩu:<i>*</i></h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.pasword}  
+                                    name="pasword"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                            <span>
+                                <h5>Số tài khoản:</h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.accountNumber}  
+                                    name="accountNumber"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                            <span>
+                                <h5>Ngân hàng:</h5>
+                                <Input 
+                                    type='text' 
+                                    width={220} 
+                                    height={35} 
+                                    value={contract.bank}  
+                                    name="bank"
+                                    setValue={handleChangeSetValueNewContract}
+                                />
+                            </span>
+                        </div>
+                    </div>
+                    <div className='btn'>
+                        <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" />
+                        <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu" onClick={handleClickUpdateContract}/>
+                    </div>
                 </div>
-                <div>
-                    <h4 style={{color: '#FFAC69'}}>Mức nhuận bút</h4>
-                    <span>
-                        <h5>Quyền tác giả:</h5>
-                        <p>0%</p>
-                    </span>
-                    <span>
-                        <h5>Quyền liên quan:</h5>
-                    </span>
-                    <span>
-                        <p>Quyền của người biểu diễn:</p>
-                        <p>50%</p>
-                    </span>
-                    <span>
-                        <p>Quyền của nhà sản xuất:</p>
-                        <p>50%</p>
-                    </span>
-                </div>
-            </div>
-            <div>
-                {/* <h4>Thông tin pháp nhân uỷ quyền</h4> */}
-                <div>
-                    <span>
-                        <h5>Pháp nhân ủy quyền:</h5>
-                        <Radio.Group onChange={onChangeRadio} value={radio}>
-                            <Radio value={1}>Cá nhân</Radio>
-                            <Radio value={2}>Tổ chức</Radio>
-                        </Radio.Group>
-                    </span>
-                    <span>
-                        <h5>Tên người uỷ quyền::*</h5>
-                        <Input type='text' width={220} height={35} value={'Nguyễn Văn A'}  />
-                    </span>
-                    <span>
-                        <h5>Ngày sinh:*</h5>
-                        <CustomDatePicker  type='month' defaultValue={dayjs('10/01/1984', 'DD/MM/YYYY')}  />
-                    </span>
-                    <span>
-                        <h5>Giới tính:*</h5>
-                        <Radio.Group onChange={onChangeRadio} value={radio}>
-                            <Radio value={1}>Nam</Radio>
-                            <Radio value={2}>Nữ</Radio>
-                        </Radio.Group>
-                    </span>
-                    <span>
-                        <h5>Quốc tịch:*</h5>
-                        <p>Việt Nam</p>
-                    </span>
-                    <span>
-                        <h5>Số điện thoại:*</h5>
-                        <p>(+84) 345 678 901</p>
-                    </span>
-                </div>
-                <div>
-                    <span>
-                        <h5>CMND/ CCCD:</h5>
-                        <Input type='number' width={220} height={35} value={123456789012}  />  
-                    </span>
-                    <span>
-                        <h5>Ngày cấp:</h5>
-                        <CustomDatePicker  type='month' defaultValue={dayjs('10/01/2011', 'DD/MM/YYYY')}  />
-                    </span>
-                    <span>
-                        <h5>Nơi cấp:</h5>
-                        <Input type='text' width={220} height={35} value={'Tp.HCM, Việt Nam'}  />
-                    </span>
-                    <span>
-                        <h5>Mã số thuế:</h5>
-                        <Input type='number' width={220} height={35} value={92387489}  />
-                    </span>
-                    <span>
-                        <h5>Nơi cư trú:</h5>
-                        <textarea value='69/53, Nguyễn Gia Trí, phường 25, quận Bình Thạnh, thành phố Hồ Chí Minh' />
-                    </span>
-                </div>
-                <div>
-                    <span>
-                        <h5>Email:</h5>
-                        <Input type='text' width={220} height={35} value={'nguyenvana@gmail.com'}  />
-                    </span>
-                    <span>
-                        <h5>Tên đăng nhập:</h5>
-                        <Input type='text' width={220} height={35} value={'nguyenvana@gmail.com'}  />
-                    </span>
-                    <span>
-                        <h5>Mật khẩu:</h5>
-                        <Input type='password' width={220} height={35} value={1234564}  />
-                    </span>
-                    <span>
-                        <h5>Số tài khoản:</h5>
-                        <Input type='text' width={220} height={35} value={'1231123312211223'}  />
-                    </span>
-                    <span>
-                        <h5>Ngân hàng:</h5>
-                        <Input type='text' width={220} height={35} value={'ACB - Ngân hàng Á Châu'}  />
-                    </span>
-                </div>
-            </div>
-            <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" />
-            <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu"/>
-        </div>
-    </ContainerStyled>
+            </ContainerStyled>    
+        }
+    </>
   )
 }
  

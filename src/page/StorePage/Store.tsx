@@ -8,17 +8,30 @@ import InputSearch from '../../components/InputSearch';
 import { ColumnsType } from 'antd/es/table';
 import CustomTable from '../../components/Table';
 import { RxDotFilled } from 'react-icons/rx';
-import { useAppSelector } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { Link } from 'react-router-dom';
-import { collection, onSnapshot } from 'firebase/firestore';
-import { db } from '../../firebase/configfb';
-import { DataTypeStoreMusic } from '../../redux/slice/storeSlice';
+import { DataTypeStoreMusic, fetchStoreMusic } from '../../redux/slice/storeSlice';
+import { usePaymentsCollection } from '../../hooks/useSnapshot';
+import Loading from '../../components/Loading';
 
 function Store() {
+  const dispatch = useAppDispatch();
   const storeMusic = useAppSelector(state => state.storeMusic.store);
   const [store, setStore] = React.useState(storeMusic)
+  const { payments, loading} = usePaymentsCollection('store-music');
   
-
+  useEffect(() => {
+    dispatch(fetchStoreMusic());
+  }, [])
+  
+  // listen 
+  // When data changes on firestore, we receive that update here in this
+  // callback and then update the UI based on current state 
+  useEffect(() => {
+    setStore(payments)
+  }, [payments])
+  
+  
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     message.info('Click on menu item.');
     console.log('click', e);
@@ -130,57 +143,41 @@ function Store() {
     },
   ]
 
-  // listen 
-  // When data changes on firestore, we receive that update here in this
-  // callback and then update the UI based on current state 
-  useEffect(() => {
-    const colRef = collection(db, "store-music")
-    //real time update
-    const unsub = onSnapshot(colRef, (snapshot: any) => {
-        const items: DataTypeStoreMusic[] = []
-        snapshot.docs.forEach((doc: any) => {
-          items.push({...doc.data(), id: doc.id})
-        })
-        setStore(items)
-    })
-
-    return () => {
-      unsub()
-    };
-}, [])
-  
-
   return (
-    <div className={root.store}>
-      <h3>Kho bản ghi</h3>
-      <div>
+    <>
+      {loading ? <Loading /> : 
+        <div className={root.store}>
+        <h3>Kho bản ghi</h3>
         <div>
-          <InputSearch placehoder='Tên bản ghi, ca sĩ,...' />
-        </div>
-        <div>
-          <div className={root.options}>
-            <div>
-              <p>Thể loại: </p>
-              <DropDown menuProps={menuProps} orange />
-            </div>
-            <div>
-              <p>Định dạng: </p>
-              <DropDown menuProps={menuProps} orange />
-            </div>
-            <div>
-              <p>Thời hạn sử dụng: </p>
-              <DropDown menuProps={menuProps} orange />
-            </div>
-            <div>
-              <p>Trạng thái: </p>
-              <DropDown menuProps={menuProps} orange />
+          <div>
+            <InputSearch placehoder='Tên bản ghi, ca sĩ,...' />
+          </div>
+          <div>
+            <div className={root.options}>
+              <div>
+                <p>Thể loại: </p>
+                <DropDown menuProps={menuProps} orange />
+              </div>
+              <div>
+                <p>Định dạng: </p>
+                <DropDown menuProps={menuProps} orange />
+              </div>
+              <div>
+                <p>Thời hạn sử dụng: </p>
+                <DropDown menuProps={menuProps} orange />
+              </div>
+              <div>
+                <p>Trạng thái: </p>
+                <DropDown menuProps={menuProps} orange />
+              </div>
             </div>
           </div>
+          <CustomTable columns={columns} dataSrouce={dataSource} heightProps={64} />
         </div>
-        <CustomTable columns={columns} dataSrouce={dataSource} heightProps={64} />
+        <FeatureInPage featureProps={featureProps} />
       </div>
-      <FeatureInPage featureProps={featureProps} />
-    </div>
+      }
+    </>
   )
 }
 

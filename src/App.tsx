@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import { auth } from './firebase/configfb';
-import { fetchStoreMusic } from './redux/slice/storeSlice';
 import { fetchUser } from './redux/slice/userSlice';
 import { useAppDispatch } from './redux/store';
 import { Router } from './routes';
@@ -31,10 +30,6 @@ function App() {
         unSub();
     }
 }, [navigate])
-
-  useEffect(() => {
-    dispatch(fetchStoreMusic())
-  }, [navigate])
 
 
   return (

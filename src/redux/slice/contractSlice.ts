@@ -3,14 +3,9 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/configfb";
 
 
-type royalties = {
-    coppyRight: number,
-    perform: number,
-    producer: number
-}
 
 export interface DataTypeContract {
-    id: string
+    id?: string
     key: number
     contractID: string
     contractName: string
@@ -21,7 +16,6 @@ export interface DataTypeContract {
     birthDay: string
     email: string
     role: string
-    royalties: royalties
     sex: number
     startDay: string
     status: string

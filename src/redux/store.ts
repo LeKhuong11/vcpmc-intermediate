@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit"
+import { AnyAction, combineReducers, configureStore, ThunkDispatch } from "@reduxjs/toolkit"
 import { useDispatch } from "react-redux";
 import { TypedUseSelectorHook, useSelector } from "react-redux/es/exports";
 import { persistReducer } from "redux-persist";
@@ -31,7 +31,6 @@ export const store = configureStore({
 			serializableCheck: false,
 		})
 })
-
 
 
 export type RootState = ReturnType<typeof store.getState>
