@@ -18,20 +18,20 @@ import { db } from "../../firebase/configfb";
 // interface IUserState {
 //     user: IPerson[]
 // }
-type User = {
-    name: string;
+export interface IUser {
+    id?: string
     birthday: string;
     displayName: string;
     email: string;
-    fristName: string;
+    firstName: string;
     isAdmin: number;
     lastName: string;
     phone: number;
     userName:string;
-    avatar: null
+    avatar?: null
 }
 interface UserState {
-    user: User
+    user: IUser
 }
 const initialState: any = {
     user: {}
@@ -48,6 +48,7 @@ export const fetchUser = createAsyncThunk(
             //get a document follow uid
             const doc = await getDoc(docRef);
             user = doc.data();
+            user.id = doc.id
         } catch(err) {
             console.log(err);
         }
@@ -64,7 +65,7 @@ export const userSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
+        builder.addCase(fetchUser.fulfilled, (state, action: PayloadAction<IUser>) => {
           state.user = action.payload;
         });
       }, 

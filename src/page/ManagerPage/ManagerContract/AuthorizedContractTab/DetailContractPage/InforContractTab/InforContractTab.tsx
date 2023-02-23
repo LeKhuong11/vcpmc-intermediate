@@ -19,10 +19,13 @@ import Input from '../../../../../../components/Input'
 
 const ModalStyled = styled(Modal)`
     &&& {
+        :where(.css-dev-only-do-not-override-1n7nwfa).ant-modal  {
+            left: -100px;
+        }
         .ant-modal-content {
             background-color: #3E3E5B;
-            height: 50vh;
-            width: 600px;
+            height: 60vh;
+            width: 800px;
         }
         .ant-modal-title {
             text-align: center;
@@ -40,6 +43,11 @@ const ModalStyled = styled(Modal)`
             color: var(--orange);
             background-color: #3E3E5B;
         }
+        .ant-checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            margin-top: 4px;
+        }
         .ant-btn-primary {
             background-color: var(--orange);
             color: var(--white);
@@ -55,6 +63,49 @@ const ModalStyled = styled(Modal)`
             padding: 12px;
         }
     }
+    & .contentModal {
+        display: flex;
+
+        &>div {
+            width: 50%;
+            &>div {
+                margin-bottom: 20px;
+            }
+            & p {
+                margin: 6px 0;
+                display: flex;
+                align-items: center;
+            }
+
+            & .date {
+                display: flex;
+
+                &>p {
+                    margin-right: 10px;
+                }
+            }
+            & .upload {
+                display: flex;
+                
+                & h5 {
+                    margin-right: 15px;
+                }
+            }
+            & .checkbox-child {
+                margin-left: 20px;
+                border-left: 2px solid #727288; 
+                padding: 7px;
+            }
+            & .royalties {
+                display: flex;
+            }
+            & p {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
 `
 
 const ContainerStyled = styled.div`
@@ -97,20 +148,6 @@ const ContainerStyled = styled.div`
         }
     }
 `
-const DivContainer = styled.div`
-    width: 800px;
-    height: 200px;
-    background-color: #3E3E5B;
-    border-radius: 8px;
-`
-
-function div() {
-    return (
-        <DivContainer>
-            asadas
-        </DivContainer>
-    )
-}
 
 
 function InforContractTab() {   
@@ -339,7 +376,7 @@ function InforContractTab() {
             </div>
             <FeatureInPage featureProps={featureInPage} />
             <CustomModal 
-                title="Hủy hợp đồng khai thác"
+                title="Hủy hợp đồng ủy quyền"
                 openModal={openModalCancelContract} 
                 handleOk={handleOk} 
                 handleCancel={handleCancel} 
@@ -351,44 +388,70 @@ function InforContractTab() {
                 onOk={handleClickUpdateContractExtension} 
                 onCancel={handleCancel} 
             >
-                <div>
+                <div className='contentModal'>
                     <div>
                         <div>
-                            <h4>Thời gian gia hạn<i>*</i></h4>
+                            <h5>Thời gian gia hạn<i>*</i></h5>
                             <p>Từ ngày: 02/08/2021</p>
-                            <div>
+                            <div className='date'>
                                 <p>Đến ngày:</p> 
-                                <InputDate width={220} name="date" onChange={() => {}} />
+                                <InputDate width={120} name="date" onChange={() => {}} />
                             </div>
-                            <p>Lưu ý: Thời gian bắt đầu gia hạn hợp đồng mới được tính sau ngày hết hạn hợp đồng cũ một ngày.</p>
+                            <p style={{fontSize: 12, color: '#FFD0AB'}}>Lưu ý: Thời gian bắt đầu gia hạn hợp đồng mới được tính sau ngày hết hạn hợp đồng cũ một ngày.</p>
                         </div>
-                        <div>
+                        <div className='upload'>
                             <h5 className='h5-special'>Đính kèm tệp:</h5>
-                                <div style={{display: 'block'}}>
-                                    <Upload>
-                                        <Button heightProps={35} widthProps={120} type='primary' contentProps='Upload' icon={<UploadOutlined />} />
-                                    </Upload>
-                                    <p>hetthuongcannho.doc</p>
-                                    <p>hetthuongcannho.doc</p>
-                                </div>
+                            <div style={{display: 'block'}}>
+                                <Upload>
+                                    <Button heightProps={35} widthProps={120} type='primary' contentProps='Upload' icon={<UploadOutlined />} />
+                                </Upload>
+                                <p>hetthuongcannho.doc</p>
+                                <p>hetthuongcannho.doc</p>
+                            </div>
                         </div>
                     </div>
                     <div>
-                        <h4>Mức nhuận bút<i>*</i></h4>
-                        <Checkbox onChange={() => {}}>
-                            <p>Quyền tác giả </p>
+                        <h5>Mức nhuận bút<i>*</i></h5>
+                        <div className='royalties'>
+                            <Checkbox onChange={() => {}}>
+                                <p>Quyền tác giả </p>
+                            </Checkbox>
                             <Input 
                                 type='text' 
-                                width={50} 
+                                width={70} 
                                 height={28} 
                                 name="contractName" 
-                                value={contract.contractName}
-                                />
-                        </Checkbox>
-                        <Checkbox onChange={() => {}}>
-                            Quyền liên quan: 
-                            
-                        </Checkbox>
+                            /><p>%</p>
+                        </div>
+                        <div>
+                            <Checkbox onChange={() => {}}>
+                                <p>Quyền liên quan: </p>
+                            </Checkbox>
+                            <div className='checkbox-child'>
+                               <div className='royalties'>
+                                    <Checkbox onChange={() => {}}>
+                                        <p>Quyền của người biểu diễn</p>
+                                    </Checkbox>
+                                    <Input 
+                                        type='text' 
+                                        width={70} 
+                                        height={28} 
+                                        name="contractName" 
+                                    /> <p>%</p>
+                               </div>
+                               <div className='royalties'>
+                                    <Checkbox onChange={() => {}}>
+                                        <p>Quyền của nhà sản xuất</p>
+                                    </Checkbox>
+                                    <Input 
+                                        type='text' 
+                                        width={70} 
+                                        height={28} 
+                                        name="contractName" 
+                                    /> <p>%</p>
+                               </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </ModalStyled>

@@ -23,6 +23,13 @@ const InputStyled = styled(InputAntd)`
     color: var(--white);
     border: none;
     margin-top: 6px;
+
+    &&& {
+      :where(.css-dev-only-do-not-override-1n7nwfa).ant-input-disabled, ant-input[disabled] {
+        color: var(--white);
+        background: #33334D;
+      }
+    }
   `
 
 function Input({plahoder, width, height, type, disabled = false, value,  setValue, name}: IInputprops) {

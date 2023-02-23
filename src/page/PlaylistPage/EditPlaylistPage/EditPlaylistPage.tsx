@@ -16,6 +16,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/configfb';
 import { PlaylistSVG } from '../../../image/playlist';
 import { updateDocConfig } from '../../../hooks/useUpdateDoc';
+import Breadcrumbs from '../../../components/Breadcrumbs';
 
 type Playlist = {
     key: number,
@@ -37,14 +38,12 @@ function EditPlaylistPage() {
     const { id } = useParams();
     const { tempStoreMusicAddToPlaylist } = useAppSelector(state => state.playlist)
 
-    const [ loading, setLoading ] = useState<Boolean>()
-    const [ playlist, setPlaylist ] = useState<any>({})
+    const [ playlist, setPlaylist ] = useState<any>(false)
     const [ tempPlaylistSong, setTempPlaylistSong ] = useState(tempStoreMusicAddToPlaylist)
 
     const [ newPlaylist, setNewPlaylist ] = useState<any>(null);
  
     useEffect(() => {
-        setLoading(true)
         const getData = async () => {
             const docRef = doc(db, "play-list", `${id}`);
             try {
@@ -52,7 +51,6 @@ function EditPlaylistPage() {
                 await getDoc(docRef)            
                 .then((res) => {
                     setPlaylist(res.data())
-                    setLoading(false)
                     setNewPlaylist(res.data()) 
                 })
                 
@@ -225,9 +223,30 @@ function EditPlaylistPage() {
             event: () => navigate('add-new-song')
         }
     ]
+
+    const breadcrumb = [
+        {
+          key: 1,
+          path: '../../play-list',
+          namePage: 'Playlist'
+        },
+        {
+          key: 2,
+          path: `../play-list/detail/${id}`,
+          namePage: 'Chi tiết playlist'
+        },
+        {
+            key: 1,
+            path: '',
+            namePage: 'Chỉnh sửa '
+          },
+      ]
     
   return (
     <div className={root.addNewPlaylist}>
+        <div>
+            <Breadcrumbs crumbs={breadcrumb} /> 
+        </div>
         <div>
             <h3>Playlist {playlist.title}</h3>
         </div>
@@ -253,11 +272,11 @@ function EditPlaylistPage() {
                     </div>
                     <div>
                         <h5>Tổng số:</h5>
-                        <p>{0} bản ghi</p>
+                        <p>{playlist ? playlist.idSong.length : 0} bản ghi</p>
                     </div>
                     <div>
                         <h5>Tổng thời lượng:</h5>
-                        <p>00:03:12</p>
+                        <p>--:--:--</p>
                     </div>
                 </div>
                 <div className={root.description}>

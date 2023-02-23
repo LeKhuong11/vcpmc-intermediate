@@ -14,13 +14,14 @@ import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
 import { useAppDispatch} from '../../../redux/store';
 import root from '../playlist.module.scss'
 import Loading from '../../../components/Loading';
+import Breadcrumbs from '../../../components/Breadcrumbs';
 
 
 function DetailPlayListPage() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { id } = useParams();
-    const [ playlistId, setPlaylist ] = useState<any>({})
+    const [ playlistId, setPlaylist ] = useState<any>(false)
     const [ loading, setLoading ] = useState<Boolean>(false)
 
     useEffect(() => {
@@ -43,7 +44,7 @@ function DetailPlayListPage() {
     }, [])
  
   
-    const dataSource: DataTypeStoreMusic[] = playlistId.idSong
+    const dataSource: DataTypeStoreMusic[] = playlistId && playlistId.idSong
     const columns: ColumnsType<DataTypeStoreMusic> = [
         {
             title: 'STT',
@@ -109,12 +110,27 @@ function DetailPlayListPage() {
         },
     ]
 
+    const breadcrumb = [
+        {
+          key: 1,
+          path: '../play-list',
+          namePage: 'Playlist'
+        },
+        {
+          key: 2,
+          path: '',
+          namePage: 'Chi tiết playlist'
+        },
+      ]
   return (
     <div className={root.detailPlaylist}>
         {loading ? <Loading /> : 
         <>
             <div>
-            <h3>Playlist {playlistId.title}</h3>
+                <Breadcrumbs crumbs={breadcrumb} />
+            </div>
+            <div>
+                <h3>Playlist {playlistId.title}</h3>
             </div>
             <div className={root.container}>
                 <div className={root.infoPlaylist}>
@@ -129,7 +145,7 @@ function DetailPlayListPage() {
                         </div>
                         <div>
                             <h5>Tổng số:</h5> 
-                            <p>{0} bản ghi</p>
+                            <p>{playlistId ? playlistId.idSong.length : 0} bản ghi</p>
                         </div>
                         <div>
                             <h5>Tổng thời lượng:</h5> 

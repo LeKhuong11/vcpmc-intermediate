@@ -29,6 +29,7 @@ import AddNewSongInEditPlaylistPage from "../page/PlaylistPage/EditPlaylistPage/
 import DetailContractPage from "../page/ManagerPage/ManagerContract/AuthorizedContractTab/DetailContractPage/DetailContractPage";
 import EditContractPage from "../page/ManagerPage/ManagerContract/AuthorizedContractTab/DetailContractPage/InforContractTab/EditContractPage/EditContractPage";
 import AddContractPage from "../page/ManagerPage/ManagerContract/AddContractPage/AddContractPage";
+import DetailMiningContract from "../page/ManagerPage/ManagerContract/MiningContractTab/DetailMiningContractPage/DetailMiningContractPage";
 
 
 export function Router() {
@@ -87,12 +88,16 @@ export function Router() {
                             element:<ManagerContract />
                         },
                         {
-                            path: 'contract/detail/:id',
+                            path: 'contract/detail-authorized-contract/:id',
                             element:<DetailContractPage />
                         },
                         {
-                            path: 'contract/detail/:id/edit',
+                            path: 'contract/detail-authorized-contract/:id/edit',
                             element:<EditContractPage />
+                        },
+                        {
+                            path: 'contract/detail-mining-contract/:id',
+                            element:<DetailMiningContract />
                         },
                         {
                             path: 'contract/add-contract',

@@ -26,7 +26,6 @@ function PlayList() {
     setPlaylistStore(payments)
   }, [payments])
 
-  console.log(222);
   
   const handleClickAddNewPlaylist = () => {
     navigate('add-new-playlist')

@@ -107,7 +107,7 @@ function AddContractPage() {
         role: 'Người biểu diễn',
         sex: 1,
         startDay: '',
-        status: '',
+        status: 'new',
         userName: '',
         nationality: '',
         numberPhone: '',

@@ -2,10 +2,12 @@ import { MenuProps } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { collection, onSnapshot } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
+import { MdAdd } from 'react-icons/md'
 import { RxDotFilled } from 'react-icons/rx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import DropDown from '../../../../components/DropDown'
+import FeatureInPage from '../../../../components/FeatureInPage'
 import InputSearch from '../../../../components/InputSearch'
 import Loading from '../../../../components/Loading'
 import CustomModal from '../../../../components/Modal'
@@ -33,6 +35,7 @@ const ContainerStyled = styled.div`
 `
 
 function AuthorizedContractTab() {
+  const navigate = useNavigate();
   const { contracts } = useAppSelector(state => state.contracts)
   const [ listContract, setListContract ] = useState<DataTypeContract[]>(contracts)
   const { payments, loading} = usePaymentsCollection('contract');
@@ -109,7 +112,7 @@ function AuthorizedContractTab() {
         key: 'detail',
         render: (_, { id }) => {
   
-          return <Link to={`detail/${id}`}>Xem chi Tiết</Link>
+          return <Link to={`detail-authorized-contract/${id}`}>Xem chi Tiết</Link>
         }
       },
       {
@@ -129,7 +132,7 @@ function AuthorizedContractTab() {
             }
             
           return <>
-            {status === 'active' ? '' : <a onClick={() => handleClickSeeDetailCanceled(reason)}>Lý do hủy</a>}
+            {status === 'canceled' ? <a onClick={() => handleClickSeeDetailCanceled(reason)}>Lý do hủy</a> : ''}
           </>
         }
       },
@@ -162,6 +165,15 @@ function AuthorizedContractTab() {
         items,
         onClick: handleMenuClick,
       };
+
+      
+    const featureProp = [
+      {
+        icon: MdAdd,
+        text: 'Thêm hợp đồng',
+        event: () => navigate('add-contract')
+      }
+    ]
   return (
       <>
         {loading ? <Loading /> : 
@@ -189,6 +201,7 @@ function AuthorizedContractTab() {
               handleOk={() => {setOpenModal({...openModal, open: false})}}
               content={<textarea>{openModal.reason}</textarea>}
             />
+             <FeatureInPage featureProps={featureProp} />
           </div>
         }
       </>

@@ -15,7 +15,8 @@ export const updateDocConfig = async ({documentName, id, data}: IUpdate) => {
         await updateDoc(docRef, data);
         return true
     } catch(err) {
-
+        console.log(err);
+        
         return false
     }
 }

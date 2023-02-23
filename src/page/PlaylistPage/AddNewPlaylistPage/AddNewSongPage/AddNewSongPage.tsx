@@ -212,10 +212,29 @@ function AddNewSongPage() {
     items,
     onClick: handleMenuClick,
   };
-
+  const breadcrumb = [
+    {
+      key: 1,
+      path: '../../play-list',
+      namePage: 'Playlist'
+    },
+    {
+      key: 2,
+      path: '../play-list/add-new-playlist',
+      namePage: 'Thêm playlist mới'
+    },
+    {
+      key: 3,
+      path: '',
+      namePage: 'Thêm bản ghi vào playlist'
+    },
+  ]
   
   return (
     <div className={root.addNewSong}>
+      <div>
+        <Breadcrumbs crumbs={breadcrumb} />
+      </div>
       <div>
         <h3>Thêm bản ghi</h3>
       </div>

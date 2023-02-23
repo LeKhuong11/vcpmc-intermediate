@@ -27,12 +27,24 @@ const FreatureStyled = styled.div`
     text-align: center;
     &>div {
         margin: 5px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         p {
             font-size: 11px;
         }
-
+        & .icon {
+            border-radius: 50%;
+            background-color: #727288;
+            width: 43px;
+            height: 43px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         & svg {
-
+            
             :hover {
                 color: #FF4747;
             }
@@ -45,7 +57,7 @@ function FeatureInPage( {featureProps}: IFreature) {
         {
             featureProps.map((item: Iitems, index: number) => (
                 <div key={index} onClick={item.event}>
-                    <div>
+                    <div className='icon'>
                         <item.icon color='#FF7506' size={27} />
                     </div>
                     <p>{item.text}</p>

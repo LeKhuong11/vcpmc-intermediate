@@ -1,34 +1,18 @@
-
 import React, { useEffect } from 'react'
 import root from '../manager.module.scss'
-import FeatureInPage from '../../../components/FeatureInPage';
-import { MdAdd } from 'react-icons/md';
 import TabControl from '../../../components/TabControl';
 import MiningContractTab from './MiningContractTab/MiningContractTab';
 import AuthorizedContractTab from './AuthorizedContractTab/AuthorizedContractTab';
 import { useAppDispatch} from '../../../redux/store';
 import {  fetchContract } from '../../../redux/slice/contractSlice';
-import { useNavigate } from 'react-router-dom';
-
-
-
 
 function ManagerContract() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
 
   useEffect(() => {
     dispatch(fetchContract())
   }, [dispatch])
-
-  const featureProp = [
-    {
-      icon: MdAdd,
-      text: 'Thêm hợp đồng',
-      event: () => navigate('add-contract')
-    }
-  ]
 
   const tabControlItems = {
     buttons: [
@@ -62,7 +46,6 @@ function ManagerContract() {
         <div>
             <TabControl buttons={tabControlItems.buttons} items={tabControlItems.items} />
         </div>
-        <FeatureInPage featureProps={featureProp} />
     </div>
   )
 }

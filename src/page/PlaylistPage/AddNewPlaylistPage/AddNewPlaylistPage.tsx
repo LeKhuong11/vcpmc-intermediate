@@ -15,6 +15,7 @@ import { cancelTempPlaylist, DataTypePlaylist, tempPlaylist } from '../../../red
 import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/configfb';
+import Breadcrumbs from '../../../components/Breadcrumbs';
 
 
 const { confirm } = Modal;
@@ -183,8 +184,24 @@ function AddNewPlaylistPage() {
             event: () => navigate('add-new-song')
         }
       ]
+
+      const breadcrumb = [
+        {
+          key: 1,
+          path: '../play-list',
+          namePage: 'Playlist'
+        },
+        {
+          key: 2,
+          path: '',
+          namePage: 'Thêm playlist mới'
+        }
+      ]
   return (
     <div className={root.addNewPlaylist}>
+        <div>
+            <Breadcrumbs crumbs={breadcrumb} />
+        </div>
         <div>
             <h3>Thêm Playlist</h3>
         </div>
