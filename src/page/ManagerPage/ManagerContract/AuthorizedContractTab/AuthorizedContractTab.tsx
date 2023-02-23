@@ -8,8 +8,8 @@ import styled from 'styled-components'
 import DropDown from '../../../../components/DropDown'
 import InputSearch from '../../../../components/InputSearch'
 import Loading from '../../../../components/Loading'
+import CustomModal from '../../../../components/Modal'
 import CustomTable from '../../../../components/Table'
-import { db } from '../../../../firebase/configfb'
 import { usePaymentsCollection } from '../../../../hooks/useSnapshot'
 import { DataTypeContract } from '../../../../redux/slice/contractSlice'
 import { useAppSelector } from '../../../../redux/store'
@@ -36,7 +36,10 @@ function AuthorizedContractTab() {
   const { contracts } = useAppSelector(state => state.contracts)
   const [ listContract, setListContract ] = useState<DataTypeContract[]>(contracts)
   const { payments, loading} = usePaymentsCollection('contract');
-  
+  const [ openModal, setOpenModal ] = useState({
+    open: false,
+    reason: ''
+  })
 
   // listen 
   // When data changes on firestore, we receive that update here in this
@@ -44,7 +47,6 @@ function AuthorizedContractTab() {
   useEffect(() => {
     setListContract(payments)
   }, [payments])
-
 
     const DataSource: DataTypeContract[] = listContract
     const columnTab: ColumnsType<DataTypeContract> = [
@@ -114,9 +116,21 @@ function AuthorizedContractTab() {
         title: '',
         dataIndex: 'cancel',
         key: 'cancel',
-        render: (_, { status }) => {
-  
-          return <a>{status ? '' : "Lý do hủy"}</a>
+        render: (_, { status, reason }) => {
+            //see details of cancellation reason
+            const handleClickSeeDetailCanceled = (reason: any) => {
+              setOpenModal(prev => {
+                return {
+                  ...openModal,
+                  open: true,
+                  reason: reason
+                }
+              })
+            }
+            
+          return <>
+            {status === 'active' ? '' : <a onClick={() => handleClickSeeDetailCanceled(reason)}>Lý do hủy</a>}
+          </>
         }
       },
     ]
@@ -168,6 +182,13 @@ function AuthorizedContractTab() {
             </div>
             </ContainerStyled>
             <CustomTable columns={columnTab} dataSrouce={DataSource} heightProps={60}/>
+            <CustomModal
+              title={`Lý do hủy hợp đồng`}
+              openModal={openModal.open}
+              handleCancel={() => setOpenModal({...openModal, open: false})}
+              handleOk={() => {setOpenModal({...openModal, open: false})}}
+              content={<textarea>{openModal.reason}</textarea>}
+            />
           </div>
         }
       </>

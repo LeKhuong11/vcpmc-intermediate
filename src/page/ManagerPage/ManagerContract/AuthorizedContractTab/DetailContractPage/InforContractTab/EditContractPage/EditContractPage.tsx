@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import Breadcrumbs from '../../../../../../../components/Breadcrumbs'
-import CustomDatePicker from '../../../../../../../components/DatePicker'
 import Input from '../../../../../../../components/Input'
-import dayjs from 'dayjs';
-import { DatePickerProps, message, Modal, Radio, Upload, UploadProps } from 'antd'
+import { DatePickerProps, message,Upload, UploadProps } from 'antd'
 import Button from '../../../../../../../components/Button'
 import { UploadOutlined } from '@ant-design/icons';
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../../../../../../firebase/configfb'
 import Loading from '../../../../../../../components/Loading'
 import { updateDocConfig } from '../../../../../../../hooks/useUpdateDoc'
+import InputDate from '../../../../../../../components/InputDate'
 
 const ContainerStyled = styled.div`
     width: 96%;
@@ -151,6 +150,25 @@ function EditContractPage() {
         }
         message.success("Cập nhật thất bạibại")
     }
+
+    const handleClickCancelEditContract = () => {
+        navigate(`../contract/detail/${id}`)
+    }
+    
+    const onChangeRadio = (e: any) => {
+        console.log('radio checked', e.target.value);
+    };
+
+    const handleChangeDateInput = (e: any) => {
+        const name = e.name;
+        const value = e.value;
+
+        setConTractUpdate({
+            ...contractUpdate,
+            [name]: value
+        })
+    }
+
     const breadcrumb = [
         {
           key: 1,
@@ -173,12 +191,6 @@ function EditContractPage() {
             namePage: 'Chỉnh sửa thông tin'
         },
     ]
-
-    const onChangeRadio = (e: any) => {
-    console.log('radio checked', e.target.value);
-
-    };
-
 
   return (
     <>
@@ -217,11 +229,11 @@ function EditContractPage() {
                             </span>
                             <span>
                                 <h5>Ngày hiệu lực:</h5>
-                                <CustomDatePicker  type='mondath' defaultValue={dayjs(contract.startDay, 'YYYY/MM/DD')}  />
+                                <InputDate width={220} name="startDay" onChange={handleChangeDateInput} />
                             </span>
                             <span>
                                 <h5>Ngày hết hạn:</h5>
-                                <CustomDatePicker  type='mondath' defaultValue={dayjs(contract.date, 'DD/MM/YYYY')}  />
+                                <InputDate width={220} name="date" onChange={handleChangeDateInput} />
                             </span>
                             <span>
                                 <h5>Tình trạng:</h5>
@@ -303,10 +315,7 @@ function EditContractPage() {
                             </span>
                             <span>
                                 <h5>Ngày sinh:<i>*</i></h5>
-                                <CustomDatePicker  
-                                    defaultValue={dayjs(contract.birthDay, 'DD/MM/YYYY')}  
-                                    onChange={handleChangeDatePicker}
-                                />
+                                <InputDate width={220} name="birthDay" onChange={handleChangeDateInput} />
                             </span>
                             <span>
                                 <h5>Giới tính:<i>*</i></h5>
@@ -364,7 +373,7 @@ function EditContractPage() {
                             </span>
                             <span>
                                 <h5>Ngày cấp:<i>*</i></h5>
-                                <CustomDatePicker  type='month' defaultValue={dayjs(`${contract.dateOfIssue}`, 'DD/MM/YYYY')}  />
+                                <InputDate width={220} name="dateOfIssue" onChange={handleChangeDateInput} />
                             </span>
                             <span>
                                 <h5>Nơi cấp:<i>*</i></h5>
@@ -452,7 +461,7 @@ function EditContractPage() {
                         </div>
                     </div>
                     <div className='btn'>
-                        <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" />
+                        <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" onClick={handleClickCancelEditContract} />
                         <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu" onClick={handleClickUpdateContract}/>
                     </div>
                 </div>

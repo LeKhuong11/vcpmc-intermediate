@@ -28,6 +28,7 @@ export interface DataTypeContract {
     place: string
     taxID: number
     address: string
+    reason?: string
 }
 
 interface IContract {

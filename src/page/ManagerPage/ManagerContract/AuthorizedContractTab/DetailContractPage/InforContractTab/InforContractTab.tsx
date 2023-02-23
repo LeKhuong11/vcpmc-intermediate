@@ -1,5 +1,4 @@
-import { async } from '@firebase/util'
-import { message, Modal } from 'antd'
+import { Checkbox, message, Modal, Upload } from 'antd'
 import { doc, getDoc } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
@@ -8,10 +7,55 @@ import { RxDotFilled } from 'react-icons/rx'
 import { SlNote } from 'react-icons/sl'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import Button from '../../../../../../components/Button'
 import FeatureInPage from '../../../../../../components/FeatureInPage'
+import InputDate from '../../../../../../components/InputDate'
 import Loading from '../../../../../../components/Loading'
+import CustomModal from '../../../../../../components/Modal'
 import { db } from '../../../../../../firebase/configfb'
 import { updateDocConfig } from '../../../../../../hooks/useUpdateDoc'
+import { UploadOutlined } from '@ant-design/icons';
+import Input from '../../../../../../components/Input'
+
+const ModalStyled = styled(Modal)`
+    &&& {
+        .ant-modal-content {
+            background-color: #3E3E5B;
+            height: 50vh;
+            width: 600px;
+        }
+        .ant-modal-title {
+            text-align: center;
+            color: var(--white);
+            background-color: #3E3E5B;
+            font-size: 23px;
+        }
+        .ant-modal-footer {
+            display: flex;
+            justify-content: center;
+        }
+        .ant-btn {
+            width: 100px;
+            border: 1.5px solid var(--orange);
+            color: var(--orange);
+            background-color: #3E3E5B;
+        }
+        .ant-btn-primary {
+            background-color: var(--orange);
+            color: var(--white);
+        }
+        & textarea {
+            width: 100%;
+            height: 120px;
+            background-color: #2B2B3F;
+            color: var(--white);
+            border-radius: 8px;
+            border: none;
+            font-family: 'Montserrat';
+            padding: 12px;
+        }
+    }
+`
 
 const ContainerStyled = styled.div`
     width: 86%;
@@ -53,53 +97,31 @@ const ContainerStyled = styled.div`
         }
     }
 `
-
-const ModalStyled = styled(Modal)`
-    &&& {
-        .ant-modal-content {
-            background-color: #3E3E5B;
-            height: 40vh;
-        }
-        .ant-modal-title {
-            text-align: center;
-            color: var(--white);
-            background-color: #3E3E5B;
-            font-size: 23px;
-        }
-        .ant-modal-footer {
-            display: flex;
-            justify-content: center;
-        }
-        .ant-btn {
-            width: 100px;
-            border: 1.5px solid var(--orange);
-            color: var(--orange);
-            background-color: #3E3E5B;
-        }
-        .ant-btn-primary {
-            background-color: var(--orange);
-            color: var(--white);
-        }
-        & textarea {
-            width: 100%;
-            height: 120px;
-            background-color: #2B2B3F;
-            color: var(--white);
-            border-radius: 8px;
-            border: none;
-            font-family: 'Montserrat';
-            padding: 12px;
-        }
-    }
+const DivContainer = styled.div`
+    width: 800px;
+    height: 200px;
+    background-color: #3E3E5B;
+    border-radius: 8px;
 `
+
+function div() {
+    return (
+        <DivContainer>
+            asadas
+        </DivContainer>
+    )
+}
+
 
 function InforContractTab() {   
     const navigate = useNavigate();
     const { id } = useParams();
     const [ contract, setContract ] = useState<any>({})
     const [ loading, setLoading ] = useState(false)
-    const [ openModal, setOpenModal ] = useState(false)
-
+    const [ openModalCancelContract, setOpenModalCancelContract ] = useState(false)
+    const [ openModalContractExtension, setOpenModalContractExtension ] = useState(false)
+    const [ cancelReason, setCancelReason ] = useState('');
+    const [checked, setChecked] = useState(true);
     useEffect(() => {
         setLoading(true)
         const getData = async () => {
@@ -119,6 +141,18 @@ function InforContractTab() {
         getData()
     }, [])
  
+    const handleClickSetOpenModalCancelContract = () => {
+        if(contract.status === 'canceled') {
+            setOpenModalCancelContract(false)
+            message.warning("Hợp đồng đã được hủy")
+            return
+        }
+        setOpenModalCancelContract(true)
+    }   
+
+    const handleClickSetOpenModalContractExtension = () => {
+        setOpenModalContractExtension(true)
+    }
     
     const featureInPage = [
         {
@@ -129,12 +163,13 @@ function InforContractTab() {
         },
         {
             icon: GiNotebook,
-            text: 'Gia hạn hợp đồng'
+            text: 'Gia hạn hợp đồng',
+            event: handleClickSetOpenModalContractExtension
         },
         {
             icon: FaTimes,
             text: 'Hủy hợp đồng',
-            event: () => setOpenModal(true)
+            event: handleClickSetOpenModalCancelContract
         },
     ]
 
@@ -143,12 +178,13 @@ function InforContractTab() {
         active: <p><RxDotFilled color="blue" />Còn thời hạn</p>,
         expired: <p><RxDotFilled color="gray" />Đã hết hạn</p>,
         canceled: <p><RxDotFilled color="red" />Đã hủy</p>
-      }
+    }
 
-      const handleOk = async () => {
-        setOpenModal(false);
+    const handleOk = async () => {
+        setOpenModalCancelContract(false);
         const status = {
-            status: 'canceled'
+            status: 'canceled',
+            reason: cancelReason
         }
         const params = {
             documentName: 'contract',
@@ -165,8 +201,13 @@ function InforContractTab() {
     };
     
     const handleCancel = () => {
-        setOpenModal(false);
+        setOpenModalCancelContract(false);
+        setOpenModalContractExtension(false);
     };
+
+    const handleClickUpdateContractExtension = () => {
+
+    }
     
   return (
     <>
@@ -215,11 +256,11 @@ function InforContractTab() {
                     </span>
                     <span>
                         <p>Quyền của người biểu diễn:</p>
-                        <p>{0}%</p>
+                        <p>50%</p>
                     </span>
                     <span>
                         <p>Quyền của nhà sản xuất:</p>
-                        <p>  {0}%</p>
+                        <p>50%</p>
                     </span>
                 </div>
             </div>
@@ -228,7 +269,7 @@ function InforContractTab() {
                     <h4 style={{color: '#FFAC69', marginTop: -30}}>Thông tin pháp nhân uỷ quyền</h4>
                     <span>
                         <h5>Pháp nhân uỷ quyền:</h5>
-                        <p>{contract.authorizedPerson}</p>
+                        <p>{contract.authorizedPerson === 'person' ? 'Cá nhân' : 'Tổ chức'}</p>
                     </span>
                     <span>
                         <h5>Tên người uỷ quyền:</h5>
@@ -240,7 +281,7 @@ function InforContractTab() {
                     </span>
                     <span>
                         <h5>Giới tính:</h5>
-                        <p>{contract.sex}</p>
+                        <p>{contract.sex ? 'Nam' : 'Nữ'}</p>
                     </span>
                     <span>
                         <h5>Quốc tịch:</h5>
@@ -273,7 +314,7 @@ function InforContractTab() {
                         <p>{contract.address}</p>
                     </span>
                 </div>
-                <div>
+                <div>   
                     <span> 
                         <h5>Email:</h5>
                         <p>{contract.email}</p>
@@ -297,13 +338,59 @@ function InforContractTab() {
                 </div>
             </div>
             <FeatureInPage featureProps={featureInPage} />
-            <ModalStyled
+            <CustomModal 
                 title="Hủy hợp đồng khai thác"
-                open={openModal}
-                onOk={handleOk}
-                onCancel={handleCancel}
+                openModal={openModalCancelContract} 
+                handleOk={handleOk} 
+                handleCancel={handleCancel} 
+                content={<textarea onChange={(e) => setCancelReason(e.target.value)} placeholder='Cho chúng tôi biết lý do bạn muốn huỷ hợp đồng uỷ quyền này...'></textarea>} 
+            />
+            <ModalStyled
+                title="Gia hạn uỷ quyền tác phẩm"
+                open={openModalContractExtension} 
+                onOk={handleClickUpdateContractExtension} 
+                onCancel={handleCancel} 
             >
-                <textarea placeholder='Cho chúng tôi biết lý do bạn muốn huỷ hợp đồng khai thác này...' />
+                <div>
+                    <div>
+                        <div>
+                            <h4>Thời gian gia hạn<i>*</i></h4>
+                            <p>Từ ngày: 02/08/2021</p>
+                            <div>
+                                <p>Đến ngày:</p> 
+                                <InputDate width={220} name="date" onChange={() => {}} />
+                            </div>
+                            <p>Lưu ý: Thời gian bắt đầu gia hạn hợp đồng mới được tính sau ngày hết hạn hợp đồng cũ một ngày.</p>
+                        </div>
+                        <div>
+                            <h5 className='h5-special'>Đính kèm tệp:</h5>
+                                <div style={{display: 'block'}}>
+                                    <Upload>
+                                        <Button heightProps={35} widthProps={120} type='primary' contentProps='Upload' icon={<UploadOutlined />} />
+                                    </Upload>
+                                    <p>hetthuongcannho.doc</p>
+                                    <p>hetthuongcannho.doc</p>
+                                </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Mức nhuận bút<i>*</i></h4>
+                        <Checkbox onChange={() => {}}>
+                            <p>Quyền tác giả </p>
+                            <Input 
+                                type='text' 
+                                width={50} 
+                                height={28} 
+                                name="contractName" 
+                                value={contract.contractName}
+                                />
+                        </Checkbox>
+                        <Checkbox onChange={() => {}}>
+                            Quyền liên quan: 
+                            
+                        </Checkbox>
+                    </div>
+                </div>
             </ModalStyled>
         </ContainerStyled>
         }

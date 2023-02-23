@@ -1,5 +1,5 @@
-import React from 'react'
-import { Outlet } from 'react-router';
+import React, { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router';
 import Sidebar from '../../layout/Sidebar';
 import styled from 'styled-components';
 import Avatar from 'antd/es/avatar';
@@ -19,8 +19,7 @@ const TypographyStyled = styled(Typography.Text)`
 `
 
 function HomePage() {
-  const { user } = useAppSelector((state) => state.user);
-
+  const navigate = useNavigate();
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     message.info('Click on menu item.');
     console.log('click', e);
@@ -44,7 +43,12 @@ function HomePage() {
       key: '4',
     },
   ];
+
+  useEffect(() => {
+    navigate('store')
+  }, [])
   
+
   const menuProps = {
     items,
     onClick: handleMenuClick,
