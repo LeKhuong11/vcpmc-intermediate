@@ -30,6 +30,7 @@ import DetailContractPage from "../page/ManagerPage/ManagerContract/AuthorizedCo
 import EditContractPage from "../page/ManagerPage/ManagerContract/AuthorizedContractTab/DetailContractPage/InforContractTab/EditContractPage/EditContractPage";
 import AddContractPage from "../page/ManagerPage/ManagerContract/AddContractPage/AddContractPage";
 import DetailMiningContract from "../page/ManagerPage/ManagerContract/MiningContractTab/DetailMiningContractPage/DetailMiningContractPage";
+import AddDevicePage from "../page/ManagerPage/ManagerDevice/AddDevicePage/AddDevicePage";
 
 
 export function Router() {
@@ -106,6 +107,10 @@ export function Router() {
                         {
                             path: 'device',
                             element: <ManagerDevice />
+                        },
+                        {
+                            path: 'device/add-device',
+                            element: <AddDevicePage />
                         },
                         {
                             path: 'authorized-partner',

@@ -20,6 +20,7 @@ import { db } from "../../firebase/configfb";
 // }
 export interface IUser {
     id?: string
+    password?: string
     birthday: string;
     displayName: string;
     email: string;
@@ -37,11 +38,14 @@ const initialState: any = {
     user: {}
 } as UserState
 
+interface IParamsFetchUser  {
+    uid: string,
+}
 
 //Fetching data from firebase
 export const fetchUser = createAsyncThunk(
     "user/fetch",
-    async (uid: string) => {
+    async ({uid}: IParamsFetchUser) => {
         let user :any = {};
         const docRef = doc(db, "user", uid);
         try {

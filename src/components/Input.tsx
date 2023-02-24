@@ -11,6 +11,7 @@ interface IInputprops {
   setValue?: any,
   height?: number,
   name?: string
+  require?: boolean
 }
 
 const InputStyled = styled(InputAntd)`
@@ -32,7 +33,7 @@ const InputStyled = styled(InputAntd)`
     }
   `
 
-function Input({plahoder, width, height, type, disabled = false, value,  setValue, name}: IInputprops) {
+function Input({plahoder, width, height, type, disabled = false, value, require = false, setValue, name}: IInputprops) {
 
   return (
         <InputStyled 
@@ -43,6 +44,7 @@ function Input({plahoder, width, height, type, disabled = false, value,  setValu
           disabled={disabled} 
           defaultValue={value}
           name={name}
+          required={require}
         />
   )
 }

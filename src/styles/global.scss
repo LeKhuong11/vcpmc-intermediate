@@ -61,6 +61,15 @@ p {
     color: #d1d1d1;
     vertical-align: middle;
 }
+textarea {
+  border-radius: 8px;
+  background: #33334D;
+  border: none;
+  padding: 10px;
+  outline-style: none;
+  color: var(--white);
+  font-family: 'Montserrat';
+}
 
 ::-webkit-scrollbar {
     width: 7px;

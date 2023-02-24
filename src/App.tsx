@@ -18,7 +18,7 @@ function App() {
     const unSub = auth.onAuthStateChanged((currentUser) => {
         if(currentUser) {
           const { uid } = currentUser;
-          dispatch(fetchUser(uid))
+          dispatch(fetchUser({uid: uid}))
           
           return
         }

@@ -83,7 +83,6 @@ const TableStyled = styled(Table)`
 const TableContainerStyled = styled.div`
     background-color: #2F2F41;
     border-radius: 8px;
-    width: 94%;
     position: relative;
 `
 
@@ -91,13 +90,15 @@ interface ITableProps {
     columns: any[],
     dataSrouce: any[],
     heightProps: number,
-    pagination?: boolean | Object
+    widthProps?: number
+    pagination?: any
+    rowSelection?: any
 }
 
-function CustomTable({columns, dataSrouce, heightProps}: ITableProps) {
+function CustomTable({columns, dataSrouce, heightProps, rowSelection, pagination = false, widthProps = 94}: ITableProps) {
   return (
-    <TableContainerStyled style={{height: `${heightProps}vh`}}>
-        <TableStyled columns={columns} dataSource={dataSrouce} pagination={false} />
+    <TableContainerStyled style={{height: `${heightProps}vh`, width: `${widthProps}%`}}>
+        <TableStyled rowSelection={rowSelection} columns={columns} dataSource={dataSrouce} pagination={pagination} />
     </TableContainerStyled>
   )
 }

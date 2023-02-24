@@ -30,10 +30,11 @@ function Login() {
 
   const handleClickLogin = async (e: any) => {
     e.preventDefault();
+    
     try {
       await signInWithEmailAndPassword(auth, login.email, login.password)
-        .then(res => {
-          dispatch(fetchUser(res.user.uid));
+      .then(res => {
+          dispatch(fetchUser({uid: res.user.uid}))
           message.success("Đăng nhập thành công")
           navigate('/store');
         })
