@@ -18,9 +18,17 @@
             }
         }
         .formBtn {
-            margin-top: 30px;
+            margin: 10px 0 40px;
             display: flex;
             justify-content: center;
+        }
+    }
+    .forgotPassword {
+        
+        & h5 {
+            color: var(--orange);
+            cursor: pointer;
+            text-decoration: underline;
         }
     }
     .selectLanguage {
@@ -28,4 +36,39 @@
         top: 30px;
         right: 30px;
     }
+
+    .resetPassword {
+        text-align: center;
+        position: relative;
+        height: 100%;
+        .content {
+            
+            & .backToLogin{
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+
+                & h5 {
+                    text-decoration: underline;
+                    cursor: pointer;
+                    color: var(--orange);
+                }
+            }
+            & h3 {
+                margin-top: 20px;
+            }
+
+            & form {
+                margin-top: 20px;
+                text-align: left;
+            }
+            & .button {
+                margin-top: 50px;
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
 }
+

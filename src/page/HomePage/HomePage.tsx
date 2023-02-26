@@ -8,7 +8,9 @@ import { MenuProps, message } from 'antd';
 import DropDown from '../../components/DropDown';
 import root from './home.module.scss';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../redux/store';
+import { useAppDispatch } from '../../redux/store';
+import { auth } from '../../firebase/configfb';
+import { fetchUser } from '../../redux/slice/userSlice';
 
 const TypographyStyled = styled(Typography.Text)`
 &&& {
@@ -20,6 +22,28 @@ const TypographyStyled = styled(Typography.Text)`
 
 function HomePage() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [ user, setUser ] = React.useState(false);
+
+  //authenticaton current user 
+  //if don't user redirect to login
+  useEffect(()=> {
+    const unSub = auth.onAuthStateChanged((currentUser) => {
+        if(currentUser) {
+          const { uid } = currentUser;
+          dispatch(fetchUser({uid: uid}))
+          setUser(true)
+          return
+        }
+        navigate('login')        
+    })
+
+    //cleanup function
+    return () => {
+        unSub();
+    }
+}, [navigate])
+
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     message.info('Click on menu item.');
     console.log('click', e);
@@ -55,7 +79,8 @@ function HomePage() {
   };
   
   return (
-    <div className={root.home}>
+    <>
+      {user && <div className={root.home}>
       <Sidebar />
       <div className={root.homeContentMain}>
         <div className={root.homeHeader}>
@@ -69,7 +94,8 @@ function HomePage() {
         </div>
         <Outlet />
       </div>
-    </div>
+    </div>}
+    </>
   )
 }
 

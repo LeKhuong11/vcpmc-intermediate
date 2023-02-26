@@ -43,6 +43,9 @@ function EditPlaylistPage() {
 
     const [ newPlaylist, setNewPlaylist ] = useState<any>(null);
  
+
+    //khi nhân vào button "xem chi tiết" sẽ chuyển vào trang detail cùng với id ở URL
+    //Vào trang detail get id trên store bằng useEffect
     useEffect(() => {
         const getData = async () => {
             const docRef = doc(db, "play-list", `${id}`);

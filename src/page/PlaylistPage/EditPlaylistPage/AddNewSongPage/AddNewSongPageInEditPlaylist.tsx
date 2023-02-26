@@ -60,7 +60,7 @@ function AddNewSongInEditPlaylistPage() {
         }
       }
 
-      //choose item on list store music follow id 
+      //get item on list store music follow id in URL
       const addSongToNewPlaylist = store.filter(item =>  item.id === id);
       setListSong(prev => [
         ...prev,

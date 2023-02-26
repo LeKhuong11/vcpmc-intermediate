@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { MenuProps, message } from 'antd';
+import React, { useEffect, useState } from 'react'
+import {  MenuProps, message } from 'antd';
 import DropDown from '../../components/DropDown';
 import root from './store.module.scss';
 import { SlNote } from 'react-icons/sl';
@@ -13,13 +13,18 @@ import { Link } from 'react-router-dom';
 import { DataTypeStoreMusic, fetchStoreMusic } from '../../redux/slice/storeSlice';
 import { usePaymentsCollection } from '../../hooks/useSnapshot';
 import Loading from '../../components/Loading';
+import { AiOutlineUnorderedList } from 'react-icons/ai';
+import Card from './components/Card';
+import { RiTableFill } from 'react-icons/ri';
+
 
 function Store() {
   const dispatch = useAppDispatch();
   const storeMusic = useAppSelector(state => state.storeMusic.store);
-  const [store, setStore] = React.useState(storeMusic)
+  const [store, setStore] = useState(storeMusic)
   const { payments, loading} = usePaymentsCollection('store-music');
-  
+  const [ displaySwitch, setDisplaySwitch ] = useState('row')
+
   useEffect(() => {
     dispatch(fetchStoreMusic());
   }, [])
@@ -39,21 +44,21 @@ function Store() {
 
   const items: MenuProps['items'] = [
     {
-      label: '1st menu item',
-      key: '1'
+      label: 'Tất cả',
+      key: '1',
     },
     {
-      label: '2nd menu item',
+      label: 'Pop',
       key: '2'
     },
     {
-      label: '3rd menu item',
-      key: '3',
+      label: 'EDM',
+      key: '3'
     },
     {
-      label: '4rd menu item',
+      label: 'Ballad',
       key: '4',
-    },
+    }
   ];
   
   const menuProps = {
@@ -68,6 +73,7 @@ function Store() {
     }
   ];
   
+  //table 
   const dataSource: DataTypeStoreMusic[] = store
   const columns: ColumnsType<DataTypeStoreMusic> = [
     {
@@ -147,32 +153,50 @@ function Store() {
     <>
       {loading ? <Loading /> : 
         <div className={root.store}>
-        <h3>Kho bản ghi</h3>
-        <div>
+          <h3>Kho bản ghi</h3>
           <div>
-            <InputSearch placehoder='Tên bản ghi, ca sĩ,...' />
-          </div>
-          <div>
-            <div className={root.options}>
-              <div>
-                <p>Thể loại: </p>
-                <DropDown menuProps={menuProps} orange />
-              </div>
-              <div>
-                <p>Định dạng: </p>
-                <DropDown menuProps={menuProps} orange />
-              </div>
-              <div>
-                <p>Thời hạn sử dụng: </p>
-                <DropDown menuProps={menuProps} orange />
-              </div>
-              <div>
-                <p>Trạng thái: </p>
-                <DropDown menuProps={menuProps} orange />
+            <div>
+              <InputSearch placehoder='Tên bản ghi, ca sĩ,...' />
+            </div>
+            <div>
+              <div className={root.options}>
+                <div>
+                  <p>Thể loại: </p>
+                  <DropDown menuProps={menuProps} orange />
+                </div>
+                <div>
+                  <p>Định dạng: </p>
+                  <DropDown menuProps={menuProps} orange />
+                </div>
+                <div>
+                  <p>Thời hạn sử dụng: </p>
+                  <DropDown menuProps={menuProps} orange />
+                </div>
+                <div>
+                  <p>Trạng thái: </p>
+                  <DropDown menuProps={menuProps} orange />
+                </div>
+                <div className={root.switch}>
+                  <span className={displaySwitch === 'row' && root.active} onClick={() => setDisplaySwitch('row')}>
+                    <AiOutlineUnorderedList size={25} />
+                  </span>
+                  <span className={displaySwitch === 'table' && root.active} onClick={() => setDisplaySwitch('table')}>
+                    <RiTableFill size={25} />
+                  </span>
+                  <span>
+
+                  </span>
+                </div>
               </div>
             </div>
+            {displaySwitch === 'row' && <CustomTable columns={columns} dataSrouce={dataSource} heightProps={64} /> }
+            {displaySwitch === 'table' &&
+              <div className={root.listSongTable}>
+              {store.map(item => (
+                <Card song={item} />
+              ))}
           </div>
-          <CustomTable columns={columns} dataSrouce={dataSource} heightProps={64} />
+            }
         </div>
         <FeatureInPage featureProps={featureProps} />
       </div>

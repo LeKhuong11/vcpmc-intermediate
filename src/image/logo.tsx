@@ -2,8 +2,8 @@ import styled from "styled-components"
 
 const SVGStyled = styled.svg`
         background-color: white;
-        width: 179.5px;
-        height: 179.5px;
+        width: 159.5px;
+        height: 159.5px;
         border-radius: 50%;
     `
     

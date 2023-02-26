@@ -43,7 +43,7 @@ function DetailPlayListPage() {
         getData()
     }, [])
  
-  
+    
     const dataSource: DataTypeStoreMusic[] = playlistId && playlistId.idSong
     const columns: ColumnsType<DataTypeStoreMusic> = [
         {

@@ -21,6 +21,8 @@ function PlayList() {
   const { payments, loading } = usePaymentsCollection('play-list');
   
 
+
+  //set lại dữ liệu ngay khi dữ liệu trên store thay đổi
   useEffect(() => {
     dispatch(fetchPlaylist())
     setPlaylistStore(payments)

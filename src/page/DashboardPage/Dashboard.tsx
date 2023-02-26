@@ -69,7 +69,7 @@ function Dashboard() {
         try {
             await signOut(auth);
             dispatch(deleteUser());
-            navigate('login')
+            navigate('../login')
         } catch(err) {
             message.error("error")
         }

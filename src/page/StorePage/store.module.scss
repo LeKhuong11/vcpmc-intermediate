@@ -12,7 +12,95 @@
                 
             }
         }
+        & .switch {
+            
+            & span {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                margin-right: 15px;
+            }
+            & .active {
+                & svg {
+                    color: #FF7506;  
+                   }
+            }
+
+        }
     }
+    & .listSongTable {
+        display: flex;
+        flex-wrap: wrap;
+        height: 65vh;
+        overflow: auto;
+        width: 94%;
+        
+    }
+    & .card {
+        border-radius: 8px;
+        width: 255px;
+        background-color: var(--violetLight);
+        overflow: hidden;
+        position: relative;
+        margin: 0 15px 20px 0;
+        & .img {
+
+            & img {
+                height: 130px;
+                width: 100%;
+            }
+        }
+        & .infoSong {
+            padding: 10px;
+            width: 100%;
+            & .info {
+
+                & h4 {
+                    margin-bottom: 0;
+                }
+                & span {
+                    display: flex;
+
+                    
+                    & h5{
+                        margin-right: 7px;
+                    }
+                    & p {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+            & .type {
+                display: flex;
+                margin-top: 13px;
+                &>div {
+                    margin-right: 6px;
+                    width: 65px;
+                    height: 40px;
+                    border-radius: 8px;
+                    border: 1px solid #999898;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    & p {
+                        font-size: 11px;
+                        text-align: center;
+                    }
+                    & h5 {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+        & .edit {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+    }   
 }
 
 .UpdateInformation {

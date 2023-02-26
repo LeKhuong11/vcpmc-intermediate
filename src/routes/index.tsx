@@ -31,13 +31,21 @@ import EditContractPage from "../page/ManagerPage/ManagerContract/AuthorizedCont
 import AddContractPage from "../page/ManagerPage/ManagerContract/AddContractPage/AddContractPage";
 import DetailMiningContract from "../page/ManagerPage/ManagerContract/MiningContractTab/DetailMiningContractPage/DetailMiningContractPage";
 import AddDevicePage from "../page/ManagerPage/ManagerDevice/AddDevicePage/AddDevicePage";
+import ResetPasswordPage from "../page/LoginPage/ResetPasswordPage/ResetPasswordPage";
+import DetailCreateListPage from "../page/CreateListPage/DetailCreateListPage/DetailCreateListPage";
 
 
 export function Router() {
     let element = useRoutes([
         {
             path: 'login',
-            element: <Login />
+            element: <Login />,
+            children: [
+                {
+                    path: 'reset-password',
+                    element: <ResetPasswordPage />
+                },
+            ]
         },
         {
             path: '/',
@@ -79,6 +87,10 @@ export function Router() {
                 {
                     path: 'create-list',
                     element: <CreateList />
+                },
+                {
+                    path: 'create-list/detail/:id',
+                    element: <DetailCreateListPage />
                 },
                 {
                     path: 'manager',

@@ -1,91 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FeatureInPage from '../../components/FeatureInPage';
 import root from './createList.module.scss'
 import { MdPlaylistAdd } from 'react-icons/md'
 import { ColumnsType } from 'antd/es/table';
 import CustomTable from '../../components/Table';
+import { DataTypeCreateList,  fetchCreateList } from '../../redux/slice/createListSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { Link, useNavigate } from 'react-router-dom';
+import { usePaymentsCollection } from '../../hooks/useSnapshot';
+import Loading from '../../components/Loading';
 
-interface DataType {
-      id: number,
-      stt: number,
-      name: string,
-      time: string,
-      detail: string,
-      delete: string,
-}
 
 function CreateList() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch()
+  const { createList } = useAppSelector(state => state.createList)
+  const { payments, loading} = usePaymentsCollection('create-list');
+  const [ createLists, setCreateList ] = useState<DataTypeCreateList[]>(payments)
 
-  const dataSource: DataType[] = [
-    {
-      id: 1,
-      stt: 1,
-      name: 'Lịch phát số 1',
-      time: '22/05/2021 - 30/05/2021',
-      detail: 'Xem chi tiết',
-      delete: 'Xóa',
-    },
-    {
-      stt: 2,
-      id: 2,
-      name: 'Lịch phát số 1',
-      time: '22/05/2021 - 30/05/2021',
-      detail: 'Xem chi tiết',
-      delete: 'Xóa',
-     
-    },
-    {
-      stt: 3,
-      id: 3,
-      name: 'Lịch phát số 1',
-      time: '22/05/2021 - 30/05/2021',
-      detail: 'Xem chi tiết',
-      delete: 'Xóa',
-     
-    },
-    {
-      stt: 4,
-      id: 4,
-      name: 'Lịch phát số 1',
-      time: '22/05/2021 - 30/05/2021',
-      detail: 'Xem chi tiết',
-      delete: 'Xóa',
-     
-    },
-    {
-      stt: 5,
-      id: 5,
-      name: 'Lịch phát số 1',
-      time: '22/05/2021 - 30/05/2021',
-      detail: 'Xem chi tiết',
-      delete: 'Xóa',
-     
-    },
-    {
-      stt: 6,
-      id: 6,
-      name: 'Lịch phát số 1',
-      time: '22/05/2021 - 30/05/2021',
-      detail: 'Xem chi tiết',
-      delete: 'Xóa',
-     
-    },
-    {
-      stt: 7,
-      id: 7,
-      name: 'Lịch phát số 1',
-      time: '22/05/2021 - 30/05/2021',
-      detail: 'Xem chi tiết',
-      delete: 'Xóa',
-     
-    },
-  ]
+  // listen 
+  // When data changes on firestore, we receive that update here in this
+  // callback and then update the UI based on current state 
+  useEffect(() => {
+    setCreateList(payments)
+    dispatch(fetchCreateList());
+  }, [payments])
+
+  const dataSource: DataTypeCreateList[] = createList
   
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<DataTypeCreateList> = [
       {
         title: 'STT',
         dataIndex: 'stt',
-        key: 'stt'
+        key: 'stt',
+        render: (_, {}, index) => (
+          <p>{index + 1}</p>
+        )
       },
       {
         title: 'Tên lịch',
@@ -98,12 +48,9 @@ function CreateList() {
         key: 'time'
       },
       {
-        title: '',
-        dataIndex: 'detail',
-        key: 'detail',
-        render: (_, {detail}) => {
+        render: (_, {id}) => {
 
-          return <a>{detail}</a>
+          return <Link to={`detail/${id}`}>Xem chi tiết</Link>
         }
       },
       {
@@ -125,13 +72,17 @@ function CreateList() {
     }
   ]
   return (
-    <div className={root.createList}>
+    <>
+      {loading ? <Loading /> : 
+        <div className={root.createList}>
         <h3>Danh sách lịch phát</h3>
         <div>
             <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} />
         </div>
         <FeatureInPage featureProps={featureProps} />
     </div>
+      }
+    </>
   )
 }
 

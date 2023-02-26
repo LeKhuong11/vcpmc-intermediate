@@ -21,22 +21,30 @@ const SpaceStyled = styled(Space)`
         background-color: #3E3E5B;
         color: #fff;
       }
+      
     }
-    `
+`
+const DropdownStyled = styled(Dropdown)`
+    &&& {
+      .ant-dropdown :where(.css-dev-only-do-not-override-1n7nwfa).ant-dropdown .ant-dropdown-menu, :where(.css-dev-only-do-not-override-1n7nwfa).ant-dropdown-menu-submenu .ant-dropdown-menu {
+        background-color: #3E3E5B;
+      }
+    }
+`
 
 function DropDown(props: Iprops) {
     
   return (
     <div>
     <SpaceStyled>
-        <Dropdown menu={props.menuProps}>
-        <Button style={props.orange ? {border: '1px solid #FF7506'} : {border: '1px solid #fff'}}>
-            <Space>
-            Tất cả
-            <DownOutlined />
-            </Space>
-        </Button>
-        </Dropdown>
+        <DropdownStyled menu={props.menuProps}>
+          <Button style={props.orange ? {border: '1px solid #FF7506'} : {border: '1px solid #fff'}}>
+              <Space>
+              Tất cả
+              <DownOutlined />
+              </Space>
+          </Button>
+        </DropdownStyled>
     </SpaceStyled>
     </div>
   )
