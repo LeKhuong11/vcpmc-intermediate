@@ -30,12 +30,18 @@ const SearchStyled = styled(Search)`
   }
 `
 interface Iprops {
-    placehoder: string
+    placehoder: string,
+    setValue?: any,
+    name?: string
 }
 
-function InputSearch(props: Iprops) {
+function InputSearch({placehoder, setValue, name}: Iprops) {
     return (
-        <SearchStyled placeholder={props.placehoder} />
+        <SearchStyled 
+          placeholder={placehoder}
+          onChange={(e) => setValue(e.target)} 
+          name={name}
+         />
     )
 }
 

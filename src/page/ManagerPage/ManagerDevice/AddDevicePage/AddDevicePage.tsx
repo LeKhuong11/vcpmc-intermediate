@@ -185,7 +185,7 @@ function AddDevicePage() {
             </div>
         </div>
         <div className='btn'>
-            <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" />
+            <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" onClick={() => navigate("../device")} />
             <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu" onClick={handleClickAddNewDeviceToDB} />
         </div>
     </ContainerStyled>

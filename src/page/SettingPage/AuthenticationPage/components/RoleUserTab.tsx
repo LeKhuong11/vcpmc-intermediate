@@ -15,7 +15,7 @@ interface DataType {
     del: boolean
 }
 
-function TabIndex2() {
+function RoleUserTab() {
 
     const columns: ColumnsType<DataType> = [
         {
@@ -138,4 +138,4 @@ function TabIndex2() {
   )
 }
 
-export default TabIndex2
+export default RoleUserTab

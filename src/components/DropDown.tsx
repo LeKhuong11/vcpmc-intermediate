@@ -32,13 +32,13 @@ const DropdownStyled = styled(Dropdown)`
     }
 `
 
-function DropDown(props: Iprops) {
+function DropDown({menuProps, orange}: Iprops) {
     
   return (
     <div>
     <SpaceStyled>
-        <DropdownStyled menu={props.menuProps}>
-          <Button style={props.orange ? {border: '1px solid #FF7506'} : {border: '1px solid #fff'}}>
+        <DropdownStyled menu={menuProps}>
+          <Button style={orange ? {border: '1px solid #FF7506'} : {border: '1px solid #fff'}}>
               <Space>
               Tất cả
               <DownOutlined />

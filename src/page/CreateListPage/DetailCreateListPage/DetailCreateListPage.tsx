@@ -100,7 +100,12 @@ function DetailCreateListPage() {
             <h4>Danh sách Playlist</h4>
         </div>
         <div>
-            <CustomTable columns={columns} dataSrouce={data} heightProps={70} />
+            <CustomTable 
+                columns={columns} 
+                dataSrouce={data} 
+                heightProps={70} 
+                pagination={{pageSize: 10}}
+            />
         </div>
         <FeatureInPage featureProps={featureProps} />
     </div>

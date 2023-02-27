@@ -51,19 +51,19 @@ function HomePage() {
 
   const items: MenuProps['items'] = [
     {
-      label: '1st menu item',
+      label: 'Tiếng Việt',
       key: '1'
     },
     {
-      label: '2nd menu item',
+      label: 'Tiếng Anh',
       key: '2'
     },
     {
-      label: '3rd menu item',
+      label: 'Tiếng Nhật',
       key: '3',
     },
     {
-      label: '4rd menu item',
+      label: 'Tiếng Hàn',
       key: '4',
     },
   ];

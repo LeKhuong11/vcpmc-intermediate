@@ -187,7 +187,12 @@ function RevenueDistributionPage() {
             </div>
         </div>
         <div>
-            <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} />
+            <CustomTable 
+                columns={columns} 
+                dataSrouce={dataSource} 
+                heightProps={70} 
+                pagination={{pageSize: 9}}
+            />
         </div>
         <FeatureInPage featureProps={featureProps} />
     </div>

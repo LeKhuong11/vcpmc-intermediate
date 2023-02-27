@@ -6,7 +6,6 @@ import CustomTable from '../../../../components/Table'
 
 interface DataType {
     key: number,
-    stt: number,
     fullName: string,
     userName: string,
     role: string,
@@ -18,14 +17,15 @@ interface DataType {
 
 }
 
-function TabIndex1() {
+function ListUserTab() {
 
 
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
-            dataIndex: 'stt',
-            key: 'stt'
+            dataIndex: '',
+            key: '',
+            render: (_,{} ,index) => <p>{index + 1}</p>
         },
         {
             title: 'Họ tên',
@@ -74,7 +74,6 @@ function TabIndex1() {
     const dataSource: DataType[] = [
         {
             key: 1,
-            stt: 1,
             fullName: 'Phan Mạnh Quỳnh',
             userName: 'PMQ_01',
             role: 'Group Admin',
@@ -86,7 +85,6 @@ function TabIndex1() {
         },
         {
             key: 2,
-            stt: 2,
             fullName: 'Chillies',
             userName: 'C-CHILI',
             role: 'Group Admin',
@@ -98,7 +96,6 @@ function TabIndex1() {
         },
         {
             key: 3,
-            stt: 3,
             fullName: 'Đen Vâu',
             userName: 'DEN',
             role: 'Group Admin',
@@ -110,7 +107,6 @@ function TabIndex1() {
         },
         {
             key: 4,
-            stt: 4,
             fullName: 'Vũ Cát Tường',
             userName: 'VCT_012',
             role: 'Group Admin',
@@ -122,7 +118,6 @@ function TabIndex1() {
         },
         {
             key: 5,
-            stt: 5,
             fullName: 'Phan Mạnh Quỳnh',
             userName: 'PMQ_01',
             role: 'Group Admin',
@@ -134,7 +129,6 @@ function TabIndex1() {
         },
         {
             key: 6,
-            stt: 6,
             fullName: 'Phan Mạnh Quỳnh',
             userName: 'PMQ_01',
             role: 'Group Admin',
@@ -146,7 +140,6 @@ function TabIndex1() {
         },
         {
             key: 7,
-            stt: 7,
             fullName: 'Phan Mạnh Quỳnh',
             userName: 'PMQ_01',
             role: 'Group Admin',
@@ -158,7 +151,50 @@ function TabIndex1() {
         },
         {
             key: 8,
-            stt: 8,
+            fullName: 'Phan Mạnh Quỳnh',
+            userName: 'PMQ_01',
+            role: 'Group Admin',
+            status: true,
+            email: 'pmq@gmail.com',
+            numberPhone: '029 8131 6743',
+            date: '02/12/2022',
+            edit: 'Chỉnh sửa'
+        },
+        {
+            key: 9,
+            fullName: 'Phan Mạnh Quỳnh',
+            userName: 'PMQ_01',
+            role: 'Group Admin',
+            status: true,
+            email: 'pmq@gmail.com',
+            numberPhone: '029 8131 6743',
+            date: '02/12/2022',
+            edit: 'Chỉnh sửa'
+        },
+        {
+            key: 10,
+            fullName: 'Phan Mạnh Quỳnh',
+            userName: 'PMQ_01',
+            role: 'Group Admin',
+            status: true,
+            email: 'pmq@gmail.com',
+            numberPhone: '029 8131 6743',
+            date: '02/12/2022',
+            edit: 'Chỉnh sửa'
+        },
+        {
+            key: 11,
+            fullName: 'Phan Mạnh Quỳnh',
+            userName: 'PMQ_01',
+            role: 'Group Admin',
+            status: true,
+            email: 'pmq@gmail.com',
+            numberPhone: '029 8131 6743',
+            date: '02/12/2022',
+            edit: 'Chỉnh sửa'
+        },
+        {
+            key: 12,
             fullName: 'Phan Mạnh Quỳnh',
             userName: 'PMQ_01',
             role: 'Group Admin',
@@ -177,10 +213,15 @@ function TabIndex1() {
     ]
   return (
     <>
-        <CustomTable dataSrouce={dataSource} columns={columns} heightProps={70} />
+        <CustomTable 
+            dataSrouce={dataSource} 
+            columns={columns} 
+            heightProps={70}
+            pagination={{pageSize: 10}}
+        />
         <FeatureInPage featureProps={featureProps} />
     </>
   )
 }
 
-export default TabIndex1
+export default ListUserTab

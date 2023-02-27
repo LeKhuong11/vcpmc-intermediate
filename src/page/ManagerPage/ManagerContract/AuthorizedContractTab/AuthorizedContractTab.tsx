@@ -193,7 +193,12 @@ function AuthorizedContractTab() {
                 <InputSearch placehoder="Tên hợp đồng, số hợp đồng, người ủy quyền,..." />
             </div>
             </ContainerStyled>
-            <CustomTable columns={columnTab} dataSrouce={DataSource} heightProps={60}/>
+            <CustomTable 
+              columns={columnTab} 
+              dataSrouce={DataSource} 
+              heightProps={60}
+              pagination={{pageSize: 8}}
+            />
             <CustomModal
               title={`Lý do hủy hợp đồng`}
               openModal={openModal.open}

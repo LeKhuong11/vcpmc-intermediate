@@ -194,7 +194,12 @@ function HistoryForControlPage() {
           <h4>Danh sách hợp đồng khai thác đã đối soát</h4>
         </div>
         <div>
-          <CustomTable columns={colums} dataSrouce={dataSource} heightProps={62} />
+          <CustomTable 
+            columns={colums} 
+            dataSrouce={dataSource} 
+            heightProps={65} 
+            pagination={{pageSize: 5}}
+          />
         </div>
         <FeatureInPage featureProps={featureProps} />
     </div>

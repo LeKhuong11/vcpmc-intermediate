@@ -144,7 +144,7 @@ function EditContractPage() {
         }
        const updating = await updateDocConfig(data)
         if(updating) {
-            navigate(`../contract/detail/${id}`)
+            navigate(`../contract/detail-authorized-contract/${id}`)
             message.success("Cập nhật thành công")
             return
         }
@@ -152,7 +152,7 @@ function EditContractPage() {
     }
 
     const handleClickCancelEditContract = () => {
-        navigate(`../contract/detail/${id}`)
+        navigate(`../contract/detail-authorized-contract/${id}`)
     }
     
     const onChangeRadio = (e: any) => {
@@ -182,7 +182,7 @@ function EditContractPage() {
         },
         {
           key: 3,
-          path: `../contract/detail/${id}`,
+          path: `../contract/detail-authorized-contract/${id}`,
           namePage: 'Chi tiết'
         },
         {

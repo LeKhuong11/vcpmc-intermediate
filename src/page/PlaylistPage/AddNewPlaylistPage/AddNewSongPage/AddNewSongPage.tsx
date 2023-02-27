@@ -255,7 +255,13 @@ function AddNewSongPage() {
               <InputSearch placehoder='Tên bản ghi, ca sĩ...' />
             </form>
             <div className={root.table}>
-              <CustomTable columns={columns} dataSrouce={dataSource} heightProps={48} />
+              <CustomTable 
+                pagination={{pageSize: 6}} 
+                columns={columns} 
+                dataSrouce={dataSource} 
+                heightProps={48} 
+                widthProps={100}
+              />
             </div>
           </div>
           <div className={root.newListSong}>
@@ -274,7 +280,13 @@ function AddNewSongPage() {
                 <InputSearch placehoder='Tên bản ghi, ca sĩ...' />
               </form>
               <div className={root.table}>
-                <CustomTable columns={columnsTableNewPlaylist} dataSrouce={dataSourceNewPlaylist} heightProps={48} />
+                <CustomTable 
+                  pagination={{pageSize: 6}} 
+                  columns={columnsTableNewPlaylist} 
+                  dataSrouce={dataSourceNewPlaylist} 
+                  heightProps={48} 
+                  widthProps={100}
+                />
               </div>
           </div>
       </div>

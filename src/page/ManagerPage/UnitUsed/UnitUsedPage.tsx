@@ -213,7 +213,12 @@ function UnitUsedPage() {
             <InputSearch placehoder='Tài khoản giá trị, số hợp đồng,...' />
         </div>
         <div>
-            <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} />
+            <CustomTable 
+                columns={columns} 
+                dataSrouce={dataSource} 
+                heightProps={70} 
+                pagination={{pageSize: 8}}
+            />
         </div>
         <FeatureInPage featureProps={featureProps} />
     </div>

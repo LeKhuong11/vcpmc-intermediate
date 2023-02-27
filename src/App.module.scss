@@ -1,0 +1,17 @@
+.App {
+    display: flex;
+    position: relative;
+    background-color: var(--violet);
+    color: #fff;
+    height: 100vh;
+}
+
+.resize {
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
+    & h5 {
+        color: var(--orange);
+        text-align: center;
+    }
+}

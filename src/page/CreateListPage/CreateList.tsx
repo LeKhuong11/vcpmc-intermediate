@@ -77,7 +77,12 @@ function CreateList() {
         <div className={root.createList}>
         <h3>Danh sách lịch phát</h3>
         <div>
-            <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} />
+            <CustomTable 
+              columns={columns} 
+              dataSrouce={dataSource} 
+              heightProps={70} 
+              pagination={{pageSize: 10}}
+            />
         </div>
         <FeatureInPage featureProps={featureProps} />
     </div>

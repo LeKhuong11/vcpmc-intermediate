@@ -247,7 +247,7 @@ function AddNewPlaylistPage() {
                 </div>
             </div>
             <div className={root.tablePlaylist}>
-                <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} />
+                <CustomTable pagination={{pageSize: 10}} columns={columns} dataSrouce={dataSource} heightProps={70} />
                 <div className={root.btn}>
                     <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" onClick={handleClickCancelPlaylist} />
                     <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu" onClick={handleClickAddPlaylistToStore} />

@@ -101,7 +101,7 @@ function DetailMiningContract() {
         {
             icon: SlNote,
             text: 'Chỉnh sửa',
-            event: () => navigate('edit')
+            event: () => navigate('')
             
         },
         {

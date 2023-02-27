@@ -33,7 +33,7 @@ export const fetchCreateList = createAsyncThunk(
 
 
 const createListSlice = createSlice({
-    name: 'device',
+    name: 'createList',
     initialState,
     reducers: {
         

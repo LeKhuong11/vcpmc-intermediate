@@ -157,7 +157,12 @@ function DetailPlayListPage() {
                     </div>
                 </div>
                 <div className={root.tablePlaylist}>
-                    <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} /> 
+                    <CustomTable  
+                        columns={columns} 
+                        dataSrouce={dataSource} 
+                        heightProps={70} 
+                        pagination={{pageSize: 10}}
+                    /> 
                 </div>
             </div>
             <FeatureInPage featureProps={featureProps} />

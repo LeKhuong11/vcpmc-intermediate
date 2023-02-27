@@ -110,7 +110,7 @@ function PlayList() {
             <InputSearch placehoder='Tên chủ đề, người tạo,...' />
           </div>
           <div>
-            <CustomTable columns={columns} dataSrouce={dataSource} heightProps={70} /> 
+            <CustomTable pagination={{pageSize: 10}} columns={columns} dataSrouce={dataSource} heightProps={70} /> 
           </div>
           <FeatureInPage featureProps={featureProps} />
         </div>

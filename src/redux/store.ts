@@ -9,6 +9,7 @@ import playlistSlice from "./slice/playlistSlice";
 import contractSlice from "./slice/contractSlice";
 import deviceSlice from "./slice/deviceSlice";
 import createListSlice from "./slice/createListSlice";
+import authorizedPartnerSlice from "./slice/authorizedPartnerSlice";
 
 
 //config redux-persit
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
 	playlist: playlistSlice.reducer,
 	contracts: contractSlice.reducer,
 	devices: deviceSlice.reducer,
-	createList: createListSlice.reducer
+	createList: createListSlice.reducer,
+	authorizedPartner: authorizedPartnerSlice.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer) 

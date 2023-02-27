@@ -1,120 +1,40 @@
 import { Switch } from 'antd'
 import { ColumnsType } from 'antd/es/table'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import InputSearch from '../../../components/InputSearch'
+import Loading from '../../../components/Loading'
 import CustomTable from '../../../components/Table'
+import { usePaymentsCollection } from '../../../hooks/useSnapshot'
+import { DataTypeAuthorizedPartner, fetchAuthorizedPertnerList } from '../../../redux/slice/authorizedPartnerSlice'
+import { useAppDispatch, useAppSelector } from '../../../redux/store'
 import root from '../manager.module.scss'
 
 
-interface DataType {
-  stt: number,
-  key: number,
-  fullName: string,
-  userName: string,
-  email: string,
-  date: string,
-  phone: string,
-  status: boolean,
-  update: string
-}
-
 function Authorized() {
+  const dispatch = useAppDispatch();
+  const { authorizedPertnerList } = useAppSelector(state => state.authorizedPartner)
+  const [ authorizedPartner, setAuthorizedPartner ] = useState<DataTypeAuthorizedPartner[]>(authorizedPertnerList);
+  const { payments, loading } = usePaymentsCollection('authorized-partner');
+  
 
-  const dataSoure: DataType[] = [
-    {
-      stt: 1,
-      key: 1,
-      fullName: 'Any Ngọc',
-      userName: 'phm_L@gmail.com',
-      email: 'phm_L@gmail.com',
-      date: '21/04/2021',
-      phone: '021 593 1214',
-      status: true,
-      update: 'Cập nhật'
-    },
-    {
-      stt: 2,
-      key: 2,
-      fullName: 'Zachary Hoàng',
-      userName: 'Thi@hotmail.com',
-      email: 'Thi@hotmail.com',
-      date: '21/04/2021',
-      phone: '021 593 1214',
-      status: true,
-      update: 'Cập nhật'
-    },
-    {
-      stt: 3,
-      key: 3,
-      fullName: 'Bernadette Tô PhD',
-      userName: 'V.Vinh50@yahoo.com',
-      email: 'V.Vinh50@yahoo.com',
-      date: '21/04/2021',
-      phone: '021 593 1214',
-      status: false,
-      update: 'Cập nhật'
-    },
-    {
-      stt: 4,
-      key: 4,
-      fullName: 'Moses Lâm',
-      userName: 'H.Trinh68@gmail.com',
-      email: 'H.Trinh68@gmail.com',
-      date: '21/04/2021',
-      phone: '021 593 1214',
-      status: true,
-      update: 'Cập nhật'
-    },
-    {
-      stt: 5,
-      key: 5,
-      fullName: 'Maurice Nhân',
-      userName: 'Lm_c@hotmail.com',
-      email: 'Lm_c@hotmail.com',
-      date: '21/04/2021',
-      phone: '021 593 1214',
-      status: false,
-      update: 'Cập nhật'
-    },
-    {
-      stt: 6,
-      key: 6,
-      fullName: 'Any Ngọc',
-      userName: 'phm_L@gmail.com',
-      email: 'phm_L@gmail.com',
-      date: '21/04/2021',
-      phone: '021 593 1214',
-      status: true,
-      update: 'Cập nhật'
-    },
-    {
-      stt: 7,
-      key: 7,
-      fullName: 'Any Ngọc',
-      userName: 'phm_L@gmail.com',
-      email: 'phm_L@gmail.com',
-      date: '21/04/2021',
-      phone: '021 593 1214',
-      status: false,
-      update: 'Cập nhật'
-    },
-    {
-      stt: 8,
-      key: 8,
-      fullName: 'Any Ngọc',
-      userName: 'phm_L@gmail.com',
-      email: 'phm_L@gmail.com',
-      date: '21/04/2021',
-      phone: '021 593 1214',
-      status: true,
-      update: 'Cập nhật'
-    }
-  ]
-  const columns: ColumnsType<DataType> = [
+
+  //set lại dữ liệu ngay khi dữ liệu trên store thay đổi
+  useEffect(() => {
+    dispatch(fetchAuthorizedPertnerList())
+    setAuthorizedPartner(payments)
+  }, [payments])
+  
+  const dataSoure: DataTypeAuthorizedPartner[] = authorizedPartner
+  
+  const columns: ColumnsType<DataTypeAuthorizedPartner> = [
     {
       title: 'STT',
       dataIndex: 'stt',
-      key: 'stt'
+      key: 'stt',
+      render: (_, {}, index ) => (
+        <p>{index}</p>
+      )
     },
     {
       title: 'Họ tên',
@@ -138,8 +58,8 @@ function Authorized() {
     },
     {
       title: 'Số điện thoại',
-      dataIndex: 'phone',
-      key: 'phone'
+      dataIndex: 'numberPhone',
+      key: 'numberPhone'
     },
     {
       title: 'Trạng thái',
@@ -157,22 +77,31 @@ function Authorized() {
       title: '',
       dataIndex: 'update',
       key: 'update',
-      render: (_, {update}) => {
-        return <a>{update}</a>
+      render: (_, {id}) => {
+        return <Link to={`detail/${id}`}>Cập nhật</Link>
       }
     }
   ]
   
   return (
-    <div className={root.authorized}>
-      <h3>Danh sách đối tác ủy quyền</h3>
-        <div>
-          <InputSearch placehoder='Họ tên, tên đăng nhập, email,...' />
-        </div>
-        <div>
-          <CustomTable columns={columns} dataSrouce={dataSoure} heightProps={70} />
-        </div>
-    </div>
+    <>
+      {loading ? <Loading /> : 
+        <div className={root.authorized}>
+        <h3>Danh sách đối tác ủy quyền</h3>
+          <div>
+            <InputSearch placehoder='Họ tên, tên đăng nhập, email,...' />
+          </div>
+          <div>
+            <CustomTable 
+              columns={columns} 
+              dataSrouce={dataSoure} 
+              heightProps={70} 
+              pagination={{pageSize: 8}}
+            />
+          </div>
+      </div>
+      }
+    </>
   )
 }
 

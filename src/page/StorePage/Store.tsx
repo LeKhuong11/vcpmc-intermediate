@@ -24,6 +24,7 @@ function Store() {
   const [store, setStore] = useState(storeMusic)
   const { payments, loading} = usePaymentsCollection('store-music');
   const [ displaySwitch, setDisplaySwitch ] = useState('row')
+  const [ search, setSearch ] = useState('');
 
   useEffect(() => {
     dispatch(fetchStoreMusic());
@@ -41,6 +42,36 @@ function Store() {
     message.info('Click on menu item.');
     console.log('click', e);
   };
+  
+  
+  //function remove special characters from store 
+  function removeSymbol(str: string) {
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o');
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
+    str = str.replace(/đ/g, 'd');
+    return str;
+  }
+
+  const handleChangeSetSearchValue = (e: any) => {
+    const search = e.value;
+    if(search.length) {
+      const newSearchStore = store.filter(item => {
+        const itemRemoveSymbol = removeSymbol(item.nameMusic)
+        return itemRemoveSymbol.toLowerCase().includes(search.toLowerCase())
+      })
+
+      setStore(newSearchStore)
+      return
+    }
+    setStore(payments)
+  }
+
+
 
   const items: MenuProps['items'] = [
     {
@@ -149,6 +180,7 @@ function Store() {
     },
   ]
 
+
   return (
     <>
       {loading ? <Loading /> : 
@@ -156,7 +188,11 @@ function Store() {
           <h3>Kho bản ghi</h3>
           <div>
             <div>
-              <InputSearch placehoder='Tên bản ghi, ca sĩ,...' />
+              <InputSearch 
+                placehoder='Tên bản ghi, ca sĩ,...'
+                name='searchStore'
+                setValue={handleChangeSetSearchValue}
+              />
             </div>
             <div>
               <div className={root.options}>
@@ -177,10 +213,10 @@ function Store() {
                   <DropDown menuProps={menuProps} orange />
                 </div>
                 <div className={root.switch}>
-                  <span className={displaySwitch === 'row' && root.active} onClick={() => setDisplaySwitch('row')}>
+                  <span className={displaySwitch === 'row' ? root.active : ''} onClick={() => setDisplaySwitch('row')}>
                     <AiOutlineUnorderedList size={25} />
                   </span>
-                  <span className={displaySwitch === 'table' && root.active} onClick={() => setDisplaySwitch('table')}>
+                  <span className={displaySwitch === 'table' ?  root.active : ''} onClick={() => setDisplaySwitch('table')}>
                     <RiTableFill size={25} />
                   </span>
                   <span>
@@ -189,12 +225,12 @@ function Store() {
                 </div>
               </div>
             </div>
-            {displaySwitch === 'row' && <CustomTable columns={columns} dataSrouce={dataSource} heightProps={64} /> }
+            {displaySwitch === 'row' && <CustomTable pagination={{pageSize: 10}} columns={columns} dataSrouce={dataSource} heightProps={64} /> }
             {displaySwitch === 'table' &&
               <div className={root.listSongTable}>
-              {store.map(item => (
+              {store.length ? store.map(item => (
                 <Card song={item} />
-              ))}
+              )) : <p className={root.notfoundSong}>Không tìm thấy bản ghi</p>}
           </div>
             }
         </div>

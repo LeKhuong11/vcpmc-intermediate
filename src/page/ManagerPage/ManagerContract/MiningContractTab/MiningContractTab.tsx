@@ -110,7 +110,12 @@ function MiningContractTab() {
             <InputSearch placehoder='Tên hợp đồng, tác giả, ...' />
         </div>
         <div>
-            <CustomTable columns={columns} dataSrouce={DataSource} heightProps={60} />
+            <CustomTable 
+              columns={columns} 
+              dataSrouce={DataSource} 
+              heightProps={60} 
+              pagination={{pageSize: 8}}
+            />
         </div>
         <FeatureInPage featureProps={featureProp} />
     </>

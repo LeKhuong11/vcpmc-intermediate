@@ -1,9 +1,8 @@
 import React from 'react'
-import InputSearch from '../../../components/InputSearch';
 import TabControl from '../../../components/TabControl';
 import root from '../setting.module.scss'
-import TabIndex1 from './components/TabIndex1';
-import TabIndex2 from './components/TabIndex2';
+import ListUserTab from './components/ListUserTab';
+import RoleUserTab from './components/RoleUserTab';
 
 
 function AuthenticationPage() {
@@ -23,11 +22,11 @@ function AuthenticationPage() {
         items: [
           {
             id: 1,
-            component: TabIndex1,
+            component: ListUserTab,
           },
           {
             id: 2,
-            component: TabIndex2,
+            component: RoleUserTab,
           },
         ]
           

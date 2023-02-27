@@ -33,6 +33,7 @@ import DetailMiningContract from "../page/ManagerPage/ManagerContract/MiningCont
 import AddDevicePage from "../page/ManagerPage/ManagerDevice/AddDevicePage/AddDevicePage";
 import ResetPasswordPage from "../page/LoginPage/ResetPasswordPage/ResetPasswordPage";
 import DetailCreateListPage from "../page/CreateListPage/DetailCreateListPage/DetailCreateListPage";
+import DetailAuthorizedPartnerPage from "../page/ManagerPage/AuthorizedPartner/DetailAuthorizedPartnerPage/DetailAuthorizedPartnerPage";
 
 
 export function Router() {
@@ -127,6 +128,10 @@ export function Router() {
                         {
                             path: 'authorized-partner',
                             element: <Authorized />
+                        },
+                        {
+                            path: 'authorized-partner/detail/:id',
+                            element: <DetailAuthorizedPartnerPage />
                         },
                         {
                             path: 'unit-used',

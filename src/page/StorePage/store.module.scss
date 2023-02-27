@@ -35,10 +35,14 @@
         overflow: auto;
         width: 94%;
         
+        & .notfoundSong {
+            margin-top: 50px;
+        }
     }
     & .card {
         border-radius: 8px;
         width: 255px;
+        height: 302px;
         background-color: var(--violetLight);
         overflow: hidden;
         position: relative;
