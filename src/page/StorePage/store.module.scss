@@ -13,12 +13,17 @@
             }
         }
         & .switch {
-            
+            margin-left: 50px;
             & span {
                 cursor: pointer;
                 display: flex;
                 align-items: center;
-                margin-right: 15px;
+                margin-right: 7px;
+
+                & svg {
+                    color: var(--white);
+                    font-size: 25px;
+                }
             }
             & .active {
                 & svg {

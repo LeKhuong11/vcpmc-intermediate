@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Checkbox, MenuProps, message } from 'antd';
+import { MenuProps, message } from 'antd';
 import { MdAdd } from 'react-icons/md';
 import { FiPower } from 'react-icons/fi';
 import { FiLock } from 'react-icons/fi';
@@ -15,15 +15,13 @@ import { usePaymentsCollection } from '../../../hooks/useSnapshot';
 import { DataTypeDevice, fetchDevice } from '../../../redux/slice/deviceSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { useNavigate } from 'react-router-dom';
-import { doc } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase/configfb';
-import { async } from '@firebase/util';
 
 
 function ManagerDevice() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
-  const [ selectDevice, setSelectDevice ] = useState()
   const { payments, loading } = usePaymentsCollection('device');
   const { devices } = useAppSelector(state => state.devices)
   const [ listDevice, setListDevice ] = useState<DataTypeDevice[]>(devices)
@@ -63,21 +61,15 @@ const items: MenuProps['items'] = [
   };
 
   const handleClickRemoveDevice = () => {
-    const deleteDoc = async (id: any) => {
-      try{
-        await deleteDoc(doc(db, "play-list", `${id}`));
-        message.success("Xóa thiết bị thành công")
-        return true
-      } catch(err) {
-        console.log(err);
-        message.success("Xóa thiết bị thành công")
-      }
-    }
-
-    removeDevice.forEach(item => {
-     deleteDoc(item.id)
+   if(removeDevice.length) {
+    //remove item by list id 
+    removeDevice.forEach(async (item)   => {
+      const docRef = doc(db, 'device', `${item.id}`)
+      await deleteDoc(docRef)
     })
-    
+    return 
+   }
+   message.warning("Bạn chưa chọn thiết bị")
   }
 
   const featureProp=[
@@ -171,7 +163,13 @@ const items: MenuProps['items'] = [
         </div>
       </div>
       <div>
-        <CustomTable pagination={true} rowSelection={rowSelection} columns={coulumsTable} dataSrouce={dataSource} heightProps={70} />
+        <CustomTable 
+          pagination={true} 
+          rowSelection={rowSelection} 
+          columns={coulumsTable} 
+          dataSrouce={dataSource} 
+          heightProps={70} 
+        />
       </div>
       <FeatureInPage featureProps={featureProp} />
     </div>

@@ -68,13 +68,8 @@ function AddDevicePage() {
     const breadcrumb = [
         {
           key: 1,
-          path: '',
-          namePage: 'Danh sách thiết bị'
-        },
-        {
-          key: 2,
           path: '../device',
-          namePage: 'Chi tiết thiết bị'
+          namePage: 'Danh sách thiết bị'
         },
         {
           key: 3,

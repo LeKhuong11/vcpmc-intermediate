@@ -1,12 +1,13 @@
-import { Checkbox, Switch } from 'antd'
+import { useState } from 'react'
+import { Checkbox, message, Switch } from 'antd'
 import { ColumnsType } from 'antd/es/table'
-import React from 'react'
 import { FaTimes } from 'react-icons/fa'
-import { RxDotFilled } from 'react-icons/rx'
 import FeatureInPage from '../../../components/FeatureInPage'
 import InputSearch from '../../../components/InputSearch'
 import CustomTable from '../../../components/Table'
 import root from '../manager.module.scss'
+import { deleteDoc, doc } from 'firebase/firestore'
+import { db } from '../../../firebase/configfb'
 
 interface DataType {
     key: number,
@@ -23,7 +24,7 @@ interface DataType {
 }
 
 function UnitUsedPage() {
-    
+    const [ removeUnit, setRemoveUnit ] = useState<DataType[]>([])
     const dataSource: DataType[] = [
         {
             key: 1,
@@ -200,6 +201,24 @@ function UnitUsedPage() {
         },
     ]
 
+    // const handleClickRemoveDevice = () => {
+    //     if(removeUnit.length) {
+    //      //remove item by list id 
+    //      removeUnit.forEach(async (item)   => {
+    //        const docRef = doc(db, 'device', `${item.id}`)
+    //        await deleteDoc(docRef)
+    //      })
+    //      return 
+    //     }
+    //     message.warning("Bạn chưa chọn thiết bị")
+    // }
+
+    const rowSelection = {
+        onChange: (selectedRowKeys: number, selectedRows: any, ) => {
+            setRemoveUnit(selectedRows)
+        }
+    };
+    
     const featureProps = [
         {
             icon: FaTimes,
@@ -214,6 +233,7 @@ function UnitUsedPage() {
         </div>
         <div>
             <CustomTable 
+                rowSelection={rowSelection} 
                 columns={columns} 
                 dataSrouce={dataSource} 
                 heightProps={70} 

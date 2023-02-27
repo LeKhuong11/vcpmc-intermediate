@@ -64,9 +64,13 @@ const TableStyled = styled(Table)`
                 color: var(--orange);
             }
         }
+        .ant-pagination-item a {
+            color: var(--white);
+        }
         .ant-pagination-item-active {
-            background-color: var(--white);
+            background-color: var(--orangeLight);
             border: none;
+            border-radius: 50%;
         }
         .ant-table-tbody >tr:last-child>td {
             border: none;

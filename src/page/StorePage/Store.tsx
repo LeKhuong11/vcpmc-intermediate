@@ -15,8 +15,7 @@ import { usePaymentsCollection } from '../../hooks/useSnapshot';
 import Loading from '../../components/Loading';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
 import Card from './components/Card';
-import { RiTableFill } from 'react-icons/ri';
-
+import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
 
 function Store() {
   const dispatch = useAppDispatch();
@@ -214,10 +213,10 @@ function Store() {
                 </div>
                 <div className={root.switch}>
                   <span className={displaySwitch === 'row' ? root.active : ''} onClick={() => setDisplaySwitch('row')}>
-                    <AiOutlineUnorderedList size={25} />
+                    <UnorderedListOutlined />
                   </span>
                   <span className={displaySwitch === 'table' ?  root.active : ''} onClick={() => setDisplaySwitch('table')}>
-                    <RiTableFill size={25} />
+                    <AppstoreOutlined />
                   </span>
                   <span>
 
