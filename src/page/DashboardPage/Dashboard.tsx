@@ -11,7 +11,7 @@ import { getAuth, signOut, updatePassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { deleteUser } from '../../redux/slice/userSlice'
 import Button from '../../components/Button'
-import { updateDocConfig } from '../../hooks/useUpdateDoc'
+import { updateDocConfig } from '../../hooks/updateDoc'
 import styled from 'styled-components'
 
 
@@ -121,8 +121,6 @@ function Dashboard() {
 
     //Change password to firebase
     const handleClickOnOkModal = async () => {
-        console.log(updatePasswd.newPassword, updatePasswd.confirmPassword);
-        
         if(updatePasswd.newPassword === updatePasswd.confirmPassword){
             try{
                 await updatePassword(currentUser, updatePasswd.newPassword)

@@ -13,7 +13,7 @@ import InputDate from '../../../../../../components/InputDate'
 import Loading from '../../../../../../components/Loading'
 import CustomModal from '../../../../../../components/Modal'
 import { db } from '../../../../../../firebase/configfb'
-import { updateDocConfig } from '../../../../../../hooks/useUpdateDoc'
+import { updateDocConfig } from '../../../../../../hooks/updateDoc'
 import { UploadOutlined } from '@ant-design/icons';
 import Input from '../../../../../../components/Input'
 

@@ -10,7 +10,7 @@ import { useAppSelector } from '../../../redux/store'
 import root from '../store.module.scss'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../../firebase/configfb'
-import { updateDocConfig } from '../../../hooks/useUpdateDoc'
+import { updateDocConfig } from '../../../hooks/updateDoc'
 
 
 function UpdateInformationPage() {

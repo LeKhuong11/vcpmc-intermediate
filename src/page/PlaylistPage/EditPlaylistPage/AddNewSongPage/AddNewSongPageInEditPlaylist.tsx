@@ -14,7 +14,7 @@ import root from '../../playlist.module.scss'
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../../../../firebase/configfb'
-import { updateDocConfig } from '../../../../hooks/useUpdateDoc'
+import { updateDocConfig } from '../../../../hooks/updateDoc'
 
 function AddNewSongInEditPlaylistPage() {
   const navigate = useNavigate()

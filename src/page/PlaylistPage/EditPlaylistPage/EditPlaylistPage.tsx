@@ -15,20 +15,9 @@ import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/configfb';
 import { PlaylistSVG } from '../../../image/playlist';
-import { updateDocConfig } from '../../../hooks/useUpdateDoc';
+import { updateDocConfig } from '../../../hooks/updateDoc';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 
-type Playlist = {
-    key: number,
-    title: string,
-    id?: string,
-    idSong: DataTypeStoreMusic[],
-    time: string,
-    topics: string[],
-    desc: string
-    createAt: string,
-    author: string,
-}
 
 const { confirm } = Modal;
 
@@ -134,7 +123,7 @@ function EditPlaylistPage() {
             message.success("Sửa playlist thành công")
         }
         else {
-            message.success("Sửa playlist thất bại")
+            message.error("Sửa playlist thất bại")
         }
     }
 

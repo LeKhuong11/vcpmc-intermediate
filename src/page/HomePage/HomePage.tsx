@@ -8,7 +8,7 @@ import { MenuProps, message } from 'antd';
 import DropDown from '../../components/DropDown';
 import root from './home.module.scss';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { auth } from '../../firebase/configfb';
 import { fetchUser } from '../../redux/slice/userSlice';
 
@@ -23,7 +23,8 @@ const TypographyStyled = styled(Typography.Text)`
 function HomePage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [ user, setUser ] = React.useState(false);
+  const { user } = useAppSelector(state => state.user)
+  const [ currentUser, setCurrentUser ] = React.useState<any>(null);
 
   //authenticaton current user 
   //if don't user redirect to login
@@ -32,7 +33,7 @@ function HomePage() {
         if(currentUser) {
           const { uid } = currentUser;
           dispatch(fetchUser({uid: uid}))
-          setUser(true)
+          setCurrentUser(currentUser)
           return
         }
         navigate('login')        
@@ -77,6 +78,7 @@ function HomePage() {
     items,
     onClick: handleMenuClick,
   };
+
   
   return (
     <>
@@ -87,8 +89,8 @@ function HomePage() {
             <DropDown menuProps={menuProps} />
           <div>
             <Link to="dashboard">
-              <Avatar style={{ backgroundColor: '#f56a00', marginRight: 5 }}>T</Avatar>
-              <TypographyStyled>Tuyết Nguyễn</TypographyStyled>
+              <Avatar style={{ backgroundColor: '#f56a00', marginRight: 5 }}>{user.avatar ?? user.lastName.charAt(0).toUpperCase()}</Avatar>
+              <TypographyStyled>{user?.displayName}</TypographyStyled>
             </Link>
           </div>
         </div>

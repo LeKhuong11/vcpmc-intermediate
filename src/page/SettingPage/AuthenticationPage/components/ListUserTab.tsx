@@ -1,6 +1,7 @@
 import { ColumnsType } from 'antd/es/table'
 import React from 'react'
 import { AiOutlineUserAdd } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 import FeatureInPage from '../../../../components/FeatureInPage'
 import CustomTable from '../../../../components/Table'
 
@@ -66,8 +67,8 @@ function ListUserTab() {
             title: '',
             dataIndex: 'edit',
             key: 'edit',
-            render: (_, {edit}) => {
-                return <a>{edit}</a>
+            render: (_, {}) => {
+                return <Link to={`edit-user/1234`}>Xem Chi tiet</Link>
             }
         },
     ]

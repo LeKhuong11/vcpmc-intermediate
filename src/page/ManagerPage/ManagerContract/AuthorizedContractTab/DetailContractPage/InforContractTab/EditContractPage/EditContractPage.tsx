@@ -9,7 +9,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../../../../../../firebase/configfb'
 import Loading from '../../../../../../../components/Loading'
-import { updateDocConfig } from '../../../../../../../hooks/useUpdateDoc'
+import { updateDocConfig } from '../../../../../../../hooks/updateDoc'
 import InputDate from '../../../../../../../components/InputDate'
 
 const ContainerStyled = styled.div`

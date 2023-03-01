@@ -34,6 +34,11 @@ import AddDevicePage from "../page/ManagerPage/ManagerDevice/AddDevicePage/AddDe
 import ResetPasswordPage from "../page/LoginPage/ResetPasswordPage/ResetPasswordPage";
 import DetailCreateListPage from "../page/CreateListPage/DetailCreateListPage/DetailCreateListPage";
 import DetailAuthorizedPartnerPage from "../page/ManagerPage/AuthorizedPartner/DetailAuthorizedPartnerPage/DetailAuthorizedPartnerPage";
+import DetailUnitUsedPage from "../page/ManagerPage/UnitUsed/DetailUnitUsed/DetailUnitUsedPage";
+import AddUserPage from "../page/ManagerPage/UnitUsed/DetailUnitUsed/AddUserPage/AddUserPage";
+import DetailUserPage from "../page/ManagerPage/UnitUsed/DetailUnitUsed/DetailUserPage/DetailUserPage";
+import UpdateUserPage from "../page/ManagerPage/UnitUsed/DetailUnitUsed/DetailUserPage/UpdateUserPage/UpdateUserPage";
+import EditInforUserPage from "../page/SettingPage/AuthenticationPage/EditInforUserPage/EditInforUserPage";
 
 
 export function Router() {
@@ -136,6 +141,22 @@ export function Router() {
                         {
                             path: 'unit-used',
                             element: <UnitUsedPage />
+                        },
+                        {
+                            path: 'unit-used/detail/:id',
+                            element: <DetailUnitUsedPage />
+                        },
+                        {
+                            path: 'unit-used/detail/:id/add-user',
+                            element: <AddUserPage />
+                        },
+                        {
+                            path: 'unit-used/detail/:id/detail-user/:uid',
+                            element: <DetailUserPage />
+                        },
+                        {
+                            path: 'unit-used/detail/:id/detail-user/:uid/update-user',
+                            element: <UpdateUserPage />
                         }
                     ]
                 },
@@ -160,6 +181,10 @@ export function Router() {
                         {
                             path: 'authentication',
                             element: <AuthenticationPage />
+                        },
+                        {
+                            path: 'authentication/edit-user/:id',
+                            element: <EditInforUserPage />
                         },
                         {
                             path: 'configuration',

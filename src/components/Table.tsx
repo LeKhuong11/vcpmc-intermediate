@@ -97,12 +97,19 @@ interface ITableProps {
     widthProps?: number
     pagination?: any
     rowSelection?: any
+    loading?: boolean
 }
 
-function CustomTable({columns, dataSrouce, heightProps, rowSelection, pagination = false, widthProps = 94}: ITableProps) {
+function CustomTable({columns, dataSrouce, heightProps, rowSelection, pagination = false, widthProps = 94, loading}: ITableProps) {
   return (
     <TableContainerStyled style={{height: `${heightProps}vh`, width: `${widthProps}%`}}>
-        <TableStyled rowSelection={rowSelection} columns={columns} dataSource={dataSrouce} pagination={pagination} />
+        <TableStyled 
+            rowSelection={rowSelection} 
+            columns={columns} 
+            dataSource={dataSrouce} 
+            pagination={pagination} 
+            loading={loading}
+        />
     </TableContainerStyled>
   )
 }
