@@ -11,6 +11,7 @@ import deviceSlice from "./slice/deviceSlice";
 import createListSlice from "./slice/createListSlice";
 import authorizedPartnerSlice from "./slice/authorizedPartnerSlice";
 import unitUsedSlice from "./slice/unitUsedSlice";
+import usersSlice from "./slice/listUserSlice";
 
 
 //config redux-persit
@@ -21,6 +22,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: userSlice.reducer,
+	users: usersSlice.reducer,
     storeMusic: storeSlice.reducer,
 	playlist: playlistSlice.reducer,
 	contracts: contractSlice.reducer,

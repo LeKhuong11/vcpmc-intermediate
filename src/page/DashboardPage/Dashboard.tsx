@@ -13,6 +13,7 @@ import { deleteUser } from '../../redux/slice/userSlice'
 import Button from '../../components/Button'
 import { updateDocConfig } from '../../hooks/updateDoc'
 import styled from 'styled-components'
+import { logOut } from '../../firebase/userAuth'
 
 
 const ModalStyled = styled(Modal)`
@@ -67,7 +68,7 @@ function Dashboard() {
     const onClickLogout = async (e: string) => {
 
         try {
-            await signOut(auth);
+            await logOut();
             dispatch(deleteUser());
             navigate('../login')
         } catch(err) {

@@ -44,7 +44,7 @@ const ContainerStyled = styled.div`
     }
 `
 
-function AddUserPage() {
+function AddUserPageUnitUsed() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [ currentUnitUsed, setCurrentUnitUsed ] = useState<any>();
@@ -218,4 +218,4 @@ function AddUserPage() {
   )
 }
 
-export default AddUserPage
+export default AddUserPageUnitUsed

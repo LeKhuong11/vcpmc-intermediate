@@ -45,12 +45,14 @@ const ContainerStyled = styled.div`
     }
 
 `
+let today: any = new Date();
+    today = String(today.getDate()).padStart(2, '0') + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + today.getFullYear();
 
 function AddDevicePage() {
     const navigate = useNavigate()
     const { devices } = useAppSelector(state => state.devices)
     const [ newDevice, setNewDevice ] = useState<DataTypeDevice>({
-        key: devices ? devices.length + 1 : 1,
+        key: Math.floor(Math.random() * 10000),
         MacAddress: '',
         address: '',
         capacity: 0,
@@ -61,7 +63,7 @@ function AddDevicePage() {
         sku: '',
         status: 'active',
         userName: '',
-        time: '',
+        time: today,
         desc: ''
     })
 
@@ -102,13 +104,13 @@ function AddDevicePage() {
         try{
             await setDoc(docRef, newDevice)
                 .then((res) => {
-                    message.success("Thêm hợp đồng thành công")
+                    message.success("Thêm thiết bị thành công")
                     navigate('../device')
                 })
         } catch(err) {
             console.log(newDevice);
             
-            message.error("Thêm hợp đồng thất bại")
+            message.error("Thêm thiết bị thất bại")
         }
     }
     
@@ -140,11 +142,11 @@ function AddDevicePage() {
                 </span>
                 <span>
                     <h5>Label:</h5>
-                    <Input width={280} type="text" setValue={handleChangeSetNewDevice}  />
+                    <Input width={280} type="text" setValue={() => ''}  />
                 </span>
                 <span>
                     <h5>Thông tin:</h5>
-                    <Input width={280} type="text" setValue={handleChangeSetNewDevice} />
+                    <Input width={280} type="text" setValue={() => ''} />
                 </span>
                 <span>
                     <h5>Ghi chú: </h5>
@@ -171,7 +173,7 @@ function AddDevicePage() {
                 </span>
                 <span>
                     <h5>Nhập lại mật khẩu:</h5>
-                    <Input width={280} type="password" name='' setValue={handleChangeSetNewDevice} />
+                    <Input width={280} type="password" name='password' setValue={handleChangeSetNewDevice} />
                 </span>
                 <span>
                     <h5>Vị trí:</h5>

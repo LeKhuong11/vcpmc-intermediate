@@ -8,11 +8,9 @@ export interface DataTypeUnitUsed {
     userRoot: string,
     contractID: string,
     admin: number,
-    user: number,
-    device: number,
-    date: string,
+    listUser: any,
+    deviceAmount: any,
     status: boolean,
-    detail: string
 }
 
 export interface DataTypeUser {

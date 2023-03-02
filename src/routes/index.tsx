@@ -35,10 +35,11 @@ import ResetPasswordPage from "../page/LoginPage/ResetPasswordPage/ResetPassword
 import DetailCreateListPage from "../page/CreateListPage/DetailCreateListPage/DetailCreateListPage";
 import DetailAuthorizedPartnerPage from "../page/ManagerPage/AuthorizedPartner/DetailAuthorizedPartnerPage/DetailAuthorizedPartnerPage";
 import DetailUnitUsedPage from "../page/ManagerPage/UnitUsed/DetailUnitUsed/DetailUnitUsedPage";
-import AddUserPage from "../page/ManagerPage/UnitUsed/DetailUnitUsed/AddUserPage/AddUserPage";
 import DetailUserPage from "../page/ManagerPage/UnitUsed/DetailUnitUsed/DetailUserPage/DetailUserPage";
 import UpdateUserPage from "../page/ManagerPage/UnitUsed/DetailUnitUsed/DetailUserPage/UpdateUserPage/UpdateUserPage";
 import EditInforUserPage from "../page/SettingPage/AuthenticationPage/EditInforUserPage/EditInforUserPage";
+import AddUserPageUnitUsed from "../page/ManagerPage/UnitUsed/DetailUnitUsed/AddUserPage/AddUserPage";
+import AddUserPage from "../page/SettingPage/AuthenticationPage/AddUserPage/AddUserPage";
 
 
 export function Router() {
@@ -148,7 +149,7 @@ export function Router() {
                         },
                         {
                             path: 'unit-used/detail/:id/add-user',
-                            element: <AddUserPage />
+                            element: <AddUserPageUnitUsed />
                         },
                         {
                             path: 'unit-used/detail/:id/detail-user/:uid',
@@ -185,6 +186,10 @@ export function Router() {
                         {
                             path: 'authentication/edit-user/:id',
                             element: <EditInforUserPage />
+                        },
+                        {
+                            path: 'authentication/add-user',
+                            element: <AddUserPage />
                         },
                         {
                             path: 'configuration',

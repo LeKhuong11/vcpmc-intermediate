@@ -1,11 +1,19 @@
-import React from 'react'
+import { useEffect } from 'react'
 import TabControl from '../../../components/TabControl';
+import { fetchUsers } from '../../../redux/slice/listUserSlice';
+import { useAppDispatch } from '../../../redux/store';
 import root from '../setting.module.scss'
 import ListUserTab from './components/ListUserTab';
 import RoleUserTab from './components/RoleUserTab';
 
 
 function AuthenticationPage() {
+  const dispatch = useAppDispatch();
+
+
+  useEffect(() => {
+    dispatch(fetchUsers())
+  }, [])
 
     const tabControlItems = {
         buttons: [

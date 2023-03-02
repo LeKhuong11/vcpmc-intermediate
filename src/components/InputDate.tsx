@@ -5,8 +5,8 @@ import styled from 'styled-components'
 const InputStyled = styled.input`
     width: 160px;
     border: 1px solid var(--orange);
-    height: 35px;
-    background: #33334D;
+    height: 42px;
+    background: var(--violet);
     border-radius: 4px;
     padding: 5px;
     color: var(--white);

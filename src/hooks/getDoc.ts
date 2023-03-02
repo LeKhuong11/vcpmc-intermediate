@@ -10,7 +10,7 @@ interface IGetDoc {
 export async function getDocFireBase({id, name}: IGetDoc) {
     const docRef = doc(db, name, id);
     try {
-        //get a document follow uid
+        //get a document by uid
         const data = await getDoc(docRef)            
         
         return data.data();

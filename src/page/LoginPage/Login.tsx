@@ -10,6 +10,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase/configfb'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { fetchUser } from '../../redux/slice/userSlice'
+import { logIn } from '../../firebase/userAuth'
 
 function Login() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function Login() {
     e.preventDefault();
     
     try {
-      await signInWithEmailAndPassword(auth, login.email, login.password)
+      await logIn(login.email, login.password)
       .then(res => {
           dispatch(fetchUser({uid: res.user.uid}))
           message.success("Đăng nhập thành công")

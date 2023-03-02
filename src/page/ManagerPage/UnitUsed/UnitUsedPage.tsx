@@ -88,7 +88,10 @@ function UnitUsedPage() {
         {
             title: 'Người dùng',
             dataIndex: 'userAmount',
-            key: 'userAmount'
+            key: 'userAmount',
+            render: (_, {listUser}) => {
+                return <p>{listUser.length}</p>
+            }
         },
         {
             title: 'Thiết bị được chỉ định',
