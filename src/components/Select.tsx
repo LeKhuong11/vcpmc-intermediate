@@ -17,12 +17,13 @@ const SelectStyled = styled(Select)`
             border: 1px solid var(--orange);
         }
         :where(.css-dev-only-do-not-override-1n7nwfa).ant-select .ant-select-arrow {
-            top: 25%;
+            top: 50%;
             right: 10px;
             color: var(--white);
         }
         .ant-select-selection-item {
             color: var(--white);
+            top: 15%;
         }
     }
 `

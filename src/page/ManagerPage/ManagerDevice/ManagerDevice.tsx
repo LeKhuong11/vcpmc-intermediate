@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase/configfb';
+import Loading from '../../../components/Loading';
 
 
 function ManagerDevice() {
@@ -80,11 +81,13 @@ const items: MenuProps['items'] = [
     },
     {
       icon: FiPower,
-      text: 'Kích hoạt thiết bị'
+      text: 'Kích hoạt thiết bị',
+      unActive: true
     },
     {
       icon: FiLock,
-      text: 'Khóa thiết bị'
+      text: 'Khóa thiết bị',
+      unActive: true
     },
     {
       icon: RiDeleteBinFill,
@@ -151,28 +154,32 @@ const items: MenuProps['items'] = [
   };
 
   return (
-    <div className={root.managerDevice}>
-      <h3>Danh sách thiết bị</h3>
-      <div className={root.dropdownAndSearch}>
-        <div>
-          <DropDown orange menuProps={menuProps} />
-          <DropDown orange menuProps={menuProps} />
+    <>
+      {loading ? <Loading /> : 
+        <div className={root.managerDevice}>
+          <h3>Danh sách thiết bị</h3>
+          <div className={root.dropdownAndSearch}>
+            <div>
+              <DropDown orange menuProps={menuProps} />
+              <DropDown orange menuProps={menuProps} />
+            </div>
+            <div>
+              <InputSearch placehoder='Tìm thiết bị theo tên, SKU, địa điểm, địa chỉ Mac' />
+            </div>
+          </div>
+          <div>
+            <CustomTable 
+              pagination={true} 
+              rowSelection={rowSelection} 
+              columns={coulumsTable} 
+              dataSrouce={dataSource} 
+              heightProps={70} 
+            />
+          </div>
+          <FeatureInPage featureProps={featureProp} />
         </div>
-        <div>
-          <InputSearch placehoder='Tìm thiết bị theo tên, SKU, địa điểm, địa chỉ Mac' />
-        </div>
-      </div>
-      <div>
-        <CustomTable 
-          pagination={true} 
-          rowSelection={rowSelection} 
-          columns={coulumsTable} 
-          dataSrouce={dataSource} 
-          heightProps={70} 
-        />
-      </div>
-      <FeatureInPage featureProps={featureProp} />
-    </div>
+      }
+    </>
   )
 }
 

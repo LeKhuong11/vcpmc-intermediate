@@ -6,6 +6,7 @@ import FeatureInPage from '../../components/FeatureInPage'
 import InputSearch from '../../components/InputSearch'
 import Loading from '../../components/Loading'
 import CustomTable from '../../components/Table'
+import { removeSymbol } from '../../function/removeSpecialKeyWord'
 import { usePaymentsCollection } from '../../hooks/useSnapshot'
 import { DataTypePlaylist, fetchPlaylist } from '../../redux/slice/playlistSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
@@ -28,6 +29,28 @@ function PlayList() {
     setPlaylistStore(payments)
   }, [payments])
 
+
+
+  const handleChangeSetSearchValue = (e: any) => {
+    // keyword search
+    const search = removeSymbol( e.value);
+
+    //if remove all keyword is will asign setPlaylistStore = all item 
+    if(search.length) {
+      const newSearchStore = playlistStore.filter(item => {
+
+        //remove special characters
+        //convert to lowercase
+        //compare keyword search and title playlist
+        const itemRemoveSymbol = removeSymbol(item.title)
+        return itemRemoveSymbol.toLowerCase().includes(search.toLowerCase())
+      })
+
+      setPlaylistStore(newSearchStore)
+      return
+    }
+    setPlaylistStore(payments)
+  }
   
   const handleClickAddNewPlaylist = () => {
     navigate('add-new-playlist')
@@ -107,7 +130,10 @@ function PlayList() {
         <div className={root.playlist}>
           <h3>Playlist</h3>
           <div>
-            <InputSearch placehoder='Tên chủ đề, người tạo,...' />
+            <InputSearch 
+              placehoder='Tên chủ đề,...' 
+              setValue={handleChangeSetSearchValue}  
+            />
           </div>
           <div>
             <CustomTable pagination={{pageSize: 10}} columns={columns} dataSrouce={dataSource} heightProps={70} /> 

@@ -161,11 +161,13 @@ function EditInforUserPage() {
         {
             icon: FiUserX,
             text: 'Xóa người dùng',
-            event: handleClickRemoveUser
+            event: handleClickRemoveUser,
+            unActive: true
         },
         {
             icon: RiKey2Line,
             text: 'Khôi phục mật khẩu', 
+            unActive: true
         },
     ] 
     const select = {

@@ -175,6 +175,7 @@ function HistoryForControlPage() {
     {
       icon: MdOutlineLogout,
       text: 'Xuất file',
+      unActive: true
     }
   ]
 

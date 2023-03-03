@@ -8,6 +8,7 @@ import { ColumnsType } from 'antd/es/table';
 import CustomTable from '../../../components/Table';
 import FeatureInPage from '../../../components/FeatureInPage';
 import { MdOutlineLogout } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 
 interface DataType{
@@ -163,7 +164,7 @@ function RevenueDistributionPage() {
             dataIndex: 'detailRevenue',
             key: 'detailRevenue',
             render: (_, {detailRevenue}) => {
-                return <a>{detailRevenue}</a>
+                return <Link to="detail/123">Xem chi tiết</Link>
             }
         },
       ]
@@ -172,6 +173,7 @@ function RevenueDistributionPage() {
         {
           icon: MdOutlineLogout,
           text: 'Xuất file',
+          unActive: true
         }
       ]
   return (

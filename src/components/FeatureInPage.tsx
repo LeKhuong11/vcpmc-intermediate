@@ -8,6 +8,7 @@ interface Iitems {
     icon: Function;
     text: string;
     event?: any
+    unActive?: boolean
 }
 const FreatureStyled = styled.div`
     display: flex;
@@ -58,7 +59,7 @@ function FeatureInPage( {featureProps}: IFreature) {
             featureProps.map((item: Iitems, index: number) => (
                 <div key={index} onClick={item.event}>
                     <div className='icon'>
-                        <item.icon color='#FF7506' size={27} />
+                        <item.icon color={item.unActive ? '#3333' : '#FF7506'} size={27} />
                     </div>
                     <p>{item.text}</p>
                 </div>

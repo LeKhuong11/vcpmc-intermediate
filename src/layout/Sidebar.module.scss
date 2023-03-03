@@ -37,7 +37,7 @@
                 .navigateChild {
                    visibility: visible;
                    opacity: 1;
-                   transition: all .2s linear;
+                   transition: opacity .2,5s linear;
                 }
             }
             .active {
@@ -102,7 +102,7 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        right: 0;
+        right: -2px;
         display: flex;
         align-items: center;
         cursor: pointer;

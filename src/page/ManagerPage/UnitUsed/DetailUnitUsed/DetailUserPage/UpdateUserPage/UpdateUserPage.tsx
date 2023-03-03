@@ -21,7 +21,8 @@ const ContainerStyled = styled.div`
         justify-content: space-between;
         width: 75%;
 
-        & span {
+       &>div {
+        &>span {
             display: flex;
             margin: 7px 0;
             & h5 {
@@ -34,6 +35,7 @@ const ContainerStyled = styled.div`
                 }
             }
         }
+       }
     }
 
     & .btn {
@@ -151,7 +153,7 @@ function UpdateUserPage() {
             path: '',
             namePage: 'Chỉnh sửa thông tin' 
         },
-      ]
+    ]
 
       
   return (

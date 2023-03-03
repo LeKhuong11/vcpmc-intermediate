@@ -13,9 +13,9 @@ import { Link } from 'react-router-dom';
 import { DataTypeStoreMusic, fetchStoreMusic } from '../../redux/slice/storeSlice';
 import { usePaymentsCollection } from '../../hooks/useSnapshot';
 import Loading from '../../components/Loading';
-import { AiOutlineUnorderedList } from 'react-icons/ai';
 import Card from './components/Card';
 import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { removeSymbol } from '../../function/removeSpecialKeyWord'
 
 function Store() {
   const dispatch = useAppDispatch();
@@ -23,7 +23,6 @@ function Store() {
   const [store, setStore] = useState(storeMusic)
   const { payments, loading} = usePaymentsCollection('store-music');
   const [ displaySwitch, setDisplaySwitch ] = useState('row')
-  const [ search, setSearch ] = useState('');
 
   useEffect(() => {
     dispatch(fetchStoreMusic());
@@ -42,19 +41,6 @@ function Store() {
     console.log('click', e);
   };
   
-  
-  //function remove special characters from store 
-  function removeSymbol(str: string) {
-    str = str.toLowerCase();
-    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
-    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
-    str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
-    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o');
-    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
-    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
-    str = str.replace(/đ/g, 'd');
-    return str;
-  }
 
   const handleChangeSetSearchValue = (e: any) => {
     const search = e.value;
@@ -188,7 +174,7 @@ function Store() {
           <div>
             <div>
               <InputSearch 
-                placehoder='Tên bản ghi, ca sĩ,...'
+                placehoder='Tên bản ghi,...'
                 name='searchStore'
                 setValue={handleChangeSetSearchValue}
               />

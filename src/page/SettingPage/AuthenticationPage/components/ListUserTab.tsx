@@ -73,7 +73,7 @@ function ListUserTab() {
         {
             icon: AiOutlineUserAdd,
             text: "Thêm người dùng",
-            event: () => navigate('add-user')
+            unActive: true
         }
     ]
   return (

@@ -12,6 +12,7 @@ import InputSearch from '../../../../components/InputSearch'
 import Loading from '../../../../components/Loading'
 import CustomModal from '../../../../components/Modal'
 import CustomTable from '../../../../components/Table'
+import { useSearch } from '../../../../hooks/useSearch'
 import { usePaymentsCollection } from '../../../../hooks/useSnapshot'
 import { DataTypeContract } from '../../../../redux/slice/contractSlice'
 import { useAppSelector } from '../../../../redux/store'
@@ -44,12 +45,41 @@ function AuthorizedContractTab() {
     reason: ''
   })
 
+  const [ search, setSearch ] = useSearch(listContract, 'contractID' );
+
+
+  console.log(search);
+  
   // listen 
   // When data changes on firestore, we receive that update here in this
   // callback and then update the UI based on current state 
   useEffect(() => {
     setListContract(payments)
   }, [payments])
+
+
+   const handleChangeSetSearchValue = (e: any) => {
+    const value = e.value;
+    setSearch(value)
+  //   // keyword search
+  //   const search = removeSymbol( e.value);
+
+  //   //if remove all keyword is will asign setPlaylistStore = all item 
+  //   if(search.length) {
+  //     const newSearchStore = playlistStore.filter(item => {
+
+  //       //remove special characters
+  //       //convert to lowercase
+  //       //compare keyword search and title playlist
+  //       const itemRemoveSymbol = removeSymbol(item.title)
+  //       return itemRemoveSymbol.toLowerCase().includes(search.toLowerCase())
+  //     })
+
+  //     setPlaylistStore(newSearchStore)
+  //     return
+  //   }
+  //   setPlaylistStore(payments)
+  }
 
     const DataSource: DataTypeContract[] = listContract
     const columnTab: ColumnsType<DataTypeContract> = [
@@ -190,7 +220,10 @@ function AuthorizedContractTab() {
                     </div>
                 </div>
             <div>
-                <InputSearch placehoder="Tên hợp đồng, số hợp đồng, người ủy quyền,..." />
+                <InputSearch 
+                  placehoder="Tên hợp đồng, số hợp đồng, người ủy quyền,..." 
+                  setValue={handleChangeSetSearchValue}
+                />
             </div>
             </ContainerStyled>
             <CustomTable 

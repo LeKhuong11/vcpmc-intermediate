@@ -40,6 +40,9 @@ import UpdateUserPage from "../page/ManagerPage/UnitUsed/DetailUnitUsed/DetailUs
 import EditInforUserPage from "../page/SettingPage/AuthenticationPage/EditInforUserPage/EditInforUserPage";
 import AddUserPageUnitUsed from "../page/ManagerPage/UnitUsed/DetailUnitUsed/AddUserPage/AddUserPage";
 import AddUserPage from "../page/SettingPage/AuthenticationPage/AddUserPage/AddUserPage";
+import DetailRevenuePage from "../page/RevenuePage/RevenueDistributionPage/DetailRevenuePage/DetailRevenuePage";
+import FeedbackPage from "../page/SupportPage/FeedbackPage/FeedbackPage";
+import DownLoadPage from "../page/SupportPage/DowloadPage/DownLoadPage";
 
 
 export function Router() {
@@ -101,7 +104,6 @@ export function Router() {
                 },
                 {
                     path: 'manager',
-                    element: <ManagerPage />,
                     children: [
                         {
                             path: 'contract',
@@ -163,7 +165,6 @@ export function Router() {
                 },
                 {
                     path: 'revenue',
-                    element: <RevenuePage />,
                     children: [
                         {
                             path: 'history-for-control',
@@ -173,11 +174,14 @@ export function Router() {
                             path: 'revenue-distribution',
                             element: <RevenueDistributionPage />
                         },
+                        {
+                            path: 'revenue-distribution/detail/:id',
+                            element: <DetailRevenuePage />
+                        },
                     ]
                 },
                 {
                     path: 'setting',
-                    element: <SettingPage />,
                     children: [
                         {
                             path: 'authentication',
@@ -215,6 +219,14 @@ export function Router() {
                         {
                             path: 'user-manual',
                             element: <UserManualPage />
+                        },
+                        {
+                            path: 'download',
+                            element: <DownLoadPage />
+                        },
+                        {
+                            path: 'feedback',
+                            element: <FeedbackPage />
                         }
                     ]
                 },

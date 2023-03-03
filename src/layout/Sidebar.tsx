@@ -37,7 +37,7 @@ function Sidebar() {
           </li>
           <li>
             <div>
-              <SiGoogletagmanager /><p>Quản lý</p>
+              <NavLink to=""><SiGoogletagmanager /><p>Quản lý</p></NavLink>
             </div>
             <div className={root.dot}>
               <BiDotsVerticalRounded />
@@ -58,8 +58,8 @@ function Sidebar() {
             </div>
             <div className={root.navigateChild}>
               <Link to="">Báo cáo doanh thu</Link>
-              <Link to="revenue/history-for-control">Lịch sử đối soát</Link>
               <Link to="revenue/revenue-distribution">Phân phối doanh thu</Link>
+              <Link to="revenue/history-for-control">Lịch sử đối soát</Link>
             </div>
           </li>
           <li>
@@ -86,8 +86,8 @@ function Sidebar() {
             </div>
             <div className={root.navigateChild}>
               <Link to="support/user-manual">Hướng dẫn sử dụng</Link>
-              <Link to="">Tải app</Link>
-              <Link to="">Feedback</Link> 
+              <Link to="support/download">Tải app</Link>
+              <Link to="support/feedback">Feedback</Link> 
             </div>
           </li>
         </ul>

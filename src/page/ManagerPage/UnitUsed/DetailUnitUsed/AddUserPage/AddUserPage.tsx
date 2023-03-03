@@ -22,16 +22,18 @@ const ContainerStyled = styled.div`
         justify-content: space-between;
         width: 75%;
 
-        & span {
-            display: flex;
-            margin: 7px 0;
-            & h5 {
+        &>div {
+            &>span {
                 display: flex;
-                align-items: center;
-                min-width: 140px;
-
-                & i {
-                    color: #FF4747;
+                margin: 7px 0;
+                & h5 {
+                    display: flex;
+                    align-items: center;
+                    min-width: 140px;
+    
+                    & i {
+                        color: #FF4747;
+                    }
                 }
             }
         }
