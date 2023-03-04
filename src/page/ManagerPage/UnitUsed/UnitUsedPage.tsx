@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom'
 import { usePaymentsCollection } from '../../../hooks/useSnapshot'
 import Loading from '../../../components/Loading'
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { useSearch } from '../../../hooks/useSearch'
 
 const { confirm } = Modal;
 
@@ -22,12 +23,24 @@ function UnitUsedPage() {
     const [ removeUnitUsed, setRemoveUnitUsed ] = useState<DataTypeUnitUsed[]>([])
     const { payments, loading } = usePaymentsCollection('unit-used');
     const [ listUnitUsed, setListUnitUsed ] = useState<DataTypeUnitUsed[]>(payments)
+    const [ search, setSearch ] = useSearch(payments, 'userRoot');
 
+    //listen to 'search' change returned from useSearch();
+    useEffect(() => {
+        setListUnitUsed(search)
+    }, [search])
 
     useEffect(() => {
       dispatch(fetchUnitUsed())
       setListUnitUsed(payments)
     }, [payments])
+
+
+    const handleChaneSetSearchValue = (e: any) => {
+        const value = e.value;
+
+        setSearch(value)
+    }
 
     const handleClickRemoveDevice = () => {
         if(removeUnitUsed.length) {
@@ -136,7 +149,10 @@ function UnitUsedPage() {
             <div className={root.unitUsed}>
                 <h3>Đơn vị sử dụng</h3>
                 <div>
-                    <InputSearch placehoder='Tài khoản giá trị, số hợp đồng,...' />
+                    <InputSearch 
+                        placehoder='Tìm kiếm theo tên tài khoản quản trị,...' 
+                        setValue={handleChaneSetSearchValue}    
+                    />
                 </div>
                 <div>
                     <CustomTable 

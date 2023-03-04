@@ -6,7 +6,7 @@ import FeatureInPage from '../../components/FeatureInPage'
 import InputSearch from '../../components/InputSearch'
 import Loading from '../../components/Loading'
 import CustomTable from '../../components/Table'
-import { removeSymbol } from '../../function/removeSpecialKeyWord'
+import { useSearch } from '../../hooks/useSearch'
 import { usePaymentsCollection } from '../../hooks/useSnapshot'
 import { DataTypePlaylist, fetchPlaylist } from '../../redux/slice/playlistSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
@@ -20,8 +20,13 @@ function PlayList() {
   const { playlist } = useAppSelector(state => state.playlist);
   const [ playlistStore, setPlaylistStore ] = useState<DataTypePlaylist[]>(playlist);
   const { payments, loading } = usePaymentsCollection('play-list');
-  
+  const [ search, setSearch ] = useSearch(playlist, 'title');
 
+  //listen to 'search' change returned from useSearch();
+  useEffect(() => {
+    setPlaylistStore(search)
+  }, [search])
+  
 
   //set lại dữ liệu ngay khi dữ liệu trên store thay đổi
   useEffect(() => {
@@ -32,24 +37,9 @@ function PlayList() {
 
 
   const handleChangeSetSearchValue = (e: any) => {
-    // keyword search
-    const search = removeSymbol( e.value);
+    const value = e.value;
 
-    //if remove all keyword is will asign setPlaylistStore = all item 
-    if(search.length) {
-      const newSearchStore = playlistStore.filter(item => {
-
-        //remove special characters
-        //convert to lowercase
-        //compare keyword search and title playlist
-        const itemRemoveSymbol = removeSymbol(item.title)
-        return itemRemoveSymbol.toLowerCase().includes(search.toLowerCase())
-      })
-
-      setPlaylistStore(newSearchStore)
-      return
-    }
-    setPlaylistStore(payments)
+    setSearch(value)
   }
   
   const handleClickAddNewPlaylist = () => {
@@ -131,7 +121,7 @@ function PlayList() {
           <h3>Playlist</h3>
           <div>
             <InputSearch 
-              placehoder='Tên chủ đề,...' 
+              placehoder='Tìm kiếm theo tên chủ đề,...' 
               setValue={handleChangeSetSearchValue}  
             />
           </div>

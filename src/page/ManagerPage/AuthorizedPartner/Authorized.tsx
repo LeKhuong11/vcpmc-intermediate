@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import InputSearch from '../../../components/InputSearch'
 import Loading from '../../../components/Loading'
 import CustomTable from '../../../components/Table'
+import { useSearch } from '../../../hooks/useSearch'
 import { usePaymentsCollection } from '../../../hooks/useSnapshot'
 import { DataTypeAuthorizedPartner, fetchAuthorizedPertnerList } from '../../../redux/slice/authorizedPartnerSlice'
 import { useAppDispatch, useAppSelector } from '../../../redux/store'
@@ -16,7 +17,12 @@ function Authorized() {
   const { authorizedPertnerList } = useAppSelector(state => state.authorizedPartner)
   const [ authorizedPartner, setAuthorizedPartner ] = useState<DataTypeAuthorizedPartner[]>(authorizedPertnerList);
   const { payments, loading } = usePaymentsCollection('authorized-partner');
-  
+  const [ search, setSearch ] = useSearch(payments, 'fullName');
+
+  //listen to 'search' change returned from useSearch();
+  useEffect(() => {
+    setAuthorizedPartner(search)
+  }, [search])
 
 
   //set lại dữ liệu ngay khi dữ liệu trên store thay đổi
@@ -24,6 +30,12 @@ function Authorized() {
     dispatch(fetchAuthorizedPertnerList())
     setAuthorizedPartner(payments)
   }, [payments])
+
+  const handleChangeSetSearchValue = (e: any) => {
+    const value = e.value;
+
+    setSearch(value)
+  }
   
   const dataSoure: DataTypeAuthorizedPartner[] = authorizedPartner
   
@@ -33,7 +45,7 @@ function Authorized() {
       dataIndex: 'stt',
       key: 'stt',
       render: (_, {}, index ) => (
-        <p>{index}</p>
+        <p>{index + 1}</p>
       )
     },
     {
@@ -89,7 +101,10 @@ function Authorized() {
         <div className={root.authorized}>
         <h3>Danh sách đối tác ủy quyền</h3>
           <div>
-            <InputSearch placehoder='Họ tên, tên đăng nhập, email,...' />
+            <InputSearch 
+              placehoder='Tìm kiếm họ tên đổi tác ủy quyền,...' 
+              setValue={handleChangeSetSearchValue}
+            />
           </div>
           <div>
             <CustomTable 

@@ -8,14 +8,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import FeatureInPage from '../../../components/FeatureInPage';
 import CustomTable from '../../../components/Table';
 import { db } from '../../../firebase/configfb';
-import {  PlaylistSVG } from '../../../image/playlist';
 import { tempPlaylist } from '../../../redux/slice/playlistSlice';
 import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
 import { useAppDispatch} from '../../../redux/store';
 import root from '../playlist.module.scss'
 import Loading from '../../../components/Loading';
 import Breadcrumbs from '../../../components/Breadcrumbs';
-
+const playlistImg = require('../../../image/playlist.png')
 
 function DetailPlayListPage() {
     const navigate = useNavigate();
@@ -135,7 +134,7 @@ function DetailPlayListPage() {
             <div className={root.container}>
                 <div className={root.infoPlaylist}>
                     <div>
-                        <PlaylistSVG />
+                        <img src={playlistImg} alt="" width={200} height={200} />
                         <h4>{playlistId.title}</h4>
                     </div>
                     <div>

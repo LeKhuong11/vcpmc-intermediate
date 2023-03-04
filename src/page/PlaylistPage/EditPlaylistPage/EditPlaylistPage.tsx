@@ -243,9 +243,6 @@ function EditPlaylistPage() {
         <div className={root.container}>
             <div className={root.addInfo}>
                 <div>
-                    <PlaylistSVG />
-                </div>
-                <div>
                     <h5>Tiêu đề :</h5>
                     <Input 
                         type='text' 

@@ -12,9 +12,7 @@ import Loading from '../../components/Loading';
 
 
 function CreateList() {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch()
-  const { createList } = useAppSelector(state => state.createList)
   const { payments, loading} = usePaymentsCollection('create-list');
   const [ createLists, setCreateList ] = useState<DataTypeCreateList[]>(payments)
 
@@ -26,7 +24,7 @@ function CreateList() {
     dispatch(fetchCreateList());
   }, [payments])
 
-  const dataSource: DataTypeCreateList[] = createList
+  const dataSource: DataTypeCreateList[] = createLists
   
   const columns: ColumnsType<DataTypeCreateList> = [
       {
@@ -68,7 +66,8 @@ function CreateList() {
   const featureProps = [
     {
       icon: MdPlaylistAdd,
-      text: 'Thêm lịch phát'
+      text: 'Thêm lịch phát',
+      unActive: true,
     }
   ]
   return (

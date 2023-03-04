@@ -83,13 +83,6 @@ const ContainerStyled = styled.div`
     }
 `
 
-type royalties = {
-    coppyRight: number,
-    perform: number,
-    producer: number
-}
-
-
 function AddContractPage() {
     const { contracts } = useAppSelector(state => state.contracts)
     const navigate = useNavigate();
@@ -445,7 +438,7 @@ function AddContractPage() {
                 </div>
             </div>
             <div className='btn'>
-                <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" />
+                <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" onClick={() => navigate('../contract')} />
                 <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu" onClick={handleClickUpdateContract}/>
             </div>
         </div>

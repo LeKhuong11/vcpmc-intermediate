@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase/configfb';
 import Loading from '../../../components/Loading';
+import { useSearch } from '../../../hooks/useSearch';
 
 
 function ManagerDevice() {
@@ -27,11 +28,23 @@ function ManagerDevice() {
   const { devices } = useAppSelector(state => state.devices)
   const [ listDevice, setListDevice ] = useState<DataTypeDevice[]>(devices)
   const [ removeDevice, setRemoveDevice ] = useState<DataTypeDevice[]>([]);
+  const [ search, setSearch ] = useSearch(payments, 'nameDevice');
+
+  //listen to 'search' change returned from useSearch();
+  useEffect(() => {
+    setListDevice(search)
+  }, [search])
 
   useEffect(() => {
     dispatch(fetchDevice())
     setListDevice(payments)
   }, [payments])
+
+  const handleChangeSetSearchValue = (e: any) => {
+    const value = e.value;
+
+    setSearch(value)
+  }
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     console.log('click', e);
@@ -164,7 +177,10 @@ const items: MenuProps['items'] = [
               <DropDown orange menuProps={menuProps} />
             </div>
             <div>
-              <InputSearch placehoder='Tìm thiết bị theo tên, SKU, địa điểm, địa chỉ Mac' />
+              <InputSearch 
+                placehoder='Tìm thiết bị theo tên,...' 
+                setValue={handleChangeSetSearchValue}  
+              />
             </div>
           </div>
           <div>

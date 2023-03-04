@@ -141,14 +141,6 @@ function AddDevicePage() {
                     <InputDate name='duration' width={200} onChange={handleChangeDateInput} />
                 </span>
                 <span>
-                    <h5>Label:</h5>
-                    <Input width={280} type="text" setValue={() => ''}  />
-                </span>
-                <span>
-                    <h5>Thông tin:</h5>
-                    <Input width={280} type="text" setValue={() => ''} />
-                </span>
-                <span>
                     <h5>Ghi chú: </h5>
                     <textarea name="" id="" cols={34} rows={4} onChange={(e) => setNewDevice({...newDevice, desc: e.target.value})}></textarea>
                 </span>
@@ -170,10 +162,6 @@ function AddDevicePage() {
                 <span>
                     <h5>Mật khẩu:</h5>
                     <Input width={280}  height={35} type="password" name='password' setValue={handleChangeSetNewDevice} />
-                </span>
-                <span>
-                    <h5>Nhập lại mật khẩu:</h5>
-                    <Input width={280} type="password" name='password' setValue={handleChangeSetNewDevice} />
                 </span>
                 <span>
                     <h5>Vị trí:</h5>

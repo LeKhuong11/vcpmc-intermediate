@@ -44,14 +44,15 @@ function AuthorizedContractTab() {
     open: false,
     reason: ''
   })
+  const [ search, setSearch ] = useSearch(contracts, 'contractName');
 
-  const [ search, setSearch ] = useSearch(listContract, 'contractID' );
-
-
-  console.log(search);
+  //listen to 'search' change returned from useSearch();
+  useEffect(() => {
+    setListContract(search)
+  }, [search])
   
   // listen 
-  // When data changes on firestore, we receive that update here in this
+  // When data changes on firestore, we get that update here in this section immediately
   // callback and then update the UI based on current state 
   useEffect(() => {
     setListContract(payments)
@@ -61,24 +62,6 @@ function AuthorizedContractTab() {
    const handleChangeSetSearchValue = (e: any) => {
     const value = e.value;
     setSearch(value)
-  //   // keyword search
-  //   const search = removeSymbol( e.value);
-
-  //   //if remove all keyword is will asign setPlaylistStore = all item 
-  //   if(search.length) {
-  //     const newSearchStore = playlistStore.filter(item => {
-
-  //       //remove special characters
-  //       //convert to lowercase
-  //       //compare keyword search and title playlist
-  //       const itemRemoveSymbol = removeSymbol(item.title)
-  //       return itemRemoveSymbol.toLowerCase().includes(search.toLowerCase())
-  //     })
-
-  //     setPlaylistStore(newSearchStore)
-  //     return
-  //   }
-  //   setPlaylistStore(payments)
   }
 
     const DataSource: DataTypeContract[] = listContract
@@ -221,7 +204,7 @@ function AuthorizedContractTab() {
                 </div>
             <div>
                 <InputSearch 
-                  placehoder="Tên hợp đồng, số hợp đồng, người ủy quyền,..." 
+                  placehoder="Tìm kiếm theo tên hợp đồng,..." 
                   setValue={handleChangeSetSearchValue}
                 />
             </div>

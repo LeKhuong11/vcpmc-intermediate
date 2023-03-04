@@ -15,18 +15,27 @@ import { message, Modal } from 'antd';
 import { updateDocConfig } from '../../../../hooks/updateDoc';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { usePaymentsCollection } from '../../../../hooks/useSnapshot';
+import { useSearch } from '../../../../hooks/useSearch';
+import { useAppSelector } from '../../../../redux/store';
 const { confirm } = Modal;
 
 function DetailUnitUsedPage() {
     const navigate = useNavigate();
     const { id } = useParams();
+    const { unitUsed } = useAppSelector(state => state.unitUsed)
     const [ user, setUser ] = useState<DataTypeUser[]>([]);
     const [ loading, setLoading ] = useState(true)
     const [ removeUser, setRemoveUser ] = useState<DataTypeUser[]>([]);
     const [ checkedUser, setCheckedUser ] = useState(0)
-
     const { payments } = usePaymentsCollection('unit-used');
+    const getUser = unitUsed.filter(item => item.id === id)
+    const [ search, setSearch ] = useSearch(getUser[0].listUser, 'fullName');
+    
 
+    //listen to 'search' change returned from useSearch();
+    useEffect(() => {
+        setUser(search)
+    }, [search])
 
     useEffect(() => {
       const getCurrentUnitUsed = payments.filter(item => {
@@ -48,6 +57,12 @@ function DetailUnitUsedPage() {
         
        getData();
     }, [])
+
+    const handleChangeSetSearchValue = (e: any) => {
+        const value = e.value;
+
+        setSearch(value)
+    }
                               
     const rowSelection = {
         onChange: (selectedRowKeys: any, selectedRows: any, ) => {
@@ -200,10 +215,13 @@ function DetailUnitUsedPage() {
                     <Breadcrumbs crumbs={breadcrumb} />
                 </div>
                 <div>
-                    <h3>Đơn vị sử dụng - ABCD</h3>
+                    <h3>Đơn vị sử dụng - {payments[0].userRoot}</h3>
                 </div>
                 <div>
-                    <InputSearch placehoder='Tên người dùng,...' />
+                    <InputSearch 
+                        placehoder='Tên người dùng,...' 
+                        setValue={handleChangeSetSearchValue}
+                    />
                 </div>
                 <div>
                     <CustomTable 

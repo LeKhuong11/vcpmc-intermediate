@@ -15,7 +15,7 @@ import { usePaymentsCollection } from '../../hooks/useSnapshot';
 import Loading from '../../components/Loading';
 import Card from './components/Card';
 import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { removeSymbol } from '../../function/removeSpecialKeyWord'
+import { useSearch } from '../../hooks/useSearch';
 
 function Store() {
   const dispatch = useAppDispatch();
@@ -23,6 +23,13 @@ function Store() {
   const [store, setStore] = useState(storeMusic)
   const { payments, loading} = usePaymentsCollection('store-music');
   const [ displaySwitch, setDisplaySwitch ] = useState('row')
+  const [ search, setSearch ] = useSearch(storeMusic, 'nameMusic');
+
+  //listen to 'search' change returned from useSearch();
+  useEffect(() => {
+    setStore(search)
+  }, [search])
+
 
   useEffect(() => {
     dispatch(fetchStoreMusic());
@@ -41,22 +48,11 @@ function Store() {
     console.log('click', e);
   };
   
-
+  //handle search song
   const handleChangeSetSearchValue = (e: any) => {
-    const search = e.value;
-    if(search.length) {
-      const newSearchStore = store.filter(item => {
-        const itemRemoveSymbol = removeSymbol(item.nameMusic)
-        return itemRemoveSymbol.toLowerCase().includes(search.toLowerCase())
-      })
-
-      setStore(newSearchStore)
-      return
-    }
-    setStore(payments)
+    const value = e.value;
+    setSearch(value);
   }
-
-
 
   const items: MenuProps['items'] = [
     {
