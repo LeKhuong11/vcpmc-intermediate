@@ -140,7 +140,8 @@ function UnitUsedPage() {
         {
             icon: FaTimes,
             text: 'Xóa', 
-            event: handleClickRemoveDevice
+            event: handleClickRemoveDevice,
+            unActive: removeUnitUsed.length ? false : true
         }
     ]
   return (

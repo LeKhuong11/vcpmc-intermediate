@@ -127,7 +127,8 @@ function RoleUserTab() {
     const featureProps = [
         {
             icon: FiUsers,
-            text: "Thêm vai trò"
+            text: "Thêm vai trò",
+            unActive: true
         }
     ]
   return (

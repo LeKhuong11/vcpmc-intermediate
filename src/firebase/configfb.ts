@@ -6,13 +6,13 @@ import {
 } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCv3hFWn9F47inpGni5ylyNXwBU4SdfnT8",
-  authDomain: "vcpmc-3d92c.firebaseapp.com",
-  projectId: "vcpmc-3d92c",
-  storageBucket: "vcpmc-3d92c.appspot.com",
-  messagingSenderId: "597393737305",
-  appId: "1:597393737305:web:8a8d4fb6dc08834aaf1348",
-  measurementId: "G-Q93LW1P846"
+  apiKey: "AIzaSyCZNUxqqVpwpRmcBMiCOjde2ys2GKfYeYg",
+  authDomain: "vcpmc-intermediate.firebaseapp.com",
+  projectId: "vcpmc-intermediate",
+  storageBucket: "vcpmc-intermediate.appspot.com",
+  messagingSenderId: "736416869276",
+  appId: "1:736416869276:web:8d5efc849a0c4800873659",
+  measurementId: "G-4YP5TBTG88"
 };
 
 // Initialize Firebase

@@ -105,7 +105,8 @@ const items: MenuProps['items'] = [
     {
       icon: RiDeleteBinFill,
       text: 'Xóa thiết bị',
-      event: handleClickRemoveDevice
+      event: handleClickRemoveDevice,
+      unActive: removeDevice.length ? false : true
     }
   ]
 
