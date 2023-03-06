@@ -8,7 +8,7 @@ import FeatureInPage from '../../../components/FeatureInPage'
 import Input from '../../../components/Input'
 import { useAppSelector } from '../../../redux/store'
 import root from '../store.module.scss'
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../../../firebase/configfb'
 import { updateDocConfig } from '../../../hooks/updateDoc'
 
@@ -24,12 +24,10 @@ function UpdateInformationPage() {
     })
 
     const navigate = useNavigate();
-    const [ avt, setAvt ] = React.useState<UploadFile[]>();
 
     const [ updateSong, setUpdateSong ] = React.useState({
         //initialState = song(id)
         key: music[0].key,
-        stt: music[0].stt,
         nameMusic: music[0].nameMusic,
         IRCID: music[0].IRCID,
         time: music[0].time,
@@ -37,9 +35,7 @@ function UpdateInformationPage() {
         author: music[0].author,
         type: music[0].type,
         format: music[0].format,
-        date: music[0].date,
-        update: music[0].update,
-        listen: music[0].listen,
+        status: music[0].status,
     })
 
 
@@ -139,15 +135,15 @@ function UpdateInformationPage() {
                     </div>
                     <div>
                         <h5>Ngày nhận ủy quyền:</h5>
-                        <p>01/05/2021</p>
+                        <p>{music[0].dateCreated}</p>
                     </div>
                     <div>
                         <h5>Ngày hết hạn:</h5>
-                        <p>01/08/2025</p>
+                        <p>{music[0].date}</p>
                     </div>
                     <div>
                         <h5>Trạng thái:</h5>
-                        {music[0].date ? <p><RxDotFilled color="blue" />Còn thời hạn</p> : <p><RxDotFilled color="gray" />Hết thời hạn</p>}
+                        {music[0].status ? <p><RxDotFilled color="blue" />Còn thời hạn</p> : <p><RxDotFilled color="gray" />Hết thời hạn</p>}
                     </div>
                 </div>
             </div>

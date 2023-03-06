@@ -3,21 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit/dist/createAction"
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/configfb";
 
-// export interface IPerson {
-//     name: string;
-//     birthday: string;
-//     displayName: string;
-//     email: string;
-//     fristName: string;
-//     isAdmin: number;
-//     lastName: string;
-//     phone: number;
-//     userName:string;
-// }
 
-// interface IUserState {
-//     user: IPerson[]
-// }
 export interface IUser {
     id?: string
     password?: string

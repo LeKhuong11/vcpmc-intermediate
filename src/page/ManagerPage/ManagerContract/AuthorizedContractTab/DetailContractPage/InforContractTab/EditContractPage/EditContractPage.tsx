@@ -148,7 +148,7 @@ function EditContractPage() {
             message.success("Cập nhật thành công")
             return
         }
-        message.success("Cập nhật thất bạibại")
+        message.error("Cập nhật thất bại")
     }
 
     const handleClickCancelEditContract = () => {
@@ -399,7 +399,11 @@ function EditContractPage() {
                             </span>
                             <span>
                                 <h5>Nơi cư trú:</h5>
-                                <textarea defaultValue={contract.address} />
+                                <textarea 
+                                    defaultValue={contract.address} 
+                                    name='address'
+                                    onChange={handleChangeSetValueNewContract}
+                                />
                             </span>
                         </div>
                         <div>

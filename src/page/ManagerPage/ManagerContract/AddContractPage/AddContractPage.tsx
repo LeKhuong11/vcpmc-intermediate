@@ -143,7 +143,7 @@ function AddContractPage() {
         })
     }
 
-    const handleClickUpdateContract = async () => {
+    const handleClickAddContract = async () => {
 
         const docRef = doc(collection(db, "contract"))
         try {
@@ -439,7 +439,7 @@ function AddContractPage() {
             </div>
             <div className='btn'>
                 <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" onClick={() => navigate('../contract')} />
-                <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu" onClick={handleClickUpdateContract}/>
+                <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu" onClick={handleClickAddContract}/>
             </div>
         </div>
     </ContainerStyled>

@@ -77,7 +77,7 @@ function PlayList() {
       key: 'quantity',
       render: (_, {idSong}) => {
 
-        return <p>{idSong.length}</p>
+        return <p>{idSong?.length}</p>
       }
     },
     {

@@ -14,7 +14,7 @@ const TopicStyled = styled.span`
 function Topic({topics} :ITopic) {
   return (
     <>
-        {topics.map((item, index) => (
+        {topics && topics.map((item, index) => (
             <TopicStyled key={item}>
                 {index > 4 ? '...' : item}
             </TopicStyled>

@@ -136,27 +136,27 @@ function Store() {
       title: 'Thời hạn sử dụng',
       dataIndex: 'date',
       key: 'date',
-      render: (_, { date }) => {
+      render: (_, { status }) => {
 
-        return <>{date ? <p><RxDotFilled color="blue" />Còn thời hạn</p> : <p><RxDotFilled color="gray" />Hết thời hạn</p>}</>
+        return <>{status ? <p><RxDotFilled color="blue" />Còn thời hạn</p> : <p><RxDotFilled color="gray" />Hết thời hạn</p>}</>
       }
     },
     {
       title: '',
       dataIndex: 'status',
       key: 'status',
-      render: (_, { update, id }) => {
+      render: (_, { id }) => {
         
-        return <Link to={`update-infomation/${id}`}>{update}</Link>
+        return <Link to={`update-infomation/${id}`}>Cập nhật</Link>
       }
     },
     {
       title: '',
       dataIndex: 'status2',
       key: 'status2',
-      render: (_, { listen }) => {
+      render: (_, { }) => {
 
-        return <a>{listen}</a>
+        return <a>Nghe</a>
       }
     },
   ]
@@ -206,7 +206,7 @@ function Store() {
                 </div>
               </div>
             </div>
-            {displaySwitch === 'row' && <CustomTable pagination={{pageSize: 10}} columns={columns} dataSrouce={dataSource} heightProps={64} /> }
+            {displaySwitch === 'row' && <CustomTable pagination={{pageSize: 9}} columns={columns} dataSrouce={dataSource} heightProps={64} /> }
             {displaySwitch === 'table' &&
               <div className={root.listSongTable}>
               {store.length ? store.map(item => (

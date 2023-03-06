@@ -6,14 +6,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     Account 1: 
         userName: tuyetnguyenngoc@alta.com.vn
         password: 123456
+        role: admin
     
     Account 2:
         userName: den@gmail.com
         password: 123456
+        role: user
 
     Account 3:
         userName: pmq@gmail.com
         password: 123456
+        role: user
 
 ## Available Scripts
 

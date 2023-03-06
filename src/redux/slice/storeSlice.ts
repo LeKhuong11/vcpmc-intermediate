@@ -6,17 +6,18 @@ import { db } from "../../firebase/configfb";
 export interface DataTypeStoreMusic {
     key: number,
     id: string,
-    stt: number,
     nameMusic: string,
     IRCID: string,
     time: string,
     singer: string,
     author: string,
+    date: string,
+    dateCreated: string,
     type: string,
     format: string,
-    date: boolean,
-    update: string,
-    listen: string,
+    status: boolean,
+    update?: string,
+    listen?: string,
   }
 
 interface IStoreState {

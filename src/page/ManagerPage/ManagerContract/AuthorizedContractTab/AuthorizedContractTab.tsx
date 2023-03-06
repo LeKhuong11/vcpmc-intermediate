@@ -44,7 +44,7 @@ function AuthorizedContractTab() {
     open: false,
     reason: ''
   })
-  const [ search, setSearch ] = useSearch(contracts, 'contractName');
+  const [ search, setSearch ] = useSearch(contracts, 'contractID');
 
   //listen to 'search' change returned from useSearch();
   useEffect(() => {
@@ -204,7 +204,7 @@ function AuthorizedContractTab() {
                 </div>
             <div>
                 <InputSearch 
-                  placehoder="Tìm kiếm theo tên hợp đồng,..." 
+                  placehoder="Tìm kiếm theo số hợp đồng,..." 
                   setValue={handleChangeSetSearchValue}
                 />
             </div>
