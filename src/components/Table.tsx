@@ -50,7 +50,7 @@ const TableStyled = styled(Table)`
                 line-height: 17px;
                 color: #d1d1d1;
                 vertical-align: middle;
-                max-width: 420px;
+                max-width: 460px;
                 border-bottom: 1px solid rgb(97, 96, 96);
             }
             .ant-table-cell-row-hover {

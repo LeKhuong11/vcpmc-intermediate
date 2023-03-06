@@ -1,79 +1,87 @@
 import { ColumnsType } from 'antd/es/table'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import Button from '../../../components/Button'
 import FeatureInPage from '../../../components/FeatureInPage'
 import Input from '../../../components/Input'
+import Loading from '../../../components/Loading'
 import CustomTable from '../../../components/Table'
+import { usePaymentsCollection } from '../../../hooks/useSnapshot'
+import { DataTypeInforProducts } from '../../../redux/slice/inforProductsSlice'
 import root from '../setting.module.scss'
+import { IUpdate, updateDocConfig } from '../../../hooks/updateDoc'
+import { message } from 'antd'
 
-interface DataType {
-    key: number,
-    stt: number,
-    type: string,
-    description: string
+interface IUpdateInforProduct {
+    type: string
+    desc: string
+    key: number
 }
 
 function EditInformationPage() {
-    const [ editingRow, setEditingRow ] = React.useState(0)
-    const [ editValue, setEditValue ] = React.useState('');
+    const [ editingRow, setEditingRow ] = React.useState<any>('')
+    const [ inforProducts, setInforProducts ] = useState<DataTypeInforProducts[]>([])
+    const [ updateValue, setUpdateValue ] = React.useState<DataTypeInforProducts>({
+        key: 0,
+        type: '',
+        desc: '',
+        id: ''
+    });
+    const { payments, loading } = usePaymentsCollection('infor-products');
+  
+    //set lại dữ liệu ngay khi dữ liệu trên store thay đổi
+    useEffect(() => {
+        setInforProducts(payments)
+    }, [payments])
 
-    const dataSource: DataType[] = [
-        {
-            key: 1,
-            stt: 1,
-            type: 'Pop',
-            description: 'Nhạc pop là một thể loại của nhạc đương đại và rất phổ biến trong làng nhạc đại chúng.'
-        },
-        {
-            key: 2,
-            stt: 2,
-            type: 'Bolero',
-            description: 'Quay về với một thời hoa bướm đầy mơ mộng khi nghe các tuyệt phẩm nhạc bolero trữ tình này.'
-        },
-        {
-            key: 3,
-            stt: 3,
-            type: 'Ballad',
-            description: 'Ballad là dòng nhạc nhẹ nhàng, trữ tình bắt nguồn từ dòng nhạc country và folk vì giai điệu chậm, thong thả. '
-        },
-        {
-            key: 4,
-            stt: 4,
-            type: 'Lofi',
-            description: 'Lo-fi là một thể loại nhạc trong đó có chứa các yếu tố không hoàn hảo trong quá trình ghi âm và trình diễn.'
-        },
-        {
-            key: 5,
-            stt: 5,
-            type: 'Blues',
-            description: 'Nhạc Blues có nguồn gốc từ những điệu hát của miền tây Phi Châu được các nô lệ da đen mang sang Bắc Mỹ.'
-        },
-        {
-            key: 7,
-            stt: 7,
-            type: 'Country',
-            description: 'Nhạc đồng quê là một thể loại nhạc pha trộn truyền thống được tìm thấy phổ biến ở Mỹ và Canada.'
-        },
-        {
-            key: 8,
-            stt: 8,
-            type: 'Rock',
-            description: 'Rock là một thể loại âm nhạc quần chúng được bắt nguồn từ cách gọi ngắn gọn của cụm từ "rock and roll" vào những năm 1950 ở Mỹ.'
-        },
-        {
-            key: 9,
-            stt: 9,
-            type: 'Ballad',
-            description: 'Ballad là dòng nhạc nhẹ nhàng, trữ tình bắt nguồn từ dòng nhạc country và folk vì giai điệu chậm, thong thả. '
+    const handleChaneSetUpdateInforProduct = (e: any) => {
+        const name = e.name;
+        const value = e.value;
+
+        setUpdateValue({
+            ...updateValue,
+            [name]: value
+        })
+    }
+
+    const handleClickUpdateInforProduct = async () => {
+        const params: IUpdate = {
+            documentName: 'infor-products',
+            //editingRow is the ID of the current line being editting
+            id: editingRow,
+            data: updateValue
         }
-    ]
 
-    const columns: ColumnsType<DataType> = [
+        const update = await updateDocConfig(params)
+        if(update) {
+            message.success('Cập nhật thành công')
+            setEditingRow('')
+            return 
+        }
+        message.error("Cập nhật thất bại")
+    }
+
+    const handleClickSetEditingRow = (items: any) => {
+        //if editting row === current key
+        //show input
+        setEditingRow(items.id)
+        
+        setUpdateValue({
+            type: items.type,
+            desc: items.desc,
+            key: items.key,
+        })
+    }
+
+
+    const dataSource: DataTypeInforProducts[] = inforProducts
+
+    const columns: ColumnsType<DataTypeInforProducts> = [
         {
             title: 'STT',
             dataIndex: 'stt',
-            key: 'stt'
+            key: 'stt',
+            render: (_, {}, index) => <p>{index + 1}</p>
         },
         {
             title: 'Tên thể loại',
@@ -81,13 +89,19 @@ function EditInformationPage() {
             key: 'type',
             render: (_, items) => {
 
-                if(editingRow === items.key){
+                if(editingRow === items.id){
                     return <form action="">
-                        <Input type='text' width={123} setValue={setEditValue} value={items.type} />
+                        <Input 
+                            type='text' 
+                            width={123} 
+                            name='type'
+                            setValue={handleChaneSetUpdateInforProduct} 
+                            value={items.type} 
+                        />
                     </form>
                 }
                 else {
-                    return <p onClick={() => setEditingRow(items.key)}>{items.type}</p>
+                    return <p onClick={() => handleClickSetEditingRow(items)}>{items.type}</p>
                 }
             }
         },
@@ -96,13 +110,19 @@ function EditInformationPage() {
             dataIndex: 'description',
             key: 'description',
             render: (_, items) => {
-                if(editingRow === items.key){
+                if(editingRow === items.id){
                     return <form action="">
-                        <Input type='text' width={700} setValue={setEditValue} value={items.description} />
+                        <Input 
+                            type='text' 
+                            width={700} 
+                            name='desc'
+                            setValue={handleChaneSetUpdateInforProduct} 
+                            value={items.desc} 
+                        />
                     </form>
                 }
                 else {
-                    return <p onClick={() => setEditingRow(items.key)}>{items.description}</p>
+                    return <p onClick={() => handleClickSetEditingRow(items)}>{items.desc}</p>
                 }
             }
         },
@@ -116,21 +136,25 @@ function EditInformationPage() {
     ]
 
   return (
-    <div className={root.editInformation}>
-        <h3>Thông tin tác phẩm</h3>
-        <div>
-            <h4>Thể loại tác phẩm</h4>
-            <CustomTable dataSrouce={dataSource} columns={columns} heightProps={65} />
+    <>
+        {loading ? <Loading /> : 
+            <div className={root.editInformation}>
+            <h3>Thông tin tác phẩm</h3>
+            <div>
+                <h4>Thể loại tác phẩm</h4>
+                <CustomTable dataSrouce={dataSource} columns={columns} heightProps={65} />
+            </div>
+            <div className={root.buttons}>
+                {editingRow ? 
+                <>
+                    <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" onClick={() => setEditingRow('')}/>
+                    <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu" onClick={handleClickUpdateInforProduct}/>
+                </>: ''}
+            </div>
+            <FeatureInPage featureProps={featureProps} />
         </div>
-        <div className={root.buttons}>
-            {editingRow ? 
-            <>
-                <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" onClick={() => setEditingRow(0)}/>
-                <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu"/>
-            </>: ''}
-        </div>
-        <FeatureInPage featureProps={featureProps} />
-    </div>
+        }
+    </>
   )
 }
 

@@ -2,7 +2,7 @@ import { doc, updateDoc } from "firebase/firestore"
 import { db } from "../firebase/configfb"
 
 
-interface IUpdate {
+export interface IUpdate {
     documentName: string,
     id: any,
     data: any

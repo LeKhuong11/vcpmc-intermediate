@@ -90,8 +90,6 @@ function AddNewPlaylistPage() {
 
     //Button add and cancel playlist
     const handleClickAddPlaylistToStore = async () => {
-        console.log(newPlaylist);
-        
         const docRef = doc(collection(db, "play-list"))
         try {
             await setDoc(docRef, newPlaylist);
@@ -101,7 +99,6 @@ function AddNewPlaylistPage() {
         } catch(err) {
             message.error("Thêm playlist thất bại")            
         }
-        
     }
 
 
