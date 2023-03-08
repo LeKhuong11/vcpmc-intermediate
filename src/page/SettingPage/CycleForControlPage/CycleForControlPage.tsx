@@ -1,10 +1,25 @@
 import React from 'react'
 import { Radio } from 'antd'
 import root from '../setting.module.scss'
+import Breadcrumbs from '../../../components/Breadcrumbs'
 
 function CycleForControlPage() {
+    
+    const breadcrumb = [
+        {
+          key: 1,
+          path: '',
+          namePage: 'Cài đặt'
+        },
+        {
+          key: 2,
+          path: '',
+          namePage: 'Cài đặt hệ thống'
+        }
+      ]
   return (
     <div className={root.cycleForControl}>
+        <Breadcrumbs crumbs={breadcrumb} />
         <h3>Cài đặt hệ thống</h3>
         <div className={root.container}>
             <div className={root.contentPage}>

@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import Breadcrumbs from '../../../components/Breadcrumbs';
 import TabControl from '../../../components/TabControl';
 import { fetchUsers } from '../../../redux/slice/listUserSlice';
 import { useAppDispatch } from '../../../redux/store';
@@ -40,14 +41,31 @@ function AuthenticationPage() {
           
     
       }
+      const breadcrumb = [
+        {
+            key: 1 ,
+            path: '',
+            namePage: 'Cài đặt' 
+        },
+        {
+            key: 2,
+            path: '',
+            namePage: 'Phân quyền người dùng'
+        },
+      ]
     
   return (
     <div className={root.authentication}>
-        <h3>Danh sách người dùng</h3>
-        <div>
-            <TabControl buttons={tabControlItems.buttons} items={tabControlItems.items} />
-            {/* <InputSearch placehoder='Nhập tên người dùng' /> */}
-        </div>
+      <div>
+        <Breadcrumbs crumbs={breadcrumb} />
+      </div>
+      <div>
+      <h3>Danh sách người dùng</h3>
+      </div>
+      <div>
+          <TabControl buttons={tabControlItems.buttons} items={tabControlItems.items} />
+          {/* <InputSearch placehoder='Nhập tên người dùng' /> */}
+      </div>
     </div>
   )
 }

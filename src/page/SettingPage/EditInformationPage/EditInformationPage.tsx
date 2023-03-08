@@ -7,12 +7,13 @@ import Input from '../../../components/Input'
 import Loading from '../../../components/Loading'
 import CustomTable from '../../../components/Table'
 import { usePaymentsCollection } from '../../../hooks/useSnapshot'
-import { DataTypeInforProducts } from '../../../redux/slice/inforProductsSlice'
 import root from '../setting.module.scss'
 import { IUpdate, updateDocConfig } from '../../../hooks/updateDoc'
 import { message } from 'antd'
+import Breadcrumbs from '../../../components/Breadcrumbs'
 
 interface IUpdateInforProduct {
+    id?: string
     type: string
     desc: string
     key: number
@@ -20,8 +21,8 @@ interface IUpdateInforProduct {
 
 function EditInformationPage() {
     const [ editingRow, setEditingRow ] = React.useState<any>('')
-    const [ inforProducts, setInforProducts ] = useState<DataTypeInforProducts[]>([])
-    const [ updateValue, setUpdateValue ] = React.useState<DataTypeInforProducts>({
+    const [ inforProducts, setInforProducts ] = useState<IUpdateInforProduct[]>([])
+    const [ updateValue, setUpdateValue ] = React.useState<IUpdateInforProduct>({
         key: 0,
         type: '',
         desc: '',
@@ -74,9 +75,9 @@ function EditInformationPage() {
     }
 
 
-    const dataSource: DataTypeInforProducts[] = inforProducts
+    const dataSource: IUpdateInforProduct[] = inforProducts
 
-    const columns: ColumnsType<DataTypeInforProducts> = [
+    const columns: ColumnsType<IUpdateInforProduct> = [
         {
             title: 'STT',
             dataIndex: 'stt',
@@ -135,24 +136,39 @@ function EditInformationPage() {
         }
     ]
 
+    const breadcrumb = [
+        {
+          key: 1,
+          path: '',
+          namePage: 'Cài đặt'
+        },
+        {
+          key: 2,
+          path: '',
+          namePage: 'Thông tin tác phẩm'
+        }
+      ]
   return (
     <>
         {loading ? <Loading /> : 
             <div className={root.editInformation}>
-            <h3>Thông tin tác phẩm</h3>
-            <div>
-                <h4>Thể loại tác phẩm</h4>
-                <CustomTable dataSrouce={dataSource} columns={columns} heightProps={65} />
+                <div>
+                    <Breadcrumbs crumbs={breadcrumb} />
+                </div>
+                <h3>Thông tin tác phẩm</h3>
+                <div>
+                    <h4>Thể loại tác phẩm</h4>
+                    <CustomTable dataSrouce={dataSource} columns={columns} heightProps={65} />
+                </div>
+                <div className={root.buttons}>
+                    {editingRow ? 
+                    <>
+                        <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" onClick={() => setEditingRow('')}/>
+                        <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu" onClick={handleClickUpdateInforProduct}/>
+                    </>: ''}
+                </div>
+                <FeatureInPage featureProps={featureProps} />
             </div>
-            <div className={root.buttons}>
-                {editingRow ? 
-                <>
-                    <Button type='primary' heightProps={38} widthProps={148} contentProps="Hủy" onClick={() => setEditingRow('')}/>
-                    <Button type='secondary' heightProps={38} widthProps={148} contentProps="Lưu" onClick={handleClickUpdateInforProduct}/>
-                </>: ''}
-            </div>
-            <FeatureInPage featureProps={featureProps} />
-        </div>
         }
     </>
   )

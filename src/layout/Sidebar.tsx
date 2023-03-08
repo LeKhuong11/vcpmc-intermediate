@@ -57,7 +57,7 @@ function Sidebar() {
               <BiDotsVerticalRounded />
             </div>
             <div className={root.navigateChild}>
-              <Link to="">Báo cáo doanh thu</Link>
+              <Link to="revenue/report-revenue">Báo cáo doanh thu</Link>
               <Link to="revenue/revenue-distribution">Phân phối doanh thu</Link>
               <Link to="revenue/history-for-control">Lịch sử đối soát</Link>
             </div>

@@ -1,18 +1,12 @@
-import { message } from 'antd'
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Breadcrumbs from '../../../../components/Breadcrumbs'
 import Button from '../../../../components/Button'
-import CustomDatePicker from '../../../../components/DatePicker'
 import Input from '../../../../components/Input'
 import InputDate from '../../../../components/InputDate'
 import Loading from '../../../../components/Loading'
 import CustomSelect from '../../../../components/Select'
-import { auth, db } from '../../../../firebase/configfb'
-import { logOut, signUp } from '../../../../firebase/userAuth'
 
 
 const ContaierStyled = styled.div`

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 
 interface IFreature {
-    featureProps: Iitems[]
+    featureProps: Iitems[] | any
 }
 interface Iitems {
     icon: Function;

@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Account to login project 
     Account 1: 
-        userName: tuyetnguyenngoc@alta.com.vn
+        userName: tuyetnguyen@alta.com
         password: 123456
         role: admin
     

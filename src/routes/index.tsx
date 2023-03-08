@@ -5,15 +5,12 @@ import PlayList from "../page/PlaylistPage/PlayList";
 import ManagerContract from "../page/ManagerPage/ManagerContract/ManagerContract";
 import ManagerDevice from "../page/ManagerPage/ManagerDevice/ManagerDevice";
 import Store from "../page/StorePage/Store";
-import ManagerPage from "../page/ManagerPage/ManagerPage";
 import Authorized from "../page/ManagerPage/AuthorizedPartner/Authorized";
 import Login from "../page/LoginPage/Login";
 import HomePage from "../page/HomePage/HomePage";
 import UnitUsedPage from "../page/ManagerPage/UnitUsed/UnitUsedPage";
-import RevenuePage from "../page/RevenuePage/RevenuePage";
 import RevenueDistributionPage from "../page/RevenuePage/RevenueDistributionPage/RevenueDistributionPage";
 import HistoryForControlPage from "../page/RevenuePage/HistoryForControlPage/HistoryForControlPage";
-import SettingPage from "../page/SettingPage/SettingPage";
 import AuthenticationPage from "../page/SettingPage/AuthenticationPage/AuthenticationPage";
 import ConfigurationPage from "../page/SettingPage/ConfigurationPage/ConfigurationPage";
 import ManagerContractPage from "../page/SettingPage/ManagerContractPage/ManagerContract";
@@ -43,6 +40,8 @@ import AddUserPage from "../page/SettingPage/AuthenticationPage/AddUserPage/AddU
 import DetailRevenuePage from "../page/RevenuePage/RevenueDistributionPage/DetailRevenuePage/DetailRevenuePage";
 import FeedbackPage from "../page/SupportPage/FeedbackPage/FeedbackPage";
 import DownLoadPage from "../page/SupportPage/DowloadPage/DownLoadPage";
+import DetailHistoryForControlPage from "../page/RevenuePage/HistoryForControlPage/DetailHistoryForControlPage/DetailHistoryForControlPage";
+import ReportRevenuePage from "../page/RevenuePage/ReportRevenuePage/ReportRevenuePage";
 
 
 export function Router() {
@@ -167,8 +166,16 @@ export function Router() {
                     path: 'revenue',
                     children: [
                         {
+                            path: 'report-revenue',
+                            element: <ReportRevenuePage />
+                        },
+                        {
                             path: 'history-for-control',
                             element: <HistoryForControlPage />
+                        },
+                        {
+                            path: 'history-for-control/detail/:id',
+                            element: <DetailHistoryForControlPage />
                         },
                         {
                             path: 'revenue-distribution',

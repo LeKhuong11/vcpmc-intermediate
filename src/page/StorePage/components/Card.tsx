@@ -1,3 +1,4 @@
+import { Checkbox } from 'antd'
 import React from 'react'
 import { SlNote } from 'react-icons/sl'
 import { useNavigate } from 'react-router-dom'
@@ -8,9 +9,10 @@ const Image = require('../../../image/picture.png')
 
 interface ISong {
     song: DataTypeStoreMusic
+    displayRowSelection: boolean
 }
 
-function Card({ song }: ISong) {
+function Card({ song, displayRowSelection = false }: ISong) {
   const navigate = useNavigate();
   const handleClickToEditSong = (id: string) => {
     navigate(`update-infomation/${id}`)
@@ -54,8 +56,13 @@ function Card({ song }: ISong) {
                       </div>
                     </div>
                   </div>
-                  <div className={root.edit} onClick={() => handleClickToEditSong(song.id)}>
-                    <SlNote color='#FF7506' />
+                  <div className={root.edit}>
+                    {displayRowSelection ? 
+                      <Checkbox /> : 
+                      <span onClick={() => handleClickToEditSong(song.id)}>
+                        <SlNote color='#FF7506' />
+                      </span>  
+                    }
                   </div>
                 </div>
   )

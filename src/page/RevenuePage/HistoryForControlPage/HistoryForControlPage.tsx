@@ -8,6 +8,7 @@ import CustomTable from '../../../components/Table';
 import { MdOutlineLogout } from 'react-icons/md';
 import FeatureInPage from '../../../components/FeatureInPage';
 import CustomDatePicker from '../../../components/DatePicker';
+import { Link } from 'react-router-dom';
 
 
 interface DataType {
@@ -166,7 +167,7 @@ function HistoryForControlPage() {
       dataIndex: 'detail',
       key: 'detail',
       render: (_, {detail}) => (
-        <a>{detail}</a>
+        <Link to="detail/213">{detail}</Link>
       )
     },
   ]

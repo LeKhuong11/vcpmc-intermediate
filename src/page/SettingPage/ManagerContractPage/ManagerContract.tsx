@@ -5,6 +5,7 @@ import { GiNotebook } from 'react-icons/gi'
 import FeatureInPage from '../../../components/FeatureInPage'
 import CustomTable from '../../../components/Table'
 import root from '../setting.module.scss'
+import Breadcrumbs from '../../../components/Breadcrumbs'
 
 interface DataType {
   key: number,
@@ -54,11 +55,25 @@ function ManagerContractPage() {
     {
       icon: MdDateRange,
       text: 'Chỉnh sửa cảnh báo hết hạn'
-    },
-
+    }
   ]
+  const breadcrumb = [
+    {
+        key: 1 ,
+        path: '',
+        namePage: 'Cài đặt' 
+    },
+    {
+        key: 2,
+        path: '',
+        namePage: 'Quản lý loại hợp đồng'
+    },
+]
   return (
     <div className={root.managerContract}>
+      <div>
+        <Breadcrumbs crumbs={breadcrumb} />
+      </div>
       <h3>Loại hợp đồng</h3>
       <div className={root.containerContent}>
         <div>

@@ -16,6 +16,10 @@ import Loading from '../../components/Loading';
 import Card from './components/Card';
 import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { useSearch } from '../../hooks/useSearch';
+import { BsCheckLg } from "react-icons/bs";
+import { FaTimes } from 'react-icons/fa';
+import { AiOutlineCheck } from 'react-icons/ai';
+
 
 function Store() {
   const dispatch = useAppDispatch();
@@ -24,7 +28,7 @@ function Store() {
   const { payments, loading} = usePaymentsCollection('store-music');
   const [ displaySwitch, setDisplaySwitch ] = useState('row')
   const [ search, setSearch ] = useSearch(storeMusic, 'nameMusic');
-
+  const [ displayRowSelection, setDisplayRowSelection ] = useState(false)
   //listen to 'search' change returned from useSearch();
   useEffect(() => {
     setStore(search)
@@ -78,12 +82,33 @@ function Store() {
     onClick: handleMenuClick,
   };
 
-  const featureProps = [
+  const handleClickApproveSong = () => {
+    setDisplayRowSelection(false);
+    message.success('Đã phê duyệt')
+  }
+  const handleClickCancelApproveSong = () => {
+    setDisplayRowSelection(false);
+    message.success('Đã hủy phê duyệt')
+  }
+
+  const featureProps = displayRowSelection ? [
+    {
+      icon: AiOutlineCheck,
+      text: 'Phê duyệt',
+      event: handleClickApproveSong
+    },
+    {
+      icon: FaTimes,
+      text: 'Từ chối',
+      event: handleClickCancelApproveSong
+    }
+  ] :[
     {
       icon: SlNote,
-      text: "Quản lí phê duyệt"
+      text: "Quản lí phê duyệt",
+      event: () => setDisplayRowSelection(true)
     }
-  ];
+  ]   
   
   //table 
   const dataSource: DataTypeStoreMusic[] = store
@@ -161,6 +186,10 @@ function Store() {
     },
   ]
 
+  const rowSelection = {
+    onChange: (selectedRowKeys: number, selectedRows: any, ) => {
+    }
+  };
 
   return (
     <>
@@ -206,11 +235,17 @@ function Store() {
                 </div>
               </div>
             </div>
-            {displaySwitch === 'row' && <CustomTable pagination={{pageSize: 9}} columns={columns} dataSrouce={dataSource} heightProps={64} /> }
+            {displaySwitch === 'row' && 
+              <CustomTable 
+                rowSelection={displayRowSelection ? rowSelection : false} 
+                pagination={{pageSize: displayRowSelection ? 8 : 9}} columns={columns} 
+                dataSrouce={dataSource} 
+                heightProps={66} 
+            /> }
             {displaySwitch === 'table' &&
               <div className={root.listSongTable}>
               {store.length ? store.map(item => (
-                <Card song={item} />
+                <Card displayRowSelection={displayRowSelection} song={item} />
               )) : <p className={root.notfoundSong}>Không tìm thấy bản ghi</p>}
           </div>
             }
