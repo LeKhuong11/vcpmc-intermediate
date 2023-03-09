@@ -16,7 +16,6 @@ import Loading from '../../components/Loading';
 import Card from './components/Card';
 import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { useSearch } from '../../hooks/useSearch';
-import { BsCheckLg } from "react-icons/bs";
 import { FaTimes } from 'react-icons/fa';
 import { AiOutlineCheck } from 'react-icons/ai';
 
@@ -29,11 +28,11 @@ function Store() {
   const [ displaySwitch, setDisplaySwitch ] = useState('row')
   const [ search, setSearch ] = useSearch(storeMusic, 'nameMusic');
   const [ displayRowSelection, setDisplayRowSelection ] = useState(false)
+  
   //listen to 'search' change returned from useSearch();
   useEffect(() => {
     setStore(search)
   }, [search])
-
 
   useEffect(() => {
     dispatch(fetchStoreMusic());
@@ -95,7 +94,8 @@ function Store() {
     {
       icon: AiOutlineCheck,
       text: 'Phê duyệt',
-      event: handleClickApproveSong
+      event: handleClickApproveSong,
+      color: '#0FBF00'
     },
     {
       icon: FaTimes,

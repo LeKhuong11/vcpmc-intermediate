@@ -152,19 +152,21 @@ function FeedbackPage() {
         if(addFeedback.content) {
             const docRef = doc(collection(db, "feedback"))
             try {
-                await setDoc(docRef, addFeedback);
-                setValueSelect('Chọn vấn đề bạn cần được hỗ trợ')
-                setAddFeedback({
-                    ...addFeedback,
-                    topic: '',
-                    content: ''
+                await setDoc(docRef, addFeedback)
+                .then(() => {
+                    setValueSelect('Chọn vấn đề bạn cần được hỗ trợ')
+                    setAddFeedback({
+                        ...addFeedback,
+                        topic: '',
+                        content: ''
+                    })
+                    message.success("Cảm ơn bạn đã góp ý cho chúng tôi")
                 })
-                message.success("Cảm ơn bạn đã góp ý cho chúng tôi")
             } catch(err) {
             }
             return
         }
-        message.warning("Bạn chưa góp ý cho chúng tôi")
+        message.warning("Bạn chưa nhập nội dung cho chúng tôi")
     }
 
     const select = {
@@ -262,7 +264,7 @@ function FeedbackPage() {
                                 cols={58} rows={10} 
                                 placeholder='Nhập nội dung'
                                 name='content'
-                                defaultValue={addFeedback.content}
+                                defaultValue={addFeedback.content && addFeedback.content}
                                 onChange={(e: any) => setAddFeedback({...addFeedback, content: e.target.value})}
                             ></textarea>
                         </div>

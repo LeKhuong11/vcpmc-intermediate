@@ -8,7 +8,6 @@ import Button from '../../../../components/Button'
 import Input from '../../../../components/Input'
 import { db } from '../../../../firebase/configfb'
 import { updateDocConfig } from '../../../../hooks/updateDoc'
-import { DataTypeAuthorizedPartner } from '../../../../redux/slice/authorizedPartnerSlice'
 
 const ContainerStyled = styled.div`
     position: fixed;

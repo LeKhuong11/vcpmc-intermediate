@@ -65,10 +65,12 @@ function DetailUnitUsedPage() {
     }
                               
     const rowSelection = {
-        onChange: (selectedRowKeys: any, selectedRows: any, ) => {
+        onChange: (selectedRowKeys: any, selectedRows: any) => {
             const index: number = selectedRowKeys.length - 1
             setCheckedUser(index + 1)
             if(selectedRows.length) {
+                //Khi tick vào user nào thì sẽ xóa user đó đi khỏi array ngay lập tức nhưng chưa cập nhật trên firestore
+                //Khi nhấn button xóa  thì sẽ update lại array mới đã loại bỏ những user đã tick
                 const newListUser = removeUser.filter(item => {
                     return item.key !== selectedRowKeys[index]
                 })
@@ -78,9 +80,10 @@ function DetailUnitUsedPage() {
             else {
                 setRemoveUser(user)
             }
-        }
+        },
+        
     };
-
+    
     const handleClickRemoveUser = async () => {
        if(checkedUser) {
             confirm({
@@ -200,7 +203,8 @@ function DetailUnitUsedPage() {
     {
         icon: FaTrashAlt,
         text: 'Xóa', 
-        event: handleClickRemoveUser
+        event: handleClickRemoveUser,
+        unActive: checkedUser ? false : true
     },
     {
         icon: FaUserFriends,

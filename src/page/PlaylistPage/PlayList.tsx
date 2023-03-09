@@ -45,6 +45,7 @@ function PlayList() {
   const handleClickAddNewPlaylist = () => {
     navigate('add-new-playlist')
   }
+  
   const featureProps = [
     {
       icon: MdPlaylistAdd,
