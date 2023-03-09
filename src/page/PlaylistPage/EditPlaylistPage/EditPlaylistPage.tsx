@@ -14,7 +14,6 @@ import { cancelTempPlaylist, tempPlaylist } from '../../../redux/slice/playlistS
 import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/configfb';
-import { PlaylistSVG } from '../../../image/playlist';
 import { updateDocConfig } from '../../../hooks/updateDoc';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 

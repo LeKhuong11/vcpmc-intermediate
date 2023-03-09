@@ -3,6 +3,7 @@ import React from 'react'
 import { SlNote } from 'react-icons/sl'
 import { useNavigate } from 'react-router-dom'
 import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice'
+import { useAppSelector } from '../../../redux/store'
 import root from '../store.module.scss'
 const Image = require('../../../image/picture.png')
 
@@ -14,10 +15,10 @@ interface ISong {
 
 function Card({ song, displayRowSelection = false }: ISong) {
   const navigate = useNavigate();
+  const { user } = useAppSelector(state => state.user)
   const handleClickToEditSong = (id: string) => {
     navigate(`update-infomation/${id}`)
   }
-
   return (
     <div className={root.card}>
                   <div className={root.img}>
@@ -56,14 +57,15 @@ function Card({ song, displayRowSelection = false }: ISong) {
                       </div>
                     </div>
                   </div>
-                  <div className={root.edit}>
+                  {user.isAdmin && <div className={root.edit}>
                     {displayRowSelection ? 
                       <Checkbox /> : 
                       <span onClick={() => handleClickToEditSong(song.id)}>
                         <SlNote color='#FF7506' />
                       </span>  
                     }
-                  </div>
+                  </div>}
+                  
                 </div>
   )
 }

@@ -1,8 +1,9 @@
+import { message } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import React, { useEffect, useState } from 'react'
 import { MdAdd } from 'react-icons/md'
 import { RxDotFilled } from 'react-icons/rx'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import FeatureInPage from '../../../../components/FeatureInPage'
 import InputSearch from '../../../../components/InputSearch'
 import CustomTable from '../../../../components/Table'
@@ -15,6 +16,7 @@ import { useAppSelector } from '../../../../redux/store'
 function MiningContractTab() {
   const navigate = useNavigate();
   const { contracts } = useAppSelector(state => state.contracts)
+  const { user } = useAppSelector(state => state.user)
   const [ listContract, setListContract ] = useState<DataTypeContract[]>(contracts)
   const { payments, loading} = usePaymentsCollection('contract');
 
@@ -75,7 +77,6 @@ function MiningContractTab() {
           canceled: <p><RxDotFilled color="red" />Đã hủy</p>
         }
         
-    
         return <>
           {statusobj[status]}
         </>
@@ -85,14 +86,10 @@ function MiningContractTab() {
       title: '',
       dataIndex: '',
       key: '',
-      render: (_, {id}) => {
-        const handleClickToDetailContract = () => {
-          navigate(`detail-mining-contract/${id}`)
-        }
-        return <a onClick={handleClickToDetailContract}>Xem chi tiết</a>
-      }
+      render: (_, {id}) =>(
+        <Link to={`detail-mining-contract/${id}`}>Xem chi tiết</Link>
+      )
     }
-    
   ]
 
 
@@ -100,7 +97,10 @@ function MiningContractTab() {
     {
       icon: MdAdd,
       text: 'Thêm hợp đồng',
-      event: () => navigate('')
+      event: () => {
+        return user.isAdmin ? '' : message.warning('Chức năng này chỉ dành cho người quản lý')
+      },
+      unActive: user.isAdmin ? false : true
     }
   ]
   

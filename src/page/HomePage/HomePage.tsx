@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router';
 import Sidebar from '../../layout/Sidebar';
 import styled from 'styled-components';
 import Avatar from 'antd/es/avatar';
@@ -24,8 +24,8 @@ function HomePage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(state => state.user)
-  const [ currentUser, setCurrentUser ] = React.useState<any>(null);
-
+  const { pathname } = useLocation();
+  
   //authenticaton current user 
   //if don't user redirect to login
   useEffect(()=> {
@@ -33,7 +33,6 @@ function HomePage() {
         if(currentUser) {
           const { uid } = currentUser;
           dispatch(fetchUser({uid: uid}))
-          setCurrentUser(currentUser)
           return
         }
         navigate('login')        
@@ -70,7 +69,8 @@ function HomePage() {
   ];
 
   useEffect(() => {
-    navigate('store')
+    if(pathname === '/')
+      navigate('store')
   }, [])
   
 

@@ -12,11 +12,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
         userName: den@gmail.com
         password: 123456
         role: user
-
+    
     Account 3:
         userName: pmq@gmail.com
         password: 123456
         role: user
+
+* Các chức năng của admin: 
+    Xem feedback từ các user
+    Thêm xóa sửa các dữ liệu ở trong ứng dụng
+
+* Các chức năng của user:
+    Chỉ có thể xem mà không thể thêm sửa xóa dữ liệu
+
 
 ## Available Scripts
 

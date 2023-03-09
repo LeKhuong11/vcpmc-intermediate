@@ -12,6 +12,7 @@ import Loading from '../../../../../components/Loading'
 import FeatureInPage from '../../../../../components/FeatureInPage'
 import CustomModal from '../../../../../components/Modal'
 import Breadcrumbs from '../../../../../components/Breadcrumbs'
+import { useAppSelector } from '../../../../../redux/store'
 
 
 const ContentStyled = styled.div`
@@ -63,6 +64,7 @@ const ContainerStyled = styled.div`
 function DetailMiningContract() {   
     const navigate = useNavigate();
     const { id } = useParams();
+    const { user } = useAppSelector(state => state.user)
     const [ contract, setContract ] = useState<any>({})
     const [ loading, setLoading ] = useState(false)
     const [ openModalCancelContract, setOpenModalCancelContract ] = useState(false)
@@ -101,13 +103,18 @@ function DetailMiningContract() {
         {
             icon: SlNote,
             text: 'Chỉnh sửa',
-            event: () => navigate('')
-            
+            event: () => {
+                return user.isAdmin ? '' : message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive: user.isAdmin ? false : true
         },
         {
             icon: FaTimes,
             text: 'Hủy hợp đồng',
-            event: handleClickSetOpenModalCancelContract
+            event: () => {
+                return user.isAdmin ? handleClickSetOpenModalCancelContract : message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive: user.isAdmin ? false : true
         },
     ]
 

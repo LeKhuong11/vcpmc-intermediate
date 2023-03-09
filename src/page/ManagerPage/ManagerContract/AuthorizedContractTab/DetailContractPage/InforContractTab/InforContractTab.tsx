@@ -16,6 +16,7 @@ import { db } from '../../../../../../firebase/configfb'
 import { updateDocConfig } from '../../../../../../hooks/updateDoc'
 import { UploadOutlined } from '@ant-design/icons';
 import Input from '../../../../../../components/Input'
+import { useAppSelector } from '../../../../../../redux/store'
 
 const ModalStyled = styled(Modal)`
     &&& {
@@ -153,12 +154,13 @@ const ContainerStyled = styled.div`
 function InforContractTab() {   
     const navigate = useNavigate();
     const { id } = useParams();
+    const { user } = useAppSelector(state => state.user)
     const [ contract, setContract ] = useState<any>({})
     const [ loading, setLoading ] = useState(false)
     const [ openModalCancelContract, setOpenModalCancelContract ] = useState(false)
     const [ openModalContractExtension, setOpenModalContractExtension ] = useState(false)
     const [ cancelReason, setCancelReason ] = useState('');
-    const [checked, setChecked] = useState(true);
+    
     useEffect(() => {
         setLoading(true)
         const getData = async () => {
@@ -185,28 +187,33 @@ function InforContractTab() {
             return
         }
         setOpenModalCancelContract(true)
-    }   
-
-    const handleClickSetOpenModalContractExtension = () => {
-        setOpenModalContractExtension(true)
     }
     
     const featureInPage = [
         {
             icon: SlNote,
             text: 'Chỉnh sửa hợp đồng',
-            event: () => navigate('edit')
+            event: () => {
+                user.isAdmin ? navigate('edit') : message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive: user.isAdmin ? false : true
             
         },
         {
             icon: GiNotebook,
             text: 'Gia hạn hợp đồng',
-            event: handleClickSetOpenModalContractExtension
+            event: () => {
+                user.isAdmin ? setOpenModalContractExtension(true) : message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive: user.isAdmin ? false : true
         },
         {
             icon: FaTimes,
             text: 'Hủy hợp đồng',
-            event: handleClickSetOpenModalCancelContract
+            event: () => {
+                user.isAdmin ? handleClickSetOpenModalCancelContract() : message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive: user.isAdmin ? false : true
         },
     ]
 

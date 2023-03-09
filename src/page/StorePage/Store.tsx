@@ -22,6 +22,7 @@ import { AiOutlineCheck } from 'react-icons/ai';
 
 function Store() {
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector(state => state.user)
   const storeMusic = useAppSelector(state => state.storeMusic.store);
   const [store, setStore] = useState(storeMusic)
   const { payments, loading} = usePaymentsCollection('store-music');
@@ -106,7 +107,10 @@ function Store() {
     {
       icon: SlNote,
       text: "Quản lí phê duyệt",
-      event: () => setDisplayRowSelection(true)
+      event: () => {
+        user.isAdmin ? setDisplayRowSelection(true) : message.warning('Chức năng này chỉ dành cho người quản lý')
+      },
+      unActive: user.isAdmin ? false : true
     }
   ]   
   
@@ -172,7 +176,9 @@ function Store() {
       key: 'status',
       render: (_, { id }) => {
         
-        return <Link to={`update-infomation/${id}`}>Cập nhật</Link>
+        return <>
+          {user.isAdmin ? <Link to={`update-infomation/${id}`}>Cập nhật</Link> : ''}
+        </>
       }
     },
     {
@@ -228,9 +234,6 @@ function Store() {
                   </span>
                   <span className={displaySwitch === 'table' ?  root.active : ''} onClick={() => setDisplaySwitch('table')}>
                     <AppstoreOutlined />
-                  </span>
-                  <span>
-
                   </span>
                 </div>
               </div>

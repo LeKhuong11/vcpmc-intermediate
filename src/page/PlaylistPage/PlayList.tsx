@@ -1,3 +1,4 @@
+import { message } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import React, {useEffect, useState} from 'react'
 import { MdPlaylistAdd } from 'react-icons/md'
@@ -17,6 +18,7 @@ import root from './playlist.module.scss'
 function PlayList() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { user } = useAppSelector(state => state.user)
   const { playlist } = useAppSelector(state => state.playlist);
   const [ playlistStore, setPlaylistStore ] = useState<DataTypePlaylist[]>(playlist);
   const { payments, loading } = usePaymentsCollection('play-list');
@@ -43,14 +45,15 @@ function PlayList() {
   }
   
   const handleClickAddNewPlaylist = () => {
-    navigate('add-new-playlist')
+    user.isAdmin ? navigate('add-new-playlist') : message.warning('Chức năng này chỉ dành cho người quản lý')
   }
   
   const featureProps = [
     {
       icon: MdPlaylistAdd,
       text: 'Thêm Playlist',
-      event: handleClickAddNewPlaylist
+      event: handleClickAddNewPlaylist,
+      unActive: user.isAdmin ? false : true
     }
   ]
 

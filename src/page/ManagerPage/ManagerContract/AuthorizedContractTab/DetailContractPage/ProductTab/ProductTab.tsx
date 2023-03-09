@@ -9,6 +9,7 @@ import FeatureInPage from '../../../../../../components/FeatureInPage'
 import InputSearch from '../../../../../../components/InputSearch'
 import CustomSelect from '../../../../../../components/Select'
 import CustomTable from '../../../../../../components/Table'
+import { useAppSelector } from '../../../../../../redux/store'
 
 const ContainerDiv = styled.div`
   width: 88%;
@@ -41,6 +42,7 @@ interface DataType {
 
 function ProductTab() {
   const [ valueSelect, setValueSelect ] = useState('Tất cả')
+  const { user } = useAppSelector(state => state.user)
 
   const columns: ColumnsType<DataType> = [
     {

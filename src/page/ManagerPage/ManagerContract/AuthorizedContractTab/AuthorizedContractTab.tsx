@@ -1,7 +1,6 @@
-import { MenuProps } from 'antd'
+import { MenuProps, message } from 'antd'
 import { ColumnsType } from 'antd/es/table'
-import { collection, onSnapshot } from 'firebase/firestore'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MdAdd } from 'react-icons/md'
 import { RxDotFilled } from 'react-icons/rx'
 import { Link, useNavigate } from 'react-router-dom'
@@ -37,6 +36,7 @@ const ContainerStyled = styled.div`
 
 function AuthorizedContractTab() {
   const navigate = useNavigate();
+  const { user } = useAppSelector(state => state.user)
   const { contracts } = useAppSelector(state => state.contracts)
   const [ listContract, setListContract ] = useState<DataTypeContract[]>(contracts)
   const { payments, loading} = usePaymentsCollection('contract');
@@ -179,12 +179,21 @@ function AuthorizedContractTab() {
         onClick: handleMenuClick,
       };
 
+      const handleClickNavigateToAddContractPage = () => {
+        if(user.isAdmin) {
+          navigate('add-contract')
+        }
+        else 
+        message.warning('Chức năng này chỉ dành cho người quản lý')
+      }
+
       
     const featureProp = [
       {
         icon: MdAdd,
         text: 'Thêm hợp đồng',
-        event: () => navigate('add-contract')
+        event: handleClickNavigateToAddContractPage,
+        unActive: user.isAdmin ? false : true
       }
     ]
   return (

@@ -10,7 +10,7 @@ import CustomTable from '../../../components/Table';
 import { db } from '../../../firebase/configfb';
 import { tempPlaylist } from '../../../redux/slice/playlistSlice';
 import { DataTypeStoreMusic } from '../../../redux/slice/storeSlice';
-import { useAppDispatch} from '../../../redux/store';
+import { useAppDispatch, useAppSelector} from '../../../redux/store';
 import root from '../playlist.module.scss'
 import Loading from '../../../components/Loading';
 import Breadcrumbs from '../../../components/Breadcrumbs';
@@ -19,6 +19,7 @@ const playlistImg = require('../../../image/playlist.png')
 function DetailPlayListPage() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const { user } = useAppSelector(state => state.user)
     const { id } = useParams();
     const [ playlistId, setPlaylist ] = useState<any>(false)
     const [ loading, setLoading ] = useState<Boolean>(false)
@@ -81,18 +82,26 @@ function DetailPlayListPage() {
 
 
     const handleClickRemovePlaylist = async () => {
-        try {
-            await deleteDoc(doc(db, "play-list", `${id}`));
-            navigate('../../play-list');
-            message.success("Xóa Playlist thành công")
-        } catch(err) {
-            message.error("Xóa Playlist thất bại")            
+        if(user.isAdmin) {
+            try {
+                await deleteDoc(doc(db, "play-list", `${id}`));
+                navigate('../../play-list');
+                message.success("Xóa Playlist thành công")
+            } catch(err) {
+                message.error("Xóa Playlist thất bại")            
+            }
         }
+        else 
+            message.warning('Chức năng này chỉ dành cho người quản lý')
     }
 
     const handleClickMoveToEditPage = () => {
-        navigate(`edit`); 
-        dispatch(tempPlaylist(playlistId.idSong))
+        if(user.isAdmin) {
+            navigate(`edit`); 
+            dispatch(tempPlaylist(playlistId.idSong))
+        } 
+        else 
+            message.warning('Chức năng này chỉ dành cho người quản lý')
     }
     
     
@@ -100,12 +109,14 @@ function DetailPlayListPage() {
         {
             icon: SlNote,
             text: 'Chỉnh sửa',
-            event: handleClickMoveToEditPage
+            event: handleClickMoveToEditPage,
+            unActive: user.isAdmin ? false : true
         },
         {
             icon: FaTrashAlt,
             text: 'Xóa Playlist',
-            event: handleClickRemovePlaylist
+            event: handleClickRemovePlaylist,
+            unActive: user.isAdmin ? false : true
         },
     ]
 
