@@ -7,9 +7,6 @@ const { Search } = Input;
 const SearchStyled = styled(Search)`
     margin: 7px 0 12px 0;
   &&& {
-    :where(.css-dev-only-do-not-override-1n7nwfa).ant-input-group-wrapper {
-      width: 453px;
-    }
     .ant-input {
       background-color: #33334D;
       border: none;
@@ -38,6 +35,7 @@ interface Iprops {
 function InputSearch({placehoder, setValue, name}: Iprops) {
     return (
         <SearchStyled 
+          style={{width: 453}}
           placeholder={placehoder}
           onChange={(e) => setValue(e.target)} 
           name={name}

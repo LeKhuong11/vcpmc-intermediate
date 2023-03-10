@@ -18,10 +18,10 @@ export interface IUser {
     avatar?: null
 }
 interface UserState {
-    user: IUser
+    user: IUser | null
 }
 const initialState: any = {
-    user: {}
+    user: null
 } as UserState
 
 interface IParamsFetchUser  {

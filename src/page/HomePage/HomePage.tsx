@@ -24,7 +24,6 @@ function HomePage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(state => state.user)
-  const [ currentUser, setCurrentUser ] = useState(user)
   const { pathname } = useLocation();
   
   //authenticaton current user 
@@ -43,7 +42,13 @@ function HomePage() {
     return () => {
         unSub();
     }
-}, [navigate])
+}, [])
+
+  // useEffect(() => {
+  //   if(user === false) {
+  //     navigate('login')
+  //   }
+  // }, [])
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     message.info('Click on menu item.');
@@ -69,10 +74,6 @@ function HomePage() {
     },
   ];
   useEffect(() => {
-    setCurrentUser(user)
-  }, [user])
-
-  useEffect(() => {
     if(pathname === '/')
       navigate('store')
   }, [])
@@ -93,7 +94,7 @@ function HomePage() {
               <DropDown menuProps={menuProps} />
             <div>
               <Link to="dashboard">
-                <Avatar style={{ backgroundColor: '#f56a00', marginRight: 5 }}>{currentUser.avatar ?? currentUser.lastName ? currentUser.lastName.charAt(0).toUpperCase() : ''}</Avatar>
+                <Avatar style={{ backgroundColor: '#f56a00', marginRight: 5 }}>{user.avatar ?? user.lastName ? user.lastName.charAt(0).toUpperCase() : ''}</Avatar>
                 <TypographyStyled>{user?.displayName}</TypographyStyled>
               </Link>
             </div>
