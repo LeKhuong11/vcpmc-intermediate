@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router';
 import Sidebar from '../../layout/Sidebar';
 import styled from 'styled-components';
@@ -24,6 +24,7 @@ function HomePage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(state => state.user)
+  const [ currentUser, setCurrentUser ] = useState(user)
   const { pathname } = useLocation();
   
   //authenticaton current user 
@@ -67,6 +68,9 @@ function HomePage() {
       key: '4',
     },
   ];
+  useEffect(() => {
+    setCurrentUser(user)
+  }, [user])
 
   useEffect(() => {
     if(pathname === '/')
@@ -83,20 +87,20 @@ function HomePage() {
   return (
     <>
       {user && <div className={root.home}>
-      <Sidebar />
-      <div className={root.homeContentMain}>
-        <div className={root.homeHeader}>
-            <DropDown menuProps={menuProps} />
-          <div>
-            <Link to="dashboard">
-              <Avatar style={{ backgroundColor: '#f56a00', marginRight: 5 }}>{user.avatar ?? user.lastName.charAt(0).toUpperCase()}</Avatar>
-              <TypographyStyled>{user?.displayName}</TypographyStyled>
-            </Link>
+        <Sidebar />
+        <div className={root.homeContentMain}>
+          <div className={root.homeHeader}>
+              <DropDown menuProps={menuProps} />
+            <div>
+              <Link to="dashboard">
+                <Avatar style={{ backgroundColor: '#f56a00', marginRight: 5 }}>{currentUser.avatar ?? currentUser.lastName ? currentUser.lastName.charAt(0).toUpperCase() : ''}</Avatar>
+                <TypographyStyled>{user?.displayName}</TypographyStyled>
+              </Link>
+            </div>
           </div>
+          <Outlet />
         </div>
-        <Outlet />
-      </div>
-    </div>}
+      </div>}
     </>
   )
 }
