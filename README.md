@@ -18,12 +18,65 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
         password: 123456
         role: user
 
-* Các chức năng của admin: 
+# Các chức năng của admin: 
     Xem feedback từ các user
-    Thêm xóa sửa các dữ liệu ở trong ứng dụng
+    Thêm xóa sửa các dữ liệu ở trong ứng dụng, quản lý ứng dụng
 
-* Các chức năng của user:
-    Chỉ có thể xem mà không thể thêm sửa xóa dữ liệu
+# Các chức năng của user:
+    Chỉ có thể xem mà không thể thêm, sửa, xóa dữ liệu
+
+# Công nghệ sử dụng: 
+    - typescript, reactjs, ant-design, redux, react-router-dom v6, redux-toolkit, styled-components, sass, react-icons.
+
+# Các chức năng: 
+    - Đăng nhập, đăng xuất.
+    - Phân quyền user, admin.
+    - Tìm kiếm các bản ghi, play-list, hợp đồng, Thiết bị, ...
+    - Phân trang.
+    - Trang cá nhân: 
+        + Hiển thị thông tin của nguòi dùng.
+        + Cập nhật thông tin người dùng.
+        + Đổi mật khẩu nguòi dùng
+    - Kho bản ghi: 
+        + Chỉnh sửa bản ghi.
+        + Phê duyệt bản ghi.
+    - Play-list:
+        + Xem chi tiết play-list
+        + Chỉnh sửa play-list.
+        + Thêm play-list mới.
+        + Xóa play-list.
+    - Lập lịch phát:
+        + Xem chi tiết lịch phát.
+    - Quản lý: 
+        - Quản lý hợp đồng: 
+            + Xem chi tiết hợp đồng.
+            + Thêm hợp đồng.
+            + Hủy Hợp đồng.
+            + Chỉnh sửa hợp đồng.
+        - Quản lý thiết bị:
+            + Chọn danh sách thiết bị để xóa.
+            + Thêm thiết bị.
+        - Đối tác ủy quyền: 
+            + Chỉnh sửa đối tác ủy quyền.
+        - Đơn vị sửa dụng: 
+            + Xóa Đơn vị sử dụng.
+            + Xem chi tiết đơn vị sử dụng.
+            + Xem tiết các người dùng trong đơn vị sử dụng.
+            + Xóa người dùng trong đơn vị sử dụng.
+            + Thêm nguòi dùng trong đơn vị sử dụng.
+    - Cài đặt: 
+        - Phân quyền nguòi dùng: 
+            + Xem chi tiết người dùng.
+            + Chỉnh sửa nguòi dùng.
+            + Xem vài trò nguòi dùng.
+        - Thông tin tác phẩm: 
+            + Chỉnh sửa tên thể loại các tác phẩm        
+    - Hỗ trợ: 
+        - Hướng dẫn sử dụng: 
+            + Xem chi tiết các hướng dẫn sử dụng
+        - Feedback: 
+            + Gửi feedback(với user).
+            + Xem feedback(với admin)
 
 
 ## Available Scripts

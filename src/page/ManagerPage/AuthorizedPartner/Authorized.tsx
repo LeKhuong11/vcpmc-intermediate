@@ -14,6 +14,7 @@ import root from '../manager.module.scss'
 
 function Authorized() {
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector(state => state.user)
   const { authorizedPertnerList } = useAppSelector(state => state.authorizedPartner)
   const [ authorizedPartner, setAuthorizedPartner ] = useState<DataTypeAuthorizedPartner[]>(authorizedPertnerList);
   const { payments, loading } = usePaymentsCollection('authorized-partner');
@@ -90,7 +91,9 @@ function Authorized() {
       dataIndex: 'update',
       key: 'update',
       render: (_, {id}) => {
-        return <Link to={`detail/${id}`}>Cập nhật</Link>
+        return <>
+          {user.isAdmin ? <Link to={`detail/${id}`}>Cập nhật</Link> : ''}
+        </>
       }
     }
   ]

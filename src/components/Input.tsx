@@ -20,8 +20,6 @@ const InputStyled = styled(InputAntd)`
     align-items: center;
     padding: 11px 24px 13px 16px;
     height: 40px;
-    background: #33334D;
-    color: var(--white);
     border: none;
     margin-top: 6px;
 
@@ -39,7 +37,7 @@ function Input({plahoder, width, height, type, disabled = false, value, require 
         <InputStyled 
           onChange={(e) => setValue(e.target)} 
           type={type} 
-          style={{width: width, height: height}} 
+          style={{width: width, height: height, color: '#C8C8DB', background: '#33334D'}} 
           placeholder={plahoder} 
           disabled={disabled} 
           defaultValue={value}

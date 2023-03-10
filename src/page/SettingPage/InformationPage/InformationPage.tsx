@@ -11,6 +11,7 @@ import root from '../setting.module.scss'
 import { IUpdate, updateDocConfig } from '../../../hooks/updateDoc'
 import { message } from 'antd'
 import Breadcrumbs from '../../../components/Breadcrumbs'
+import { useAppSelector } from '../../../redux/store'
 
 interface IUpdateInforProduct {
     id?: string
@@ -20,6 +21,7 @@ interface IUpdateInforProduct {
 }
 
 function EditInformationPage() {
+    const { user } = useAppSelector(state => state.user)
     const [ editingRow, setEditingRow ] = React.useState<any>('')
     const [ inforProducts, setInforProducts ] = useState<IUpdateInforProduct[]>([])
     const [ updateValue, setUpdateValue ] = React.useState<IUpdateInforProduct>({
@@ -35,7 +37,7 @@ function EditInformationPage() {
         setInforProducts(payments)
     }, [payments])
 
-    const handleChaneSetUpdateInforProduct = (e: any) => {
+    const handleChangeSetUpdateInforProduct = (e: any) => {
         const name = e.name;
         const value = e.value;
 
@@ -63,15 +65,17 @@ function EditInformationPage() {
     }
 
     const handleClickSetEditingRow = (items: any) => {
-        //if editting row === current key
-        //show input
-        setEditingRow(items.id)
-        
-        setUpdateValue({
-            type: items.type,
-            desc: items.desc,
-            key: items.key,
-        })
+        if(user.isAdmin) {
+            //if editting row === current key
+            //show input
+            setEditingRow(items.id)
+            
+            setUpdateValue({
+                type: items.type,
+                desc: items.desc,
+                key: items.key,
+            })
+        }
     }
 
 
@@ -96,7 +100,7 @@ function EditInformationPage() {
                             type='text' 
                             width={123} 
                             name='type'
-                            setValue={handleChaneSetUpdateInforProduct} 
+                            setValue={handleChangeSetUpdateInforProduct} 
                             value={items.type} 
                         />
                     </form>
@@ -117,7 +121,7 @@ function EditInformationPage() {
                             type='text' 
                             width={700} 
                             name='desc'
-                            setValue={handleChaneSetUpdateInforProduct} 
+                            setValue={handleChangeSetUpdateInforProduct} 
                             value={items.desc} 
                         />
                     </form>
@@ -132,7 +136,11 @@ function EditInformationPage() {
     const featureProps = [
         {
             icon: AiOutlinePlus,
-            text: 'Thêm mới'
+            text: 'Thêm mới',
+            event: () => {
+                user.isAdmin || message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive:  user.isAdmin ? false : true
         }
     ]
 

@@ -1,3 +1,4 @@
+import { message } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import React from 'react'
 import { TbFileExport } from 'react-icons/tb'
@@ -6,6 +7,7 @@ import Breadcrumbs from '../../../../components/Breadcrumbs'
 import FeatureInPage from '../../../../components/FeatureInPage'
 import InputSearch from '../../../../components/InputSearch'
 import CustomTable from '../../../../components/Table'
+import { useAppSelector } from '../../../../redux/store'
 
 interface DataTypeListSong {
     song: string,
@@ -39,7 +41,7 @@ const ContainerDiv = styled.div`
 `
 
 function DetailRevenuePage() {
-
+    const { user } = useAppSelector(state => state.user)
 
     const columnsRevenueSong: ColumnsType<DataTypeRevenueSong> = [
         {
@@ -205,6 +207,9 @@ function DetailRevenuePage() {
         {
             icon: TbFileExport,
             text: 'Xuất dữ liệu',
+            event: () => {
+                user.isAdmin || message.warning('Chức năng này chỉ dành cho người quản lý')
+              },
             unActive: true,
         }
     ]

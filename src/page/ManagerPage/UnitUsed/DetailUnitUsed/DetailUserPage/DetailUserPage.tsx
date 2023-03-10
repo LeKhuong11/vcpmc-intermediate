@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { SlNote } from 'react-icons/sl';
 import { useNavigate, useParams } from 'react-router-dom'
@@ -7,6 +8,7 @@ import FeatureInPage from '../../../../../components/FeatureInPage';
 import Loading from '../../../../../components/Loading';
 import { getDocFireBase } from '../../../../../hooks/getDoc';
 import { DataTypeUser } from '../../../../../redux/slice/unitUsedSlice';
+import { useAppSelector } from '../../../../../redux/store';
 
 
 const ContainerStyled = styled.div`
@@ -41,6 +43,7 @@ const ContainerStyled = styled.div`
 function DetailUserPage() {
     const navigate = useNavigate();
     const { id, uid } = useParams();
+    const { user } = useAppSelector(state => state.user)
     const [ currentUnitUsed, setCurrentUnitUsed ] = useState<DataTypeUser[]>([]);
     const [ currentUser, setCurrentUser ] = useState<DataTypeUser>();
 
@@ -48,10 +51,10 @@ function DetailUserPage() {
     useEffect(() => {
         const getData = async () => {
             const data: any = await getDocFireBase({id: id, name: 'unit-used'})
-            if(data) {
-                setCurrentUnitUsed(data.listUser)
+                if(data) {
+                    setCurrentUnitUsed(data.listUser)
+                }
             }
-           }
             
            getData();
     }, [])
@@ -68,7 +71,10 @@ function DetailUserPage() {
         {
             icon: SlNote,
             text: 'Chỉnh sửa',
-            event: () => navigate("update-user")
+            event: () => {
+                user.isAdmin ? navigate("update-user") : message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive: user.isAdmin ? false : true
         }
     ]
 

@@ -9,6 +9,8 @@ import { MdOutlineLogout } from 'react-icons/md';
 import FeatureInPage from '../../../components/FeatureInPage';
 import CustomDatePicker from '../../../components/DatePicker';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../../redux/store';
+import { message } from 'antd';
 
 
 interface DataType {
@@ -26,7 +28,7 @@ interface DataType {
 }
 
 function HistoryForControlPage() {
-
+  const { user } = useAppSelector(state => state.user)
 
   const disabledDateProps: RangePickerProps['disabledDate'] = (current) => {
     // Can not select days before today and today
@@ -176,7 +178,10 @@ function HistoryForControlPage() {
     {
       icon: MdOutlineLogout,
       text: 'Xuất file',
-      unActive: true
+      event: () => {
+        user.isAdmin || message.warning('Chức năng này chỉ dành cho người quản lý')
+      },
+      unActive:  user.isAdmin ? false : true
     }
   ]
 

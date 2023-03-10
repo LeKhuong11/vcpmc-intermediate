@@ -1,8 +1,8 @@
 import React from 'react'
-import { Switch } from 'antd'
+import { message, Switch } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { AiOutlineUserAdd } from 'react-icons/ai'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import FeatureInPage from '../../../../components/FeatureInPage'
 import CustomTable from '../../../../components/Table'
 import { DataTypeUsers } from '../../../../redux/slice/listUserSlice'
@@ -10,8 +10,8 @@ import { useAppSelector } from '../../../../redux/store'
 
 
 function ListUserTab() {
-    const navigate = useNavigate();
     const { users } = useAppSelector(state => state.users)
+    const { user } = useAppSelector(state => state.user)
 
 
     const columns: ColumnsType<DataTypeUsers> = [
@@ -63,7 +63,7 @@ function ListUserTab() {
             dataIndex: 'edit',
             key: 'edit',
             render: (_, {id}) => {
-                return <Link to={`edit-user/${id}`}>Xem Chi tiết</Link>
+                return user.isAdmin ? <Link to={`edit-user/${id}`}>Chỉnh sửa</Link> : '';
             }
         },
     ]
@@ -73,7 +73,10 @@ function ListUserTab() {
         {
             icon: AiOutlineUserAdd,
             text: "Thêm người dùng",
-            unActive: true
+            event: () => {
+                user.isAdmin || message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive: user.isAdmin ? false : true
         }
     ]
   return (

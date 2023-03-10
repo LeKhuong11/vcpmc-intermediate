@@ -22,8 +22,9 @@ const { confirm } = Modal;
 function DetailUnitUsedPage() {
     const navigate = useNavigate();
     const { id } = useParams();
+    const { user } = useAppSelector(state => state.user)
     const { unitUsed } = useAppSelector(state => state.unitUsed)
-    const [ user, setUser ] = useState<DataTypeUser[]>([]);
+    const [ listUser, setListUser ] = useState<DataTypeUser[]>([]);
     const [ loading, setLoading ] = useState(true)
     const [ removeUser, setRemoveUser ] = useState<DataTypeUser[]>([]);
     const [ checkedUser, setCheckedUser ] = useState(0)
@@ -34,22 +35,23 @@ function DetailUnitUsedPage() {
 
     //listen to 'search' change returned from useSearch();
     useEffect(() => {
-        setUser(search)
+        setListUser(search)
     }, [search])
 
     useEffect(() => {
       const getCurrentUnitUsed = payments.filter(item => {
         return item.id === id
       })
-      setUser(getCurrentUnitUsed[0]?.listUser);
+      setListUser(getCurrentUnitUsed[0]?.listUser);
       
     }, [payments])
 
+    // Khi vừa vào trang sẽ lấy dữ liệu bằng id nguòi dùng đã chọn
     useEffect(() => {
        const getData = async () => {
             const data: any = await getDocFireBase({id: id, name: 'unit-used'})
             if(data) {
-                setUser(data.listUser)
+                setListUser(data.listUser)
                 setRemoveUser(data.listUser)
                 setLoading(false)
             }
@@ -78,7 +80,7 @@ function DetailUnitUsedPage() {
                 setRemoveUser(newListUser);
             }
             else {
-                setRemoveUser(user)
+                setRemoveUser(listUser)
             }
         },
         
@@ -121,7 +123,7 @@ function DetailUnitUsedPage() {
        message.warning("Bạn chưa chọn đơn vị sử dụng")
     }
 
-    const dataSource: DataTypeUser[] = user
+    const dataSource: DataTypeUser[] = listUser
     const columns: ColumnsType<DataTypeUser> = [
     {
         title: 'STT',
@@ -198,17 +200,23 @@ function DetailUnitUsedPage() {
     {
         icon: HiPlus,
         text: 'Thêm người dùng',
-        event: () => navigate("add-user")
+        event: () => {
+            user.isAdmin ? navigate("add-user") : message.warning('Chức năng này chỉ dành cho người quản lý')
+        },
+        unActive: user.isAdmin ? false : true
     },
     {
         icon: FaTrashAlt,
         text: 'Xóa', 
-        event: handleClickRemoveUser,
-        unActive: checkedUser ? false : true
+        event: () => {
+            user.isAdmin ? handleClickRemoveUser() : message.warning('Chức năng này chỉ dành cho người quản lý')
+        },
+        unActive: user.isAdmin ? checkedUser ? false : true : true
     },
     {
         icon: FaUserFriends,
         text: 'Vai trò', 
+        unActive: user.isAdmin ? false : true
     },
     ] 
   return (

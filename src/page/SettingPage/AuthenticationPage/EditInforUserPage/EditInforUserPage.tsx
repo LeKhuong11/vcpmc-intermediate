@@ -1,7 +1,4 @@
-import { async } from '@firebase/util'
 import { message } from 'antd'
-import { getAuth } from 'firebase/auth'
-import { deleteDoc, doc } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
 import { FiUserX } from 'react-icons/fi'
 import { RiKey2Line } from 'react-icons/ri'
@@ -14,7 +11,6 @@ import FeatureInPage from '../../../../components/FeatureInPage'
 import Input from '../../../../components/Input'
 import Loading from '../../../../components/Loading'
 import CustomSelect from '../../../../components/Select'
-import { db } from '../../../../firebase/configfb'
 import { getDocFireBase } from '../../../../hooks/getDoc'
 import { updateDocConfig } from '../../../../hooks/updateDoc'
 import { DataTypeUsers } from '../../../../redux/slice/listUserSlice'
@@ -166,7 +162,7 @@ function EditInforUserPage() {
         },
         {
             icon: RiKey2Line,
-            text: 'Khôi phục mật khẩu', 
+            text: 'Khôi phục mật khẩu',
             unActive: true
         },
     ] 

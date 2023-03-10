@@ -3,6 +3,8 @@ import { ColumnsType } from 'antd/es/table'
 import FeatureInPage from '../../../../components/FeatureInPage'
 import CustomTable from '../../../../components/Table'
 import { FiUsers } from "react-icons/fi";
+import { message } from 'antd';
+import { useAppSelector } from '../../../../redux/store';
 
 interface DataType {
     key: number,
@@ -11,12 +13,11 @@ interface DataType {
     numberOfPerson: number,
     role: string,
     description: string,
-    update: string,
     del: boolean
 }
 
 function RoleUserTab() {
-
+    const { user } = useAppSelector(state => state.user)
     const columns: ColumnsType<DataType> = [
         {
             title: 'STT',
@@ -47,9 +48,9 @@ function RoleUserTab() {
             title: '',
             dataIndex: 'update',
             key: 'update',
-            render: (_, {update}) => {
+            render: (_, {}) => {
 
-                return <a>{update}</a>
+                return user.isAdmin ? <a>Chỉnh sửa</a> : ''
             }
         },
         {
@@ -58,7 +59,7 @@ function RoleUserTab() {
             key: 'delete',
             render: (_, {del}) => {
 
-                return <a>{del ? "Xóa" : ''}</a>
+                return user.isAdmin ? <a>{del ? "Xóa" : ''}</a> : ''
             }
         },
     ]
@@ -70,7 +71,6 @@ function RoleUserTab() {
             numberOfPerson: 1,
             role: 'System Admin',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-            update: 'Cập nhật',
             del: false
         },
         {
@@ -80,7 +80,6 @@ function RoleUserTab() {
             numberOfPerson: 1,
             role: 'System Admin',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-            update: 'Cập nhật',
             del: false
         },
         {
@@ -90,7 +89,6 @@ function RoleUserTab() {
             numberOfPerson: 6,
             role: 'System Admin',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-            update: 'Cập nhật',
             del: false
         },
         {
@@ -100,7 +98,6 @@ function RoleUserTab() {
             numberOfPerson: 33,
             role: 'Lisences',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-            update: 'Cập nhật',
             del: false
         },
         {
@@ -110,7 +107,6 @@ function RoleUserTab() {
             numberOfPerson: 5,
             role: 'Lisences',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-            update: 'Cập nhật',
             del: false
         },
         {
@@ -120,7 +116,6 @@ function RoleUserTab() {
             numberOfPerson: 8,
             role: 'Lisences',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-            update: 'Cập nhật',
             del: true
         },
     ]
@@ -128,7 +123,10 @@ function RoleUserTab() {
         {
             icon: FiUsers,
             text: "Thêm vai trò",
-            unActive: true
+            event: () => {
+                user.isAdmin || message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive: user.isAdmin ? false : true
         }
     ]
   return (

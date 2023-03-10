@@ -17,4 +17,9 @@
     justify-content: flex-end;
     margin-top: 15px;
     color: #fff;
+
+    & .avatar a{
+        display: flex;
+        align-items: center;
+    }
 }

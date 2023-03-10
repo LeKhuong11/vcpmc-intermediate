@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Outlet, useLocation, useNavigate, useParams } from 'react-router';
+import React, { useEffect } from 'react'
+import { Outlet, useLocation, useNavigate } from 'react-router';
 import Sidebar from '../../layout/Sidebar';
-import styled from 'styled-components';
 import Avatar from 'antd/es/avatar';
 import Typography from 'antd/es/typography';
 import { MenuProps, message } from 'antd';
@@ -12,13 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { auth } from '../../firebase/configfb';
 import { fetchUser } from '../../redux/slice/userSlice';
 
-const TypographyStyled = styled(Typography.Text)`
-&&& {
-  :where(.css-dev-only-do-not-override-1n7nwfa).ant-typography {
-    color: #fff;
-  }
-}
-`
+
 
 function HomePage() {
   const navigate = useNavigate();
@@ -92,10 +85,10 @@ function HomePage() {
         <div className={root.homeContentMain}>
           <div className={root.homeHeader}>
               <DropDown menuProps={menuProps} />
-            <div>
+            <div className={root.avatar}>
               <Link to="dashboard">
-                <Avatar style={{ backgroundColor: '#f56a00', marginRight: 5 }}>{user.avatar ?? user.lastName ? user.lastName.charAt(0).toUpperCase() : ''}</Avatar>
-                <TypographyStyled>{user?.displayName}</TypographyStyled>
+                <Avatar style={{ backgroundColor: '#f56a00', marginRight: 5 }}>{user.avatar ?? user?.lastName.charAt(0).toUpperCase()}</Avatar>
+                <Typography style={{color: '#C8C8DB'}}>{user?.displayName}</Typography>
               </Link>
             </div>
           </div>

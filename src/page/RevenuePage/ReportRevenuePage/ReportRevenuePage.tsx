@@ -1,9 +1,11 @@
+import { message } from 'antd'
 import React, { useState } from 'react'
 import { BiDetail } from 'react-icons/bi'
 import styled from 'styled-components'
 import Breadcrumbs from '../../../components/Breadcrumbs'
 import FeatureInPage from '../../../components/FeatureInPage'
 import CustomSelect from '../../../components/Select'
+import { useAppSelector } from '../../../redux/store'
 const chart =  require('../../../image/chart.png');
 
 const ContainerDiv = styled.div`
@@ -54,6 +56,7 @@ const ContainerDiv = styled.div`
 `
 
 function ReportRevenuePage() {
+    const { user } = useAppSelector(state => state.user)
     const [ valueSelect, setValueSelect ] = useState('Theo Tháng')
     const [ valueSelectDate, setValueSelectDate ] = useState('Tháng 1')
     const breadcrumb = [
@@ -85,7 +88,11 @@ function ReportRevenuePage() {
     const featureProps = [
         {
             icon: BiDetail,
-            text: 'Báo cáo chi tiết'
+            text: 'Báo cáo chi tiết',
+            event: () => {
+                user.isAdmin || message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive: user.isAdmin ? false : true
         }
     ]
   return (

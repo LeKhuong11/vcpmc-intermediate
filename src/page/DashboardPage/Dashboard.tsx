@@ -52,11 +52,11 @@ function Dashboard() {
     const currentUser: any = auth.currentUser;
     const { user } = useAppSelector((state) => state.user);
     const [ updateUser, setUpdateUser ] = useState(false)
+    const [ openModal, setOpenModal ] = useState(false)
     const [ updatePasswd, setUpdatePasswd ] = useState({
         newPassword: '',
         confirmPassword: '',
     })
-    const [ openModal, setOpenModal ] = useState(false)
     const [ infoUser, setInfoUser ] = useState<any>({
         birthday: user.birthday,
         firstName: user.firstName,
@@ -154,7 +154,7 @@ function Dashboard() {
         <div className={root.info}>
             <div className={root.avatar}>
                 <div>
-                    <Avatar style={{ backgroundColor: '#f56a00', fontSize: 35}} size={170}>{currentUser.avatar ?? currentUser.lastName ? currentUser.lastName.charAt(0).toUpperCase() : ''}</Avatar>
+                    <Avatar style={{ backgroundColor: '#f56a00', fontSize: 35}} size={170}>{user.avatar ?? user?.lastName.charAt(0).toUpperCase()}</Avatar>
                 </div>
                 <h4>{user.displayName}</h4>
             </div>

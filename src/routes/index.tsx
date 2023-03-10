@@ -14,7 +14,7 @@ import HistoryForControlPage from "../page/RevenuePage/HistoryForControlPage/His
 import AuthenticationPage from "../page/SettingPage/AuthenticationPage/AuthenticationPage";
 import ConfigurationPage from "../page/SettingPage/ConfigurationPage/ConfigurationPage";
 import ManagerContractPage from "../page/SettingPage/ManagerContractPage/ManagerContract";
-import EditInformationPage from "../page/SettingPage/EditInformationPage/EditInformationPage";
+import EditInformationPage from "../page/SettingPage/InformationPage/InformationPage";
 import CycleForControlPage from "../page/SettingPage/CycleForControlPage/CycleForControlPage";
 import UserManualPage from "../page/SupportPage/UserManualPage/UserManualPage";
 import UpdateInformationPage from "../page/StorePage/UpdateInformationPage/UpdateInformationPage";

@@ -6,6 +6,8 @@ import FeatureInPage from '../../../components/FeatureInPage'
 import CustomTable from '../../../components/Table'
 import root from '../setting.module.scss'
 import Breadcrumbs from '../../../components/Breadcrumbs'
+import { useAppSelector } from '../../../redux/store'
+import { message } from 'antd'
 
 interface DataType {
   key: number,
@@ -15,6 +17,7 @@ interface DataType {
 }
 
 function ManagerContractPage() {
+  const { user } = useAppSelector(state => state.user)
 
   const dataSource: DataType[] = [
     {
@@ -50,11 +53,19 @@ function ManagerContractPage() {
   const featureProps = [
     {
       icon: GiNotebook,
-      text: 'Chỉnh sửa loại hợp đồng'
+      text: 'Chỉnh sửa loại hợp đồng',
+      event: () => {
+        user.isAdmin || message.warning('Chức năng này chỉ dành cho người quản lý')
+      },
+      unActive:  user.isAdmin ? false : true
     },
     {
       icon: MdDateRange,
-      text: 'Chỉnh sửa cảnh báo hết hạn'
+      text: 'Chỉnh sửa cảnh báo hết hạn',
+      event: () => {
+        user.isAdmin || message.warning('Chức năng này chỉ dành cho người quản lý')
+      },
+      unActive:  user.isAdmin ? false : true
     }
   ]
   const breadcrumb = [

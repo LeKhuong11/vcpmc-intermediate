@@ -9,6 +9,8 @@ import CustomTable from '../../../components/Table';
 import FeatureInPage from '../../../components/FeatureInPage';
 import { MdOutlineLogout } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../../redux/store';
+import { message } from 'antd';
 
 
 interface DataType{
@@ -25,7 +27,8 @@ interface DataType{
 }
 
 function RevenueDistributionPage() {
-
+    const { user } = useAppSelector(state => state.user)
+    
     const disabledDateProps: RangePickerProps['disabledDate'] = (current) => {
         // Can not select days before today and today
         return current && current < dayjs().endOf('day');
@@ -173,7 +176,10 @@ function RevenueDistributionPage() {
         {
           icon: MdOutlineLogout,
           text: 'Xuất file',
-          unActive: true
+          event: () => {
+            user.isAdmin || message.warning('Chức năng này chỉ dành cho người quản lý')
+          },
+          unActive:  user.isAdmin ? false : true
         }
       ]
   return (

@@ -24,6 +24,7 @@ import { useSearch } from '../../../hooks/useSearch';
 function ManagerDevice() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
+  const { user } = useAppSelector(state => state.user)
   const { payments, loading } = usePaymentsCollection('device');
   const { devices } = useAppSelector(state => state.devices)
   const [ listDevice, setListDevice ] = useState<DataTypeDevice[]>(devices)
@@ -90,23 +91,28 @@ const items: MenuProps['items'] = [
     {
       icon: MdAdd,
       text: 'Thêm thiết bị',
-      event: () => navigate('add-device')
+      event: () => {
+        user.isAdmin ? navigate('add-device') : message.warning('Chức năng này chỉ dành cho người quản lý')
+      },
+      unActive: user.isAdmin ? false : true
     },
     {
       icon: FiPower,
       text: 'Kích hoạt thiết bị',
-      unActive: true
+      unActive: user.isAdmin ? false : true
     },
     {
       icon: FiLock,
       text: 'Khóa thiết bị',
-      unActive: true
+      unActive: user.isAdmin ? false : true
     },
     {
       icon: RiDeleteBinFill,
       text: 'Xóa thiết bị',
-      event: handleClickRemoveDevice,
-      unActive: removeDevice.length ? false : true
+      event: () => {
+        user.isAdmin ? handleClickRemoveDevice() : message.warning('Chức năng này chỉ dành cho người quản lý')
+      },
+      unActive: user.isAdmin ? removeDevice.length ? false : true : true
     }
   ]
 

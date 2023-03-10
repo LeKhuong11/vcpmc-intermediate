@@ -32,7 +32,7 @@ const SelectStyled = styled(Select)`
 function CustomSelect({onChange, items, value, width = 120}: ISelect) {
   return (
     <SelectStyled
-        style={{ width: width }}
+        style={{ width: width}}
         onChange={onChange}
         options={items.map((item: any) => ({ label: item, value: item }))}
         value={value}

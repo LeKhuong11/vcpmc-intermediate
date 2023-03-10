@@ -9,7 +9,7 @@ import root from '../manager.module.scss'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../../../firebase/configfb'
 import { DataTypeUnitUsed, fetchUnitUsed } from '../../../redux/slice/unitUsedSlice'
-import { useAppDispatch } from '../../../redux/store'
+import { useAppDispatch, useAppSelector } from '../../../redux/store'
 import { Link } from 'react-router-dom'
 import { usePaymentsCollection } from '../../../hooks/useSnapshot'
 import Loading from '../../../components/Loading'
@@ -20,10 +20,11 @@ const { confirm } = Modal;
 
 function UnitUsedPage() {
     const dispatch = useAppDispatch();
+    const { user } = useAppSelector(state => state.user)
     const [ removeUnitUsed, setRemoveUnitUsed ] = useState<DataTypeUnitUsed[]>([])
     const { payments, loading } = usePaymentsCollection('unit-used');
-    const [ listUnitUsed, setListUnitUsed ] = useState<DataTypeUnitUsed[]>(payments)
     const [ search, setSearch ] = useSearch(payments, 'userRoot');
+    const [ listUnitUsed, setListUnitUsed ] = useState<DataTypeUnitUsed[]>(payments)
 
     //listen to 'search' change returned from useSearch();
     useEffect(() => {
@@ -130,7 +131,7 @@ function UnitUsedPage() {
         },
         {
             render: (_, {id}) => (
-                <Link to={`detail/${id}`}>Xem chi tiết</Link>
+                <Link to={`detail/${id}`}>Xem chi tiết</Link> 
             )
         },
     ]
@@ -140,8 +141,10 @@ function UnitUsedPage() {
         {
             icon: FaTimes,
             text: 'Xóa', 
-            event: handleClickRemoveDevice,
-            unActive: removeUnitUsed.length ? false : true
+            event: () => {
+                user.isAdmin ? handleClickRemoveDevice() : message.warning('Chức năng này chỉ dành cho người quản lý')
+            },
+            unActive: user.isAdmin ? removeUnitUsed.length ? false : true : true
         }
     ]
   return (
